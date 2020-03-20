@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择省份",
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

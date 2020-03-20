@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "设置备注和标签",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "完成  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#3399FF"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

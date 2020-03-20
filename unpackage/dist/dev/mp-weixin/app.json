@@ -1,0 +1,93 @@
+{
+  "pages": [
+    "pages/index/index",
+    "components/content/chooseFriend/ChooseFriend",
+    "components/content/session/sessionSon/GroupMembers",
+    "components/content/defmodify/DefModify",
+    "components/content/session/sessionSon/ChatFriendSetting",
+    "components/content/session/sessionSon/GroupInfo",
+    "components/content/session/Session",
+    "components/content/login/login",
+    "components/content/changefriendinfo/ChangeLabel",
+    "components/content/collection/collectionCpns/CollectSearch",
+    "pages/profile/profile",
+    "components/content/remind/Remind",
+    "components/content/changefriendinfo/ChangeRemark",
+    "components/content/collection/collection",
+    "components/content/collection/collectionCpns/CollectChain",
+    "components/content/startup/Startup",
+    "pages/contacts/contacts",
+    "components/content/myLocation/SearchLocation",
+    "components/content/publish/Publish",
+    "components/content/dynamic/Dynamic",
+    "components/content/dynamic/MyDynamic",
+    "components/content/myLocation/LocationInfo",
+    "components/content/register/register2",
+    "components/content/register/register1",
+    "components/content/personalinfo/PersonalInfo",
+    "components/content/chooseLocation/ChooseLocation",
+    "components/content/chooseLocation/ChooseProvince",
+    "components/content/chooseLocation/ChooseCity",
+    "components/content/personalinfo/changeinfo/ChangeAddress1",
+    "components/content/personalinfo/changeinfo/ChangeAddress2",
+    "components/content/personalinfo/changeinfo/Card",
+    "components/content/personalinfo/changeinfo/moreCpns/Signature",
+    "components/content/personalinfo/changeinfo/moreCpns/GenderInfo",
+    "components/content/personalinfo/changeinfo/ChangeMoreInfo",
+    "components/content/personalinfo/changeinfo/ChangeName",
+    "components/content/changepwd/changepwd1",
+    "components/content/addfriend/AddFriend",
+    "components/content/consentfriend/ConsentFriend",
+    "components/content/addfriend/AddfriendInfo",
+    "components/content/applyfriend/ApplyFriend",
+    "components/content/friend/FriendInfo",
+    "pages/message/message",
+    "components/content/payment/PayMent",
+    "components/content/setting/Setting",
+    "components/content/changepwd/changepwd2"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F7F7F7",
+    "backgroundColor": "#F7F7F7",
+    "navigationBarShadow": {
+      "colorType": "grey"
+    }
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3399FF",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/image/tabBar/home.png",
+        "selectedIconPath": "static/image/tabBar/home_active.png"
+      },
+      {
+        "pagePath": "pages/contacts/contacts",
+        "text": "通讯录",
+        "iconPath": "static/image/tabBar/contacts.png",
+        "selectedIconPath": "static/image/tabBar/contacts_active.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "static/image/tabBar/message.png",
+        "selectedIconPath": "static/image/tabBar/message_active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "static/image/tabBar/profile.png",
+        "selectedIconPath": "static/image/tabBar/profile_active.png"
+      }
+    ]
+  },
+  "permission": {},
+  "usingComponents": {}
+}

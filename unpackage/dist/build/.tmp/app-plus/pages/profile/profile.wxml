@@ -1,0 +1,1 @@
+<view class="profile set-bgc"><profile-head vue-id="1" nickname="{{userInfo.user.nickname}}" userAccount="{{userInfo.user.userAccount}}" data-event-opts="{{[['tap',[['toPersonalInfo',['$event']]]]]}}" bindtap="__e" bind:__l="__l"></profile-head><profile-con vue-id="2" bind:__l="__l"></profile-con><profile-btm vue-id="3" bind:__l="__l"></profile-btm></view>

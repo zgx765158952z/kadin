@@ -1,0 +1,1 @@
+<view class="signature"><view class="infoFm"><input class="infoFmInput" maxlength="30" placeholder="最长30个字" focus type="text" data-event-opts="{{[['input',[['__set_model',['','currentSigna','$event',[]]]]]]}}" value="{{currentSigna}}" bindinput="__e"/></view></view>

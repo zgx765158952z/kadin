@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "朋友动态",
+  "usingComponents": {
+    "dynamic-con": "/components/content/dynamic/dynamicCpns/DynamicCon"
+  }
+}

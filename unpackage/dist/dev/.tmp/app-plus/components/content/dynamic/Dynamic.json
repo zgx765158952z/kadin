@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "朋友动态",
+  "titleNView": {
+    "buttons": [
+      {
+        "fontSrc": "/static/iconfont/iconfont.ttf",
+        "text": "  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px"
+      }
+    ]
+  },
+  "scrollIndicator": "none",
+  "usingComponents": {
+    "dynamic-con": "/components/content/dynamic/dynamicCpns/DynamicCon"
+  }
+}

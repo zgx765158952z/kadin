@@ -1,0 +1,1 @@
+<view class="index"><button type="primary" data-event-opts="{{[['tap',[['tapShowMask',['$event']]]]]}}" bindtap="__e">菜单</button><button type="primary" data-event-opts="{{[['tap',[['totest',['$event']]]]]}}" bindtap="__e">测试文件上传</button><def-mask class="index-def-mask vue-ref" vue-id="1" data-ref="indexMask" bind:__l="__l"></def-mask></view>

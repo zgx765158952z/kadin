@@ -1,0 +1,2 @@
+setCssToHead([".",[1],"dynamic { background-color: #FFFFFF; }\n",],undefined,{path:"./components/content/dynamic/Dynamic.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./components/content/dynamic/Dynamic.wxml') } }));

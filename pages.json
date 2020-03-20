@@ -1,0 +1,782 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "卡丁",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"   \ue63a",
+								"width": "auto",
+								"float":"left",
+								"fontSize":"20px"
+							},
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"\ue691   ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"20px"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+			"path": "components/content/chooseFriend/ChooseFriend",
+			"style": {
+				"navigationBarTitleText": "选择好友",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"确定(0) ",
+								"float": "right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		
+		
+		
+		
+		
+		
+		
+		{
+			"path": "components/content/session/sessionSon/GroupMembers",
+			"style": {
+				"navigationBarTitleText": "群成员",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		
+		{
+			"path": "components/content/defmodify/DefModify",
+			"style": {
+				"navigationBarTitleText": "修改信息",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"保存  ",
+								"float": "right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF"
+							}
+						]
+					}
+				}
+				
+			}
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/session/sessionSon/ChatFriendSetting",
+			"style": {
+				"navigationBarTitleText": "默认好友",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		},
+		{
+			"path": "components/content/session/sessionSon/GroupInfo",
+			"style": {
+				"navigationBarTitleText": "讨论组",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		
+		
+		
+		
+		
+		
+		
+		{
+			"path": "components/content/session/Session",
+			"style": {
+				"navigationBarTitleText": "默认好友",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"\ue702 ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"21px",
+								"color":"#888"
+							},
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"\ue66d  ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"21px",
+								"color":"#888"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+			"path": "components/content/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text": "游客   ",
+								"float": "right",
+								"fontSize":"30rpx",
+								"width": "auto",
+								"color": "#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "components/content/changefriendinfo/ChangeLabel",
+			"style": {
+				"navigationBarTitleText": "添加标签",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"保存  ",
+								"float": "right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/collection/collectionCpns/CollectSearch",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pages/profile/profile",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		
+		
+		{
+			"path": "components/content/remind/Remind",
+			"style": {
+				"navigationBarTitleText": "事项提醒",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"完成  ",
+								"float": "right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		{
+			"path": "components/content/changefriendinfo/ChangeRemark",
+			"style": {
+				"navigationBarTitleText": "设置备注和标签",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"完成  ",
+								"float": "right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/collection/collection",
+			"style": {
+				"navigationBarTitleText": "收藏",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"type":"favorite",
+								"float":"right"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		
+		{
+			"path": "components/content/collection/collectionCpns/CollectChain",
+			"style": {
+				"navigationBarTitleText": "外链",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		
+		
+		{
+			"path": "components/content/startup/Startup",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		
+		{
+			"path": "pages/contacts/contacts",
+			"style": {
+				"navigationBarTitleText": "通讯录",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"\ue61e ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"20px"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		
+		{
+			"path": "components/content/myLocation/SearchLocation",
+			"style": {
+				"app-plus": {
+					"titleNView": {
+						"searchInput": [
+							{
+								"autoFocus":"true",
+								"placeholder": "搜索附近位置"
+							}
+						],
+						"buttons": [
+							{
+								"text":"取消  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "components/content/publish/Publish",
+			"style": {
+				"navigationBarTitleText": "发表动态",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"完成  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF",
+								"background": "#0000FF"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		
+		{
+			"path": "components/content/dynamic/Dynamic",
+			"style": {
+				"navigationBarTitleText": "朋友动态",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc":"/static/iconfont/iconfont.ttf",
+								"text": "\ue63c  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+			"path": "components/content/dynamic/MyDynamic",
+			"style": {
+				"navigationBarTitleText": "我的动态",
+				"app-plus": {
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		
+		
+		{
+			"path": "components/content/myLocation/LocationInfo",
+			"style": {
+				"navigationBarTitleText": "所在位置",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"\ue6f4 ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"20px"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		
+		
+		
+		
+		{
+			"path": "components/content/register/register2",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		
+		
+		{
+			"path": "components/content/register/register1",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#F7F7F7"
+			}
+		},
+		
+		
+		
+		{
+			"path": "components/content/personalinfo/PersonalInfo",
+			"style": {
+				"navigationBarTitleText": "个人信息"
+			}
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/chooseLocation/ChooseLocation",
+			"style": {
+				"navigationBarTitleText": "选择地区"
+			}
+		},
+		{
+			"path": "components/content/chooseLocation/ChooseProvince",
+			"style": {
+				"navigationBarTitleText": "选择省份"
+			}
+		},
+		{
+			"path": "components/content/chooseLocation/ChooseCity",
+			"style": {
+				"navigationBarTitleText": "选择区县"
+			}
+		},
+		
+		
+		{
+			"path": "components/content/personalinfo/changeinfo/ChangeAddress1",
+			"style": {
+				"navigationBarTitleText": "我的地址",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"添加  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "components/content/personalinfo/changeinfo/ChangeAddress2",
+			"style": {
+				"navigationBarTitleText": "新增地址",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"保存  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "components/content/personalinfo/changeinfo/Card",
+			"style": {
+				"navigationBarTitleText": "二维码名片",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"type":"menu",
+								"float":"right",
+								"width": "auto"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/personalinfo/changeinfo/moreCpns/Signature",
+			"style": {
+				"navigationBarTitleText": "个性签名",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"保存  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		{
+			"path": "components/content/personalinfo/changeinfo/moreCpns/GenderInfo",
+			"style": {
+				"navigationBarTitleText": "设置性别",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"保存  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "components/content/personalinfo/changeinfo/ChangeMoreInfo",
+			"style": {
+				"navigationBarTitleText": "更多信息"
+			}
+		},
+		{
+			"path": "components/content/personalinfo/changeinfo/ChangeName",
+			"style": {
+				"navigationBarTitleText": "更改名字",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"保存  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		{
+			"path": "components/content/changepwd/changepwd1",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/addfriend/AddFriend",
+			"style": {
+				"navigationBarTitleText": "添加朋友"
+			}
+		},
+		{
+			"path":"components/content/consentfriend/ConsentFriend",
+			"style": {
+				"navigationBarTitleText":"新的朋友",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text": "添加朋友  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"34rpx",
+								"color":"#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		{
+			"path": "components/content/addfriend/AddfriendInfo",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"type":"menu",
+								"float":"right",
+								"width": "auto"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "components/content/applyfriend/ApplyFriend",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"完成  ",
+								"float":"right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "components/content/friend/FriendInfo",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"type":"menu",
+								"float":"right",
+								"width": "auto"
+							}
+						]
+					}
+				}
+			}
+		},
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息"
+			}
+		},
+		
+		
+		
+		
+		
+		
+		{
+			"path": "components/content/payment/PayMent",
+			"style": {
+				"navigationBarTitleText": "支付"
+			}
+		},
+		{
+			"path": "components/content/setting/Setting",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+		},
+		
+		
+		
+		
+		
+		{
+			"path": "components/content/changepwd/changepwd2",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}
+		
+		
+		
+		
+    ],
+	
+	
+	
+	
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F7F7F7",
+		"backgroundColor": "#F7F7F7",
+		"navigationBarShadow": {
+			"colorType": "grey"
+		}
+	},
+	"tabBar": {
+	    "color": "#7A7E83",
+	    "selectedColor": "#3399FF",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+	        "pagePath": "pages/index/index",
+	        "text": "首页",
+			"iconPath": "static/image/tabBar/home.png",
+			"selectedIconPath": "static/image/tabBar/home_active.png"
+	    }, {
+	        "pagePath": "pages/contacts/contacts",
+	        "text": "通讯录",
+			"iconPath": "static/image/tabBar/contacts.png",
+			"selectedIconPath": "static/image/tabBar/contacts_active.png"
+	    },
+		{
+		    "pagePath": "pages/message/message",
+		    "text": "消息",
+			"iconPath": "static/image/tabBar/message.png",
+			"selectedIconPath": "static/image/tabBar/message_active.png"
+		},
+		{
+		    "pagePath": "pages/profile/profile",
+		    "text": "我的",
+			"iconPath": "static/image/tabBar/profile.png",
+			"selectedIconPath": "static/image/tabBar/profile_active.png"
+		}
+		]
+	}
+}

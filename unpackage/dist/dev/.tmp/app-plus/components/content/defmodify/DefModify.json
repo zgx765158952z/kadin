@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "修改信息",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "保存  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#3399FF"
+      }
+    ]
+  },
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

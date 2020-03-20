@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "讨论组",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="dynamic"><block wx:if="{{hackReset}}"><dynamic-con vue-id="1" dynamicList="{{dynamicList}}" bind:__l="__l"></dynamic-con></block></view>

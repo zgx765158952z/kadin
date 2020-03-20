@@ -1,0 +1,2 @@
+setCssToHead(["@charset \x22UTF-8\x22;\n",],undefined,{path:"./components/content/changepwd/changepwd1.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./components/content/changepwd/changepwd1.wxml') } }));

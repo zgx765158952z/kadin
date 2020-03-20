@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "所在位置",
+  "usingComponents": {
+    "head-img-item": "/components/content/defimglist/HeadImgItem"
+  }
+}

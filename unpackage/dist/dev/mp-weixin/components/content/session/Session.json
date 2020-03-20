@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "默认好友",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "def-mask": "/components/content/defmask/DefMask"
+  }
+}

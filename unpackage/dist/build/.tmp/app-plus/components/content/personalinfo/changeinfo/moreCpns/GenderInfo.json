@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "设置性别",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "保存  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#666"
+      }
+    ]
+  },
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

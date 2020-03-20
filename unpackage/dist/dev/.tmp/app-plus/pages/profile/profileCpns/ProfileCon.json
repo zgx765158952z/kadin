@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

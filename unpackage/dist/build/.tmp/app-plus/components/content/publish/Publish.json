@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "发表动态",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "发表  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#3399FF"
+      }
+    ]
+  },
+  "usingComponents": {
+    "head-img-item": "/components/content/defimglist/HeadImgItem"
+  }
+}

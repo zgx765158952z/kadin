@@ -1,0 +1,20 @@
+{
+  "titleNView": {
+    "searchInput": [
+      {
+        "autoFocus": "true",
+        "placeholder": "搜索附近位置"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "取消  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#3399FF"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

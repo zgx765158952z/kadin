@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "个性签名",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "保存  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#666"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

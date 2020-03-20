@@ -1,0 +1,325 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.dynamiccon .dynamiccon-top.data-v-2d16830a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 27rpx 30rpx;
+  border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
+}
+.dynamiccon .dynamiccon-top .dynamiccon-top-left.data-v-2d16830a {
+    width: auto;
+    font-size: 32rpx;
+}
+.dynamiccon .dynamiccon-top .dynamiccon-top-right.data-v-2d16830a {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    text-align: right;
+}
+.dynamiccon .dynamiccon-top .dynamiccon-top-right .dynamiccon-top-right-text.data-v-2d16830a {
+      font-family: 'iconfont';
+      font-size: 32rpx;
+      color: #707070;
+}
+.dynamiccon .dyc-list.data-v-2d16830a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding: 20rpx 20rpx 50rpx 20rpx;
+  border-bottom: 1rpx solid rgba(120, 120, 120, 0.1);
+}
+.dynamiccon .dyc-list .dyc-list-head-img.data-v-2d16830a {
+    width: auto;
+    margin-right: 20rpx;
+}
+.dynamiccon .dyc-list .dyc-list-head-img image.data-v-2d16830a {
+      width: 90rpx;
+      height: 90rpx;
+      border-radius: 12rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con.data-v-2d16830a {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-list-name.data-v-2d16830a {
+      display: inline-block;
+      font-weight: 800;
+      font-size: 32rpx;
+      color: #556B95;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-list-text.data-v-2d16830a {
+      font-size: 34rpx;
+      line-height: 38rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-list-img1.data-v-2d16830a {
+      margin-top: 20rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-list-img1 image.data-v-2d16830a {
+        width: 100%;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-list-img2.data-v-2d16830a {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -webkit-flex-flow: row wrap;
+              flex-flow: row wrap;
+      margin-top: 20rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-list-img2 .dyc-list-img2-son.data-v-2d16830a {
+        width: 32%;
+        margin: 0 2rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-list-img2 .dyc-list-img2-son image.data-v-2d16830a {
+          width: 100%;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list.data-v-2d16830a {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: justify;
+      -webkit-justify-content: space-between;
+              justify-content: space-between;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      margin-top: 20rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .left-time-local.data-v-2d16830a {
+        font-size: 26rpx;
+        color: #666666;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .left-time-local .left-local.data-v-2d16830a {
+          margin-left: 30rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise.data-v-2d16830a {
+        position: relative;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .tap-hover-color5.data-v-2d16830a {
+          background-color: #000000;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .tap-hover-color5 .praise-item-icon.data-v-2d16830a {
+            font-size: 36rpx !important;
+            color: #D4D4D4;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .tap-hover-color5 .comment-item-icon.data-v-2d16830a {
+            color: #D4D4D4;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise image.data-v-2d16830a {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+                  align-items: center;
+          width: 45rpx;
+          height: 45rpx;
+          padding: 0 10rpx;
+          border-radius: 8rpx;
+          background-color: #F7F7F7;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise image.data-v-2d16830a:active {
+          background-color: #C0C0C0;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment.data-v-2d16830a {
+      background-color: #F7F7F7;
+      margin-top: 20rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list.data-v-2d16830a {
+        font-size: 30rpx;
+        line-height: 38rpx;
+        padding: 10rpx;
+        box-sizing: border-box;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-leftImg.data-v-2d16830a {
+          position: relative;
+          display: inline-block;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-leftImg .praise-list-loveImg.data-v-2d16830a {
+            font-size: 24rpx;
+            font-weight: bold;
+            color: #586A93;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name.data-v-2d16830a {
+          padding: 0;
+          margin: 0;
+          color: #586A93;
+          font-weight: 800;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name .praise-list-comma.data-v-2d16830a {
+            margin-right: 5rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name .praise-name.data-v-2d16830a:active {
+            color: #999999;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list-borderbtm.data-v-2d16830a {
+        border-bottom: 1rpx solid rgba(100, 100, 100, 0.05);
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list.data-v-2d16830a {
+        padding: 0 13rpx 13rpx 13rpx;
+        box-sizing: border-box;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item.data-v-2d16830a {
+          position: relative;
+          z-index: 1;
+          font-size: 30rpx;
+          line-height: 35rpx;
+          padding-top: 10rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-name.data-v-2d16830a {
+            position: relative;
+            z-inde: 2;
+            color: #586A93;
+            font-weight: 800;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-text.data-v-2d16830a {
+            color: #484848;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-text .colon.data-v-2d16830a {
+              margin-right: 10rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-name.data-v-2d16830a:active {
+            color: #000099;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item.data-v-2d16830a:active {
+          background-color: #D8D8D8;
+}
+.dynamiccon .dynamic-loading.data-v-2d16830a {
+  position: fixed;
+  top: 35%;
+  left: 35%;
+}
+.dynamiccon .comment-frame.data-v-2d16830a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-align-content: center;
+          align-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 20rpx;
+  box-sizing: border-box;
+  background-color: #F7F7F7;
+  width: 100%;
+  z-index: 80;
+}
+.dynamiccon .comment-frame textarea.data-v-2d16830a {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    font-size: 32rpx;
+    padding: 20rpx;
+    background-color: #FFFFFF;
+    max-height: 140rpx;
+    margin-right: 20rpx;
+    border-radius: 10rpx;
+}
+.dynamiccon .comment-frame .comment-frame-icon.data-v-2d16830a {
+    width: auto;
+    font-size: 50rpx;
+    margin-right: 20rpx;
+}
+.dynamiccon .comment-frame .comment-frame-btm.data-v-2d16830a {
+    width: auto;
+    padding: 10rpx 30rpx;
+    font-size: 32rpx;
+    border-radius: 10rpx;
+    border: 4rpx solid #c0c0c0;
+    color: #c0c0c0;
+}
+.dynamiccon .comment-frame .hasCommentContent.data-v-2d16830a {
+    background-color: #1aad19;
+}
+.praise-and-comment-mask.data-v-2d16830a {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.praise-and-comment-mask .praise-and-comment.data-v-2d16830a {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    position: fixed;
+    z-index: 101;
+    background-color: #2E2E2E;
+    color: #FFFFFF;
+    font-size: 28rpx;
+    border-radius: 5rpx;
+}
+.praise-and-comment-mask .praise-and-comment .praise-item.data-v-2d16830a {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+              flex: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      white-space: nowrap;
+      padding: 20rpx 30rpx;
+}
+.praise-and-comment-mask .praise-and-comment .praise-item .praise-item-icon.data-v-2d16830a {
+        min-width: 36rpx;
+        font-size: 32rpx;
+        font-weight: bold;
+}
+.praise-and-comment-mask .praise-and-comment .praise-item .praise-item-text.data-v-2d16830a {
+        min-width: 56rpx;
+        margin-left: 10rpx;
+}
+.praise-and-comment-mask .praise-and-comment .comment-item.data-v-2d16830a {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+              flex: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      white-space: nowrap;
+      padding: 20rpx 30rpx;
+}
+.praise-and-comment-mask .praise-and-comment .comment-item .comment-item-icon.data-v-2d16830a {
+        font-size: 32rpx;
+        font-weight: bold;
+}
+.praise-and-comment-mask .praise-and-comment .comment-item .comment-item-text.data-v-2d16830a {
+        margin-left: 10rpx;
+}
+

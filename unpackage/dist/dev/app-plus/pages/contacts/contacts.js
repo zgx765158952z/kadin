@@ -1,0 +1,2 @@
+setCssToHead(["@charset \x22UTF-8\x22;\n.",[1],"contacts { min-height: 100vh; height: 100%; }\n.",[1],"contacts wx-contacts-index { z-index: 10000; }\n.",[1],"contacts wx-def-mask { position: fixed; z-index: 10001; }\n",],undefined,{path:"./pages/contacts/contacts.wxss"})();
+document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/contacts/contacts.wxml') } }));

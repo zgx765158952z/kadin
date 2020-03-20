@@ -1,0 +1,1 @@
+<view class="contactsindex data-v-083c3741"><view class="letters-index-item data-v-083c3741"><text class="my-iconfont data-v-083c3741"></text></view><block wx:for="{{letters}}" wx:for-item="item" wx:for-index="index" wx:key="index"><view class="letters-index-item data-v-083c3741">{{''+item+''}}</view></block></view>

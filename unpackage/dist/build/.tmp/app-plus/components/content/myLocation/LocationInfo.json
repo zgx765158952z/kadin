@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "所在位置",
+  "titleNView": {
+    "buttons": [
+      {
+        "fontSrc": "/static/iconfont/iconfont.ttf",
+        "text": " ",
+        "width": "auto",
+        "float": "right",
+        "fontSize": "20px"
+      }
+    ]
+  },
+  "usingComponents": {
+    "head-img-item": "/components/content/defimglist/HeadImgItem"
+  }
+}

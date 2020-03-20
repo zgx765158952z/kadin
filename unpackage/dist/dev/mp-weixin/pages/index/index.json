@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "卡丁",
+  "usingComponents": {
+    "index-content": "/pages/index/indexCpns/IndexContent",
+    "def-mask": "/components/content/defmask/DefMask"
+  }
+}

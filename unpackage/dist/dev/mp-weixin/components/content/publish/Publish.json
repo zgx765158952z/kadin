@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "发表动态",
+  "usingComponents": {
+    "head-img-item": "/components/content/defimglist/HeadImgItem"
+  }
+}

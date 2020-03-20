@@ -1,0 +1,38 @@
+/* 1:支持 base64 格式字体图标。
+2:支持网络路径字体图标。
+3:网络路径必须加协议头 https
+4:字体文件小于 40kb，uni-app 会自动将其转化为 base64 格式
+5:字体文件大于等于 40kb， 需开发者自己转换为base64格式，否则使用将不生效
+6:字体文件的引用路径推荐使用以 ~@ 开头的绝对路径 */
+
+/* 引用本地的字体文件 */
+@font-face {
+	font-family: "iconfont";
+	src: url('~@/static/iconfont/iconfont.ttf')format('truetype');
+}
+
+/* 定义基本的图标引用类名 */
+.iconfont {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* 图标所对应的伪类,如果新加图标,请添加它相应的伪类样式,和替换本地最新的ttf字体文件就行了,其它的都不用管 
+*比如我在阿里图库里面新添加了一个类名叫icon-weizhi的图标,在我替换了最新的本地ttf字体文件之后,你需要在下面新增一个相应的伪类,
+*在页面当中用的时候,就直接加上这个类名就行了,比如:<text class="iconfont icon-weizhi"></text>
+*.icontianjiahaoyou:before {content: "\e702";}
+* 
+*
+*/
+
+.icontianjiahaoyou:before {
+  content: "\e702";
+}
+
+.iconqunliao:before {
+  content: "\e690";
+}
+

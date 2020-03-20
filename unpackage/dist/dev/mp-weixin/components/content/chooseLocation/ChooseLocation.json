@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择地区",
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

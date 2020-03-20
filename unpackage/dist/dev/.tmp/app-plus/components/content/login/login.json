@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "游客   ",
+        "float": "right",
+        "fontSize": "30rpx",
+        "width": "auto",
+        "color": "#666"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择区县",
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

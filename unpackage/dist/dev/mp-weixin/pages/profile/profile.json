@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "我的",
+  "usingComponents": {
+    "profile-head": "/pages/profile/profileCpns/ProfileHead",
+    "profile-con": "/pages/profile/profileCpns/ProfileCon",
+    "profile-btm": "/pages/profile/profileCpns/ProfileBtm"
+  }
+}

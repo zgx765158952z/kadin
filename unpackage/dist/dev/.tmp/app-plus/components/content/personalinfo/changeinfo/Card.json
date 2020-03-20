@@ -1,0 +1,13 @@
+{
+  "navigationBarTitleText": "二维码名片",
+  "titleNView": {
+    "buttons": [
+      {
+        "type": "menu",
+        "float": "right",
+        "width": "auto"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

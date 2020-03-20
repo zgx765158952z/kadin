@@ -1,0 +1,1 @@
+<view class="change-name"><view class="infoFm"><input class="infoFmInput" type="text" focus data-event-opts="{{[['input',[['__set_model',['','currentNickName','$event',[]]]]]]}}" value="{{currentNickName}}" bindinput="__e"/><view class="littleTips">好名字可以让你的朋友更容易记住你</view></view></view>

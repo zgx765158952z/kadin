@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "收藏",
+  "titleNView": {
+    "buttons": [
+      {
+        "type": "favorite",
+        "float": "right"
+      }
+    ]
+  },
+  "usingComponents": {
+    "collection-content": "/components/content/collection/collectionCpns/CollectionContent"
+  }
+}

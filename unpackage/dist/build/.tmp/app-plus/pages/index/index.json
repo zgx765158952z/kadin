@@ -1,0 +1,25 @@
+{
+  "navigationBarTitleText": "卡丁",
+  "titleNView": {
+    "buttons": [
+      {
+        "fontSrc": "/static/iconfont/iconfont.ttf",
+        "text": " ",
+        "width": "auto",
+        "float": "left",
+        "fontSize": "20px"
+      },
+      {
+        "fontSrc": "/static/iconfont/iconfont.ttf",
+        "text": " ",
+        "width": "auto",
+        "float": "right",
+        "fontSize": "20px"
+      }
+    ]
+  },
+  "usingComponents": {
+    "index-content": "/pages/index/indexCpns/IndexContent",
+    "def-mask": "/components/content/defmask/DefMask"
+  }
+}

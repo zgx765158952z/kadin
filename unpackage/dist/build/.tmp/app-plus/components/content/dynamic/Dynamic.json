@@ -1,0 +1,17 @@
+{
+  "navigationBarTitleText": "朋友动态",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "发动态  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#666"
+      }
+    ]
+  },
+  "usingComponents": {
+    "dynamic-con": "/components/content/dynamic/dynamicCpns/DynamicCon"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "通讯录",
+  "usingComponents": {
+    "contacts-con": "/pages/contacts/contactsCpns/ContactsCon",
+    "contacts-index": "/pages/contacts/contactsCpns/ContactsIndex",
+    "def-mask": "/components/content/defmask/DefMask"
+  }
+}

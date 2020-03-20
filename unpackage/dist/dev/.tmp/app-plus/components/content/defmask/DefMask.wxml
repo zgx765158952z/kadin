@@ -1,0 +1,1 @@
+<view class="def-mask data-v-02150d0e"><block wx:if="{{isShowMask}}"><view data-event-opts="{{[['touchstart',[['tapHideMask',['$event']]]]]}}" class="myMask data-v-02150d0e" bindtouchstart="__e"></view></block><slot></slot><block wx:if="{{isShowMask}}"><view class="popup data-v-02150d0e"><slot name="popup-list"></slot></view></block></view>

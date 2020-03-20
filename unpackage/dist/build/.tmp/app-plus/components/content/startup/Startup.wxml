@@ -1,0 +1,1 @@
+<view class="startup"><view data-event-opts="{{[['tap',[['stopCounter',['$event']]]]]}}" class="handlerStart" bindtap="__e">跳过<block wx:if="{{counter>0}}"><block>(<text>{{counter}}</text>)</block></block></view><view class="startup-animation">启动页动画展示</view></view>

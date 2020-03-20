@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "修改信息",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

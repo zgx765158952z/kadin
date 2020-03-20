@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "事项提醒",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "完成",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#3399FF"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

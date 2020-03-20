@@ -1,0 +1,1 @@
+<view class="collection"><collection-top class="collectiontop" vue-id="1" bind:__l="__l"></collection-top><collection-btm vue-id="2" bind:__l="__l"></collection-btm></view>

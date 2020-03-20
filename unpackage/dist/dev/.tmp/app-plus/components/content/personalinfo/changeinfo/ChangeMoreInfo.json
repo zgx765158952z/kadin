@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "更多信息",
+  "usingComponents": {
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

@@ -1,0 +1,1 @@
+<view class="collection"><collection-content class="collectioncontent" vue-id="1" myCollectList="{{myCollectList}}" bind:__l="__l"></collection-content></view>

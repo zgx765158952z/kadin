@@ -1,0 +1,16 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "完成  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#666"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

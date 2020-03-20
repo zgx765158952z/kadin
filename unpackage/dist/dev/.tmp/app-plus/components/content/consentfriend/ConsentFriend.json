@@ -1,0 +1,18 @@
+{
+  "navigationBarTitleText": "新的朋友",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "添加朋友  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "34rpx",
+        "color": "#666"
+      }
+    ]
+  },
+  "usingComponents": {
+    "head-img-item": "/components/content/defimglist/HeadImgItem",
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

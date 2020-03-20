@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "新的朋友",
+  "usingComponents": {
+    "head-img-item": "/components/content/defimglist/HeadImgItem",
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

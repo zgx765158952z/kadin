@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "我的地址",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "添加  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#666"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
