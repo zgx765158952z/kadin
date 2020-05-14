@@ -1,12 +1,25 @@
 {
   "pages": [
     "components/content/login/login",
+    "pages/index/index",
+    "components/content/session/Session",
+    "components/content/session/content/HistoryMsg",
+    "components/content/chooseFriend/ChooseFriend",
+    "components/content/session/sessionSon/GroupMembers",
+    "components/content/defmodify/DefModify",
+    "components/content/session/sessionSon/ChatFriendSetting",
+    "components/content/session/sessionSon/GroupInfo",
+    "components/content/changefriendinfo/ChangeLabel",
+    "components/content/collection/collectionCpns/CollectSearch",
     "pages/profile/profile",
+    "components/content/remind/Remind",
+    "components/content/changefriendinfo/ChangeRemark",
+    "components/content/collection/collection",
+    "components/content/collection/collectionCpns/CollectChain",
     "components/content/startup/Startup",
     "pages/contacts/contacts",
     "components/content/myLocation/SearchLocation",
     "components/content/publish/Publish",
-    "pages/index/index",
     "components/content/dynamic/Dynamic",
     "components/content/dynamic/MyDynamic",
     "components/content/myLocation/LocationInfo",
@@ -30,8 +43,6 @@
     "components/content/applyfriend/ApplyFriend",
     "components/content/friend/FriendInfo",
     "pages/message/message",
-    "components/content/reminder/Reminder",
-    "components/content/collection/collection",
     "components/content/payment/PayMent",
     "components/content/setting/Setting",
     "components/content/changepwd/changepwd2"
@@ -40,7 +51,10 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F7F7F7",
-    "backgroundColor": "#F7F7F7"
+    "backgroundColor": "#F7F7F7",
+    "navigationBarShadow": {
+      "colorType": "blue"
+    }
   },
   "tabBar": {
     "color": "#7A7E83",
@@ -81,6 +95,6 @@
     "autoclose": false
   },
   "appname": "kadingapp",
-  "compilerVersion": "2.5.1",
+  "compilerVersion": "2.6.5",
   "usingComponents": {}
 }

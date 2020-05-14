@@ -29,19 +29,19 @@
   background-color: #F0F0F0;
 }
 .setting .setting-item2 .defaultlist {
-    margin-top: 30rpx;
+  margin-top: 30rpx;
 }
 .setting .setting-list2 {
-    text-align: center;
-    margin: 70rpx 0;
+  text-align: center;
+  margin: 70rpx 0;
 }
 .setting .setting-list2 .item1 {
-      background-color: #FFFFFF;
-      margin-bottom: 30rpx;
-      padding: 20rpx 0;
+  background-color: #FFFFFF;
+  margin-bottom: 30rpx;
+  padding: 20rpx 0;
 }
 .setting .setting-list2 .item2 {
-      background-color: #FFFFFF;
-      padding: 20rpx 0;
+  background-color: #FFFFFF;
+  padding: 20rpx 0;
 }
 

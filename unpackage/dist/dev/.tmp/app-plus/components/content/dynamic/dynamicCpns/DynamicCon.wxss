@@ -214,7 +214,7 @@
 .dynamiccon .dynamic-loading.data-v-2d16830a {
   position: fixed;
   top: 35%;
-  left: 35%;
+  left: 43%;
 }
 .dynamiccon .comment-frame.data-v-2d16830a {
   display: -webkit-box;
@@ -223,8 +223,6 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  -webkit-align-content: center;
-          align-content: center;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -321,5 +319,17 @@
 }
 .praise-and-comment-mask .praise-and-comment .comment-item .comment-item-text.data-v-2d16830a {
         margin-left: 10rpx;
+}
+.praise-and-comment-mask .praise-and-comment .praise-and-comment-porn.data-v-2d16830a {
+      position: absolute;
+      top: 50%;
+      right: -8rpx;
+      width: 20rpx;
+      height: 20rpx;
+      margin-top: -10rpx;
+      background-color: #2E2E2E;
+      z-index: 1;
+      -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
 }
 

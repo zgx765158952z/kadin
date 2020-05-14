@@ -14,7 +14,7 @@
 					<view class="picker-calendar-view" v-for="(week,index) in weeks" :key="index">
 						<view class="picker-calendar-view-item">{{week}}</view>
 					</view>
-					<view class="picker-calendar-view" v-for="(date,dateIndex) in calendar" :key="dateIndex" @click="onSelectDate(date)">
+					<view class="picker-calendar-view" v-for="(date,dateIndex) in calendar" :key="date" @click="onSelectDate(date)">
 						<!-- 背景样式 -->
 						<view v-show="date.bgStyle.type" :class="'picker-calendar-view-'+date.bgStyle.type" :style="{background: date.bgStyle.background}"></view>
 						<!-- 正常和选中样式 -->
@@ -63,7 +63,7 @@
 		<view v-if="showTimePicker" class="picker">
 			<view class="picker-modal picker-time">
 				<view class="picker-modal-header">
-					<text class="picker-modal-header-title">选择日期</text>
+					<text class="picker-modal-header-title">选择时间</text>
 				</view>
 				<picker-view class="picker-modal-time" indicator-class="picker-modal-time-item" :value="timeValue" @change="onTimeChange">
 					<picker-view-column>
@@ -72,9 +72,9 @@
 					<picker-view-column>
 						<view v-for="(v,i) in 60" :key="i">{{i<10?'0'+i:i}}分</view>
 					</picker-view-column>
-					<picker-view-column v-if="showSeconds">
+					<!-- <picker-view-column v-if="showSeconds">
 						<view v-for="(v,i) in 60" :key="i">{{i<10?'0'+i:i}}秒</view>
-					</picker-view-column>
+					</picker-view-column> -->
 				</picker-view>
 				<view class="picker-modal-footer">
 					<view class="picker-modal-footer-info">
@@ -187,6 +187,7 @@
 			o.h && d.setHours(o.h - 0);
 			o.i && d.setMinutes(o.i - 0);
 			o.s && d.setSeconds(o.s - 0);
+			console.log('返回date:', d)
 			return d;
 		},
 		/**
@@ -307,6 +308,7 @@
 		methods: {
 			//设置值
 			setValue(value) {
+				console.log('value:', value)
 				this.date = new Date();
 				this.checkeds = [];
 				this.isMultiSelect = this.type.indexOf('range') >= 0;
@@ -566,10 +568,13 @@
 		watch: {
 			show(newValue, oldValue) {
 				newValue && this.setValue(this.value);
-				this.isShow = newValue;
+				this.$nextTick(() => {
+					this.isShow = newValue;
+				})
 			},
 			value(newValue, oldValue) {
 				setTimeout(()=>{
+					console.log('新旧值:', newValue, oldValue)
 					this.setValue(newValue);
 				}, 0);
 			}

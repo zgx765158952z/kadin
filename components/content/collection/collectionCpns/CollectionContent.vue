@@ -2,7 +2,7 @@
 	<view class="collection-content">
 		
 		<!-- 设置圆角搜索框 -->
-		<uni-search-bar @tap.native="hanldeSearch" ref="collectSearch" :radius="50" @confirm="confirmSearch"/>
+		<uni-search-bar @click.native="hanldeSearch" ref="collectSearch" :radius="50" @confirm="confirmSearch"/>
 		
 		<block v-if="!showLabel">
 			<view class="top-list">
@@ -65,7 +65,7 @@
 		
 		<view class="def-popup">
 			<view @tap="hidePop" @touchmove.stop.prevent="moveHandle" v-if="showPop" class="def-popup-mask">
-				<view class="def-popup-list" :class="{'show':showPop}" :style="popStyle">
+				<view class="def-popup-list" :class="showPopList? 'effect-in' : 'effect-hide'" :style="popStyle">
 					<view @tap="choosePop(index)" v-for="(item, index) in popList" :key="index" class="def-popup-item" hover-class="tap-hover-color">
 						{{ item }}
 					</view>
@@ -361,14 +361,7 @@
 					background-color: #FFFFFF;
 					box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.5);
 					line-height: 100rpx;
-					transition: transform 0.15s ease-in-out 0s;
-					user-select: none;
-					-webkit-touch-callout: none;
-					transform: scale(1, 1);
 					
-					&.show {
-						transform: scale(1, 1);
-					}
 					.def-popup-item {
 						padding: 0 40rpx 0 30rpx;
 						overflow: hidden;

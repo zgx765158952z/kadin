@@ -28,38 +28,38 @@
   margin-top: 30rpx;
 }
 .profilebtm .list {
-    margin-bottom: 26rpx;
+  margin-bottom: 26rpx;
 }
 .profilebtm .list1 {
-    background-color: #FFFFFF;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    text-align: center;
+  background-color: #FFFFFF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  text-align: center;
 }
 .profilebtm .list1 .item1 {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1;
-              flex: 1;
-      padding: 16rpx 0;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  padding: 16rpx 0;
 }
 .profilebtm .list1 .item1 .item1-img {
-        font-family: 'iconfont';
-        font-size: 50rpx;
-        color: #00C1D1;
+  font-family: 'iconfont';
+  font-size: 50rpx;
+  color: #00C1D1;
 }
 .profilebtm .list1 .item1 .item1-title1 {
-        font-size: 32rpx;
-        color: #333333;
+  font-size: 32rpx;
+  color: #333333;
 }
 .profilebtm .list1 .item1 .item1-title2 {
-        font-size: 24rpx;
-        color: #777777;
+  font-size: 24rpx;
+  color: #777777;
 }
 .profilebtm .list1 .item1:active {
-      background-color: #eee;
+  background-color: #eee;
 }
 

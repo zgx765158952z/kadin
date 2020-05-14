@@ -22,7 +22,7 @@
 			</view>
 			
 			<view class="myborderlist">
-				<default-list @tap.native="toMyDynamic('myself')">
+				<default-list @click.native="toMyDynamic('myself')">
 					<view slot="def-list-left">
 						我的动态
 					</view>
@@ -39,29 +39,29 @@
 		</block>
 		
 		<block v-else>
-			<block v-if="myFriendInfo">
+			<block v-if="friendCard[friendAccount]">
 				<view class="friendinfo-top">
 					<view class="top-left" @tap="previewFriendHeadImg()">
-						<image :src=" imgUrl + myFriendInfo.friendFaceImage" mode="aspectFill"></image>
+						<image :src=" imgUrl + friendCard[friendAccount].friendFaceImage" mode="aspectFill"></image>
 					</view>
 					
 					<view class="top-right">
-						<block v-if="myFriendInfo.friendRemarkName">
+						<block v-if="friendCard[friendAccount].friendRemarkName">
 							<view class="memo-name">
-								{{ myFriendInfo.friendRemarkName }}
+								{{ friendCard[friendAccount].friendRemarkName }}
 							</view>
 						</block>
-						<block v-if="myFriendInfo.friendNickname">
+						<block v-if="friendCard[friendAccount].friendNickname">
 							<view class="nickname little-font">
-								昵称：{{ myFriendInfo.friendNickname }}
+								昵称：{{ friendCard[friendAccount].friendNickname }}
 							</view>
 						</block>
 						<view class="user-number little-font">
-							卡丁号：{{ myFriendInfo.friendAccount }}
+							卡丁号：{{ friendCard[friendAccount].friendAccount }}
 						</view>
-						<block v-if="myFriendInfo.friendRegion">
+						<block v-if="friendCard[friendAccount].friendRegion">
 							<view class="localtion little-font">
-								地区：{{ myFriendInfo.friendRegion }}
+								地区：{{ friendCard[friendAccount].friendRegion }}
 							</view>
 						</block>
 					</view>
@@ -69,7 +69,7 @@
 				
 				
 				<view class="myborderlist">
-					<default-list @tap.native="toChangeRemark" class="myborderlist">
+					<default-list @click.native="toChangeRemark" class="myborderlist">
 						<view slot="def-list-left">
 							设置备注和标签
 						</view>
@@ -77,7 +77,7 @@
 							群组1
 						</view>
 					</default-list>
-					<default-list noBorderBtm="true">
+					<default-list :noBorderBtm="true">
 						<view slot="def-list-left">
 							朋友权限
 						</view>
@@ -88,12 +88,12 @@
 				</view>
 				
 				<view class="myborderlist">
-					<default-list @tap.native="toMyDynamic('other')">
+					<default-list @click.native="toMyDynamic('other')">
 						<view slot="def-list-left">
 							朋友动态
 						</view>
 					</default-list>
-					<default-list noBorderBtm="true">
+					<default-list :noBorderBtm="true">
 						<view slot="def-list-left">
 							更多信息
 						</view>
@@ -102,7 +102,7 @@
 				
 				
 				
-				<view class="list3" hover-class="tap-hover-color">
+				<view @tap="toSession" class="list3" hover-class="tap-hover-color">
 					<view class="img">
 						<text class="my-iconfont send-msg-img">&#xe60a;</text>
 					</view>
@@ -131,7 +131,7 @@
 	import DefaultList from '@/components/content/defaultlist/DefaultList.vue'
 	import { getFriendInfo } from "@/network/addfriend.js"
 	import { imgBaseUrl } from '@/common/helper.js'
-	import { mapState } from 'vuex'
+	import { mapState, mapActions } from 'vuex'
 	
 	export default {
 		components: {
@@ -140,25 +140,24 @@
 		data() {
 			return {
 				friendAccount: '',
-				myFriendInfo: null,
 				imgUrl: '',
 				isMe: false
 			}
 		},
 		computed: {
-			...mapState(['userInfo'])
+			...mapState(['userInfo', 'rawMessageList', 'friendCard'])
 		},
 		methods: {
-			
+			...mapActions(['imAction']),
 			//跳转到修改备注和标签页
 			toChangeRemark() {
 				uni.navigateTo({
-					url: `/components/content/changefriendinfo/ChangeRemark?friendAccount=${this.myFriendInfo.friendAccount}`
+					url: `/components/content/changefriendinfo/ChangeRemark?friendAccount=${this.friendCard[this.friendAccount].friendAccount}`
 				})
 			},
 			//预览图片、保存图片
 			previewFriendHeadImg() {
-				const imgPath = `${imgBaseUrl}${this.myFriendInfo.friendFaceImage}`
+				const imgPath = `${imgBaseUrl}${this.friendCard[this.friendAccount].friendFaceImage}`
 				uni.previewImage({
 					urls: [imgPath],
 					longPressActions: {
@@ -191,23 +190,11 @@
 			doGetFriendInfo() {
 				getFriendInfo(`?myAccount=${this.userInfo.user.userAccount}&friendAccount=${this.friendAccount}`).then(res => {
 					console.log(res)
-					if(res.status === 200) {
-						if(res.data.code === 2000) {
-							this.$nextTick(() => {
-								this.myFriendInfo = res.data.data
-							})
-						}else {
-							uni.showToast({
-								title: '您可能与服务器断开了连接',
-								icon: 'none'
-							})
-						}
-					}else {
-						uni.showToast({
-							title: '您可能与服务器断开了连接',
-							icon: 'none'
-						})
-					}
+					//初始化朋友名片
+					let tempFriendCard = Object.assign({}, this.friendCard)
+					tempFriendCard[this.friendAccount] = res.data.data
+					Object.assign({}, this.friendCard, tempFriendCard)
+					console.log('this.friendCard', this.friendCard)
 				}).catch(err => {
 					uni.showToast({
 						title: '您可能与服务器断开了连接',
@@ -217,36 +204,59 @@
 				})
 			},
 			toMyDynamic(params) {
-				let account = Number
+				let account = ''
 				if(params === 'myself') {
 					account = this.userInfo.user.userAccount
 				}else if(params === 'other') {
 					account = this.friendAccount
 				}
 				uni.navigateTo({
-					url: `/components/content/dynamic/MyDynamic?account=${account}&friendRemarkName=${this.myFriendInfo.friendRemarkName}`
+					url: `/components/content/dynamic/MyDynamic?account=${account}&friendRemarkName=${this.friendCard[this.friendAccount].friendRemarkName}`
 				})
+			},
+			toSession() {
+				const session = 'p2p-' + this.friendAccount
+				this.imAction({
+					mode: 'CurrentChatTo_Change',
+					session
+				})
+				uni.setStorageSync('toSessionObj', {
+					chatType: 'p2p',
+					chatTo: this.friendAccount
+				})
+				uni.navigateTo({
+					url: "/components/content/session/Session"
+				})
+				
 			}
 		},
 		onLoad(option) {
-			
-			//查看自己资料
-			if(option.friendAccount === this.userInfo.user.userAccount) {
-				this.isMe = true
-			}else {
-				//查看朋友资料
-				this.friendAccount = option.friendAccount
-				this.isMe = false
-				this.doGetFriendInfo()
-			}
-		},
-		created() {
 			this.imgUrl = imgBaseUrl
-			uni.$once('changeFriendInfo', () => {
+			uni.$on('changeFriendInfo', () => {
 				this.$nextTick(() => {
 					this.doGetFriendInfo()
 				})
 			})
+			console.log(option)
+			//查看自己资料
+			if(option.friendAccount === this.userInfo.user.userAccount) {
+				this.isMe = true
+			}else {
+				//获取朋友资料
+				this.friendAccount = option.friendAccount
+				this.isMe = false
+				if(this.friendCard[option.friendAccount]) {
+					console.log('已经有名片了')
+				}else {
+					console.log('没有该好友名片')
+					this.doGetFriendInfo()
+				}
+				
+			}
+		},
+		
+		onUnload() {
+			uni.$off('changeFriendInfo', () => {})
 		},
 		onNavigationBarButtonTap(option) {
 			if(option.index === 0) {

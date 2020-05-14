@@ -11,6 +11,7 @@
       }
     ]
   },
+  "scrollIndicator": "none",
   "usingComponents": {
     "contacts-con": "/pages/contacts/contactsCpns/ContactsCon",
     "contacts-index": "/pages/contacts/contactsCpns/ContactsIndex",

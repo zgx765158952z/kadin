@@ -4,7 +4,7 @@
 			<textarea v-model="currentText" focus="true" placeholder="写下你的想法..."/>
 		</view>
 		<view class="publish-set">
-			<head-img-item @tap.native="toLocationInfo">
+			<head-img-item @click.native="toLocationInfo">
 				<image class="set-img" slot="start-img" src="/static/image/publish/location.png"></image>
 				<view slot="title">
 					所在位置

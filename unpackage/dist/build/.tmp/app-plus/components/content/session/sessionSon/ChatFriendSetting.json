@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "默认好友",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "head-img-item": "/components/content/defimglist/HeadImgItem",
+    "default-list": "/components/content/defaultlist/DefaultList"
+  }
+}

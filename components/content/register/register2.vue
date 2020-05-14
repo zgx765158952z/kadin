@@ -6,7 +6,7 @@
 					设置密码
 				</view>
 				<view class="login-form">
-					<form @submit="registerClick" @reset="resetClick">
+					<form @submit="registerClick">
 						<view class="my-input">
 							<input v-model="password1" @input="handlerPassword1" class="def-input" type="password" maxlength="16" name="password1" placeholder="设置您的密码" />
 							<view class="def-input-del" @tap="delPwd1Input">
@@ -29,7 +29,13 @@
 
 <script>
 	import { doRegister } from '@/network/register.js'
-	import { isPasswordAvailable } from '@/common/index.js'
+	import { 
+		//#ifdef APP-PLUS
+		getCid,
+		//#endif
+		isPasswordAvailable
+	} from '@/common/index.js'
+	
 	import { mapMutations, mapActions } from 'vuex'
 	
 	
@@ -53,10 +59,20 @@
 				if(val.password1.length> 0 && val.password2.length> 0) {
 					if(val.password1 === val.password2) {
 						if(isPasswordAvailable(val.password1)) {
+							//#ifdef APP-PLUS
+							const cid = getCid() //获取cid
+							//#endif
 							const obj = {
+								//#ifdef APP-PLUS
+								cid,
+								//#endif
+								//#ifdef MP-WEIXIN
+								cid: '116f951ea532bc59e1e0ae479068f4bd',
+								//#endif
 								userPhone: this.userPhone,
 								userPassword: val.password2
 							}
+							console.log('obj:', obj)
 							doRegister(obj).then(res => {
 								console.log(res)
 								if(res.data.code === 4003) {
@@ -68,15 +84,14 @@
 								if(res.data.code === 2000) {
 									const userInfo = res.data.data
 									
-									//将用户微信息保存（全局userInfo、hasLogin和本地仓储）
+									//将用户微信息保存（全局userInfo、hasLogin和本地仓储）,设置当前为已登录状态
 									this.setLogin(userInfo)
 									
-									//获取用户详细信息
-									this.doGetMyUserInfo()
 									
 									uni.showToast({
 										title: '注册成功',
-										icon: 'none'
+										icon: 'none',
+										mask: true
 									})
 									//关闭所有页面，跳转到index页面
 									uni.reLaunch({

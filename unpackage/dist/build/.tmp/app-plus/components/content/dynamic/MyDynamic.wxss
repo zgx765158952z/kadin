@@ -29,7 +29,7 @@
   display: -webkit-flex;
   display: flex;
   padding: 20rpx 20rpx 50rpx 20rpx;
-  border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
+  border-bottom: 1rpx solid rgba(120, 120, 120, 0.1);
 }
 .my-dynamic .dyc-list .dyc-list-head-img {
     width: auto;
@@ -46,12 +46,13 @@
             flex: 1;
 }
 .my-dynamic .dyc-list .dyc-list-con .dyc-list-name {
-      font-weight: bold;
-      font-size: 34rpx;
-      color: #006699;
+      display: inline-block;
+      font-weight: 800;
+      font-size: 32rpx;
+      color: #556B95;
 }
 .my-dynamic .dyc-list .dyc-list-con .dyc-list-text {
-      font-size: 32rpx;
+      font-size: 34rpx;
       line-height: 38rpx;
 }
 .my-dynamic .dyc-list .dyc-list-con .dyc-list-img1 {
@@ -90,85 +91,221 @@
       margin-top: 20rpx;
 }
 .my-dynamic .dyc-list .dyc-list-con .dyc-local-list .left-time-local {
-        font-size: 28rpx;
+        font-size: 26rpx;
         color: #666666;
 }
 .my-dynamic .dyc-list .dyc-list-con .dyc-local-list .left-time-local .left-local {
           margin-left: 30rpx;
 }
+.my-dynamic .dyc-list .dyc-list-con .dyc-local-list .right-praise {
+        position: relative;
+}
+.my-dynamic .dyc-list .dyc-list-con .dyc-local-list .right-praise .tap-hover-color5 {
+          background-color: #000000;
+}
+.my-dynamic .dyc-list .dyc-list-con .dyc-local-list .right-praise .tap-hover-color5 .praise-item-icon {
+            font-size: 36rpx !important;
+            color: #D4D4D4;
+}
+.my-dynamic .dyc-list .dyc-list-con .dyc-local-list .right-praise .tap-hover-color5 .comment-item-icon {
+            color: #D4D4D4;
+}
 .my-dynamic .dyc-list .dyc-list-con .dyc-local-list .right-praise image {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-                align-items: center;
-        width: 45rpx;
-        height: 45rpx;
-        padding: 0 10rpx;
-        border-radius: 8rpx;
-        background-color: #F7F7F7;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+                  align-items: center;
+          width: 45rpx;
+          height: 45rpx;
+          padding: 0 10rpx;
+          border-radius: 8rpx;
+          background-color: #F7F7F7;
 }
 .my-dynamic .dyc-list .dyc-list-con .dyc-local-list .right-praise image:active {
-        background-color: #F0F0F0;
+          background-color: #C0C0C0;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment {
-      background-color: #F0F0F0;
+      background-color: #F7F7F7;
       margin-top: 20rpx;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list {
         font-size: 30rpx;
         line-height: 38rpx;
-        margin: 15rpx;
+        padding: 10rpx;
+        box-sizing: border-box;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-leftImg {
           position: relative;
           display: inline-block;
-          top: 5rpx;
 }
-.my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-leftImg image {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-                    align-items: center;
-            width: 36rpx;
-            height: 36rpx;
+.my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-leftImg .praise-list-loveImg {
+            font-size: 24rpx;
+            font-weight: bold;
+            color: #586A93;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name {
           padding: 0;
           margin: 0;
-          color: #006699;
-          font-weight: bold;
+          color: #586A93;
+          font-weight: 800;
 }
-.my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name .praise-name {
-            padding-left: 7rpx;
+.my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name .praise-list-comma {
+            margin-right: 5rpx;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name .praise-name:active {
             color: #999999;
 }
+.my-dynamic .dyc-list .dyc-list-con .praise-comment .praise-list-borderbtm {
+        border-bottom: 1rpx solid rgba(100, 100, 100, 0.05);
+}
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .comment-list {
-        padding: 10rpx 13rpx;
-        border-top: 1rpx solid rgba(100, 100, 100, 0.1);
+        padding: 13rpx;
+        box-sizing: border-box;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item {
-          margin: 10rpx 0;
-          font-size: 32rpx;
-          line-height: 38rpx;
+          position: relative;
+          z-index: 1;
+          font-size: 30rpx;
+          line-height: 35rpx;
+          padding: 5rpx 0;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-name {
-            color: #006699;
-            font-weight: bold;
+            position: relative;
+            z-inde: 2;
+            color: #586A93;
+            font-weight: 800;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-text {
             color: #484848;
-            font-weight: 400;
+}
+.my-dynamic .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-text .colon {
+              margin-right: 10rpx;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-name:active {
             color: #000099;
 }
 .my-dynamic .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item:active {
           background-color: #D8D8D8;
+}
+.my-dynamic .dynamic-loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.my-dynamic .dynamic-loading .dynamic-loading-title {
+    font-size: 32rpx;
+    color: #c0c0c0;
+    text-align: center;
+    margin-top: 30rpx;
+}
+.my-dynamic .comment-frame {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-align-content: center;
+          align-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 20rpx;
+  box-sizing: border-box;
+  background-color: #F7F7F7;
+  width: 100%;
+  z-index: 80;
+}
+.my-dynamic .comment-frame textarea {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+            flex: 1;
+    font-size: 32rpx;
+    padding: 20rpx;
+    background-color: #FFFFFF;
+    max-height: 140rpx;
+    margin-right: 20rpx;
+    border-radius: 10rpx;
+}
+.my-dynamic .comment-frame .comment-frame-icon {
+    width: auto;
+    font-size: 50rpx;
+    margin-right: 20rpx;
+}
+.my-dynamic .comment-frame .comment-frame-btm {
+    width: auto;
+    padding: 10rpx 30rpx;
+    font-size: 32rpx;
+    border-radius: 10rpx;
+    border: 4rpx solid #c0c0c0;
+    color: #c0c0c0;
+}
+.my-dynamic .comment-frame .hasCommentContent {
+    background-color: #1aad19;
+}
+.praise-and-comment-mask {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.praise-and-comment-mask .praise-and-comment {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    position: fixed;
+    z-index: 101;
+    background-color: #2E2E2E;
+    color: #FFFFFF;
+    font-size: 28rpx;
+    border-radius: 5rpx;
+}
+.praise-and-comment-mask .praise-and-comment .praise-item {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+              flex: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      white-space: nowrap;
+      padding: 20rpx 30rpx;
+}
+.praise-and-comment-mask .praise-and-comment .praise-item .praise-item-icon {
+        min-width: 36rpx;
+        font-size: 32rpx;
+        font-weight: bold;
+}
+.praise-and-comment-mask .praise-and-comment .praise-item .praise-item-text {
+        min-width: 56rpx;
+        margin-left: 10rpx;
+}
+.praise-and-comment-mask .praise-and-comment .comment-item {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+              flex: 1;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      white-space: nowrap;
+      padding: 20rpx 30rpx;
+}
+.praise-and-comment-mask .praise-and-comment .comment-item .comment-item-icon {
+        font-size: 32rpx;
+        font-weight: bold;
+}
+.praise-and-comment-mask .praise-and-comment .comment-item .comment-item-text {
+        margin-left: 10rpx;
 }
 

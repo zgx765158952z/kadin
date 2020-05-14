@@ -49,7 +49,7 @@
       -webkit-flex: 1;
               flex: 1;
 }
-.friendinfo .friendinfo-top .top-right .nickname {
+.friendinfo .friendinfo-top .top-right .memo-name {
         font-size: 40rpx;
         font-weight: bold;
 }
@@ -77,23 +77,15 @@
 .friendinfo .list3 .img, .friendinfo .list4 .img {
       margin-right: 15rpx;
 }
-.friendinfo .list3 .img image, .friendinfo .list4 .img image {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-                align-items: center;
-        width: 60rpx;
-        height: 60rpx;
+.friendinfo .list3 .img .send-msg-img, .friendinfo .list3 .img .send-voice-img, .friendinfo .list4 .img .send-msg-img, .friendinfo .list4 .img .send-voice-img {
+        font-size: 50rpx;
+        color: #576A92;
 }
-.friendinfo .list3 .send-msg, .friendinfo .list4 .send-msg {
+.friendinfo .list3 .send-msg, .friendinfo .list3 .send-voice, .friendinfo .list4 .send-msg, .friendinfo .list4 .send-voice {
+      font-size: 36rpx;
       color: #576A92;
 }
 .friendinfo .list3 {
     border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
-}
-.friendinfo .cli-hover:active {
-    background-color: #f1f1f1;
 }
 

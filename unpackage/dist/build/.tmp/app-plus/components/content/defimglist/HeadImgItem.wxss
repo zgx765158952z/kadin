@@ -89,4 +89,7 @@
       font-size: 36rpx;
       color: #B2B2B2;
 }
+.head-img-item .item .noBorder {
+    border-bottom: none;
+}
 

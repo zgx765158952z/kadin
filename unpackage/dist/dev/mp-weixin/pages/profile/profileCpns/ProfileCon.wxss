@@ -24,20 +24,19 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.profilecon default-list .iconfont-img {
-  font-family: 'iconfont';
+.profilecon .iconfont-img.data-v-6b65d653 {
   font-size: 50rpx;
 }
-.profilecon default-list .font-img1 {
+.profilecon .font-img1.data-v-6b65d653 {
   color: #F7A46B;
 }
-.profilecon default-list .font-img2 {
+.profilecon .font-img2.data-v-6b65d653 {
   color: #FBAA00;
 }
-.profilecon default-list .font-img3 {
+.profilecon .font-img3.data-v-6b65d653 {
   color: #4E30DC;
 }
-.profilecon default-list .profile-title {
+.profilecon .profile-title.data-v-6b65d653 {
   font-size: 32rpx;
   color: #333;
 }

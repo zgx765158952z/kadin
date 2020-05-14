@@ -35,7 +35,7 @@
 				</head-img-item>
 				
 				
-				<head-img-item noBorderBtm="true">
+				<head-img-item :noBorderBtm="true">
 					<text class="addfriend-left-img" slot="start-img">&#xe702;</text>
 					<text slot="title">手机联系人</text>
 					<text slot="msg">添加或邀请通讯录中的朋友</text>
@@ -46,7 +46,7 @@
 			
 			
 			<block v-if="!isShowBtmList">
-				<head-img-item noBorderBtm="true" class="addfriend-userinfo" @tap.native="toFriendInfo">
+				<head-img-item :noBorderBtm="true" class="addfriend-userinfo" @click.native="toFriendInfo">
 					<block v-if="addfriendInfo.image.length > 0">
 						<image slot="start-img" class="addfriend-left-img" :src="imgUrl+addfriendInfo.image" mode="aspectFill"></image>
 					</block>
@@ -123,15 +123,9 @@
 							if(res.status === 200) {
 								const code = res.data.code;
 								if(code === 4004) {
-									uni.showToast({
-										title: res.data.msg,
-										icon: 'none'
-									})
+									uni.showToast({ title: '找不到网络', icon: 'none' })
 								}else if(code === 4003) {
-									uni.showToast({
-										title: '已经是你的好友',
-										icon: 'none'
-									})
+									uni.showToast({ title: '已经是你的好友', icon: 'none' })
 								}else if(code === 2000) {
 									this.isShowBtmList = false;
 									this.addfriendInfo = res.data.data;

@@ -29,52 +29,53 @@
   background-color: #F0F0F0;
 }
 .collect-search .collect-search-content {
-    margin: 0 20rpx;
-    padding-top: 10rpx;
-    box-sizing: border-box;
+  margin: 0 20rpx;
+  padding-top: 10rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list {
-      background-color: #FFFFFF;
-      padding: 20rpx;
-      margin: 20rpx 0;
-      border-radius: 15rpx;
+  background-color: #FFFFFF;
+  padding: 20rpx;
+  margin: 20rpx 0;
+  border-radius: 15rpx;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list .list-top {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list .list-top .only-image {
-          margin-right: 20rpx;
+  margin-right: 20rpx;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list .list-top .only-image .only-image-icon {
-            max-width: 160rpx;
-            max-height: 160rpx;
+  max-width: 160rpx;
+  max-height: 160rpx;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list .list-top .link-image {
-          margin-right: 20rpx;
+  margin-right: 20rpx;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list .list-top .link-image .link-image-icon {
-            font-size: 80rpx;
-            color: #F7A349;
+  font-size: 80rpx;
+  color: #F7A349;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list .list-top .list-title {
-          -webkit-box-flex: 1;
-          -webkit-flex: 1;
-                  flex: 1;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list .list-btm {
-        color: #666666;
-        font-size: 26rpx;
-        margin-top: 15rpx;
+  color: #666666;
+  font-size: 26rpx;
+  margin-top: 15rpx;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list:active {
-      background-color: #F3F3F3;
+  background-color: #F3F3F3;
 }
 .collect-search .collect-search-content .collect-search-btm .collect-search-list-active {
-      background-color: #F3F3F3 !important;
+  background-color: #F3F3F3 !important;
 }
 

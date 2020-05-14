@@ -29,30 +29,30 @@
   width: 100%;
 }
 .collect-chain .webview-nav-bar {
-    position: fixed;
-    height: 88rpx;
-    width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    overflow: hidden;
+  position: fixed;
+  height: 88rpx;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  overflow: hidden;
 }
 .collect-chain .webview-nav-bar .webview-nav-bar-left {
-      width: auto;
-      margin-left: 20rpx;
+  width: auto;
+  margin-left: 20rpx;
 }
 .collect-chain .webview-nav-bar .webview-nav-bar-center {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1;
-              flex: 1;
-      font-size: 32rpx;
-      text-align: center;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  font-size: 32rpx;
+  text-align: center;
 }
 .collect-chain .webview-nav-bar .webview-nav-bar-right {
-      width: auto;
-      margin-right: 20rpx;
+  width: auto;
+  margin-right: 20rpx;
 }
 

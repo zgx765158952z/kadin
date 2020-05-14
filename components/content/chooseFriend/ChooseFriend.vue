@@ -36,6 +36,9 @@
 				<!-- <view class="select-item" id="last-input">
 					<input @input="handleInput" type="text" value="" placeholder="搜索好友" />
 				</view> -->
+				<!-- #ifdef MP-WEIXIN -->
+				<button @tap="submitChoose" type="default">完成</button>
+				<!-- #endif -->
 			</view>
 		</scroll-view>
 		
@@ -54,98 +57,20 @@
 </template>
 
 <script>
-	import { imgBaseUrl } from '@/common/helper.js'
+	import { chooseFriendMixin } from '@/common/utils.js'
+	import { createGroupRequest } from '@/network/session/session.js'
 	import { mapState } from 'vuex'
 	
 	export default {
 		data() {
 			return {
-				//图片前缀地址
-				imgUrl: '',
-				//存储选择朋友列表
-				list: [],
-				lettersList: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','#'],
-				//是否触摸显示字母
-				indexAlert: false,
-				//当前触摸字母
-				currentLetter: '',
-				// 索引单个字母高度
-				oneLetterHeight: 0,
-				scrollStyle: '',
-				//横向滚动left
-				selectScrollLeft: 0,
-				//已选择好友个数
-				selectedItem: 0
 			}
 		},
+		mixins: [chooseFriendMixin],
 		computed: {
-			...mapState(['friendList'])
-			
+			...mapState(['userInfo', 'friendList'])
 		},
 		methods: {
-			//开始触摸
-			touchStart(e) {
-				//计算触摸了哪个字母pageY-索引列表距离顶部距离再除以/单个索引高度
-				let pageY = e.touches[0].pageY
-				//这个index算上回到顶部按钮,Math.floor取整
-				let index = Math.floor((pageY-15)/this.oneLetterHeight)
-				if(index === 0) {
-					this.indexAlert = false
-					this.currentLetter = 'top'
-				}else {
-					const item = this.list[index-1].list
-					if(item.length>0) {
-						this.indexAlert = true
-						this.currentLetter = this.lettersList[index-1]
-					}else {
-						this.indexAlert = false
-					}
-				}
-				
-				
-				
-			},
-			
-			//触摸移动
-			touchMove(e) {
-				//计算触摸了哪个字母pageY-索引列表距离顶部距离再除以/单个索引高度
-				let pageY = e.touches[0].pageY
-				//这个index算上回到顶部按钮,Math.floor取整
-				let index = Math.floor((pageY-15)/this.oneLetterHeight)
-				if(index === 0) {
-					this.indexAlert = false
-					this.currentLetter = 'top'
-				}else {
-					const item = this.list[index-1].list
-					if(item.length>0) {
-						this.indexAlert = true
-						this.currentLetter = this.lettersList[index-1]
-					}else {
-						this.indexAlert = false
-					}
-				}
-			},
-			
-			//触摸结束
-			touchEnd() {
-				console.log('touchEnd')
-				this.$nextTick(() => {
-					this.indexAlert = false
-					//清除当前滚动的定位
-					this.currentLetter = ''
-				})
-			},
-			
-			//触摸被打断
-			touchCancel() {
-				console.log('touchCancel')
-				this.$nextTick(() => {
-					this.indexAlert = false
-					//清除当前滚动的定位
-					this.currentLetter = ''
-				})
-			},
-			
 			//选择该好友
 			chooseItem(item) {
 				console.log(item)
@@ -157,76 +82,89 @@
 					}else {
 						this.selectedItem -= 1
 					}
+					// #ifdef APP-PLUS
+					this.changeRightTopBtn()
+					// #endif
 					
-					//获取当前窗口，修改导航栏button样式
-					let webView = this.$mp.page.$getAppWebview();
-					webView.setTitleNViewButtonStyle(0, {
-						"text": `确定(${this.selectedItem}) `
-					})
-					
-					this.$forceUpdate()
 				})
+				
 			},
-			
-			//删除底部已选好友
-			delSelectItem(index1, index2) {
-				this.$nextTick(() => {
-					this.list[index1].list[index2].checked = false
-					this.selectedItem -= 1
-					this.$forceUpdate()
-				})
-			}
+			//完成选择
+			submitChoose() {
+				uni.showLoading({ mask: true })
+				const list = this.getHasChosenAccountList()
+				let obj = {}
+				switch (this.chooseFriendType){
+					case 'createGroup': //创建群
+						createGroupRequest(
+						{
+							'createAccount': this.userInfo.user.userAccount,
+							'memberAccount': list,
+							'groupName': this.userInfo.user.nickname + '的讨论组',
+							'msg': this.userInfo.user.nickname + '邀请您加入讨论组',
+							'joinmodeAdv': 0
+						}
+						).then(res => {
+							this.$toast.showRes(res)
+							if(res.data.code === 2000) {
+								uni.showToast({
+									title: '创建成功',
+									icon: 'none',
+									success: res => {
+										uni.navigateTo({
+											url: '/components/content/session/Session'
+										})
+									}
+								})
+								
+							}
+						}).catch(err => {
+							this.$toast.showErr(err)
+						})
+						
+						break
+					case 'setRemind':
+						uni.$emit('setRemindList', list)
+						uni.navigateBack()
+						break
+				}
+				console.log('选择好友的作用:', this.chooseFriendType)
+				console.log('this.list:', this.list)
+				
+				setTimeout(() => {
+					uni.hideLoading()
+				}, 2000)
+			},
 		},
 		
-		onNavigationBarButtonTap(option) {
-			if(option.index === 0) {
-				uni.showToast({
-					title: '添加成功',
-					icon: 'none',
-					success: res => {
-						uni.navigateBack()
+		onLoad(option) {
+			this.chooseFriendType = option.type
+			let oldList = []
+			
+			//判断需要选择什么功能
+			if(option.type === 'createGroup') { //创建群
+				console.log('创建群')
+			}else if(option.type === 'setRemind') { //设置事项提醒
+				oldList = uni.getStorageSync('setRemindList')
+			}
+			this.list = JSON.parse(JSON.stringify(this.friendList))
+			this.list.forEach(item => {
+				item.list.forEach(newList => {
+					if(oldList) { //已选择的朋友列表
+						console.log('oldList', oldList)
+						if(oldList.findIndex(newList.friendAccount) !== -1) {
+							newList.checked = true
+						}
+					}else {
+						newList.checked = false
 					}
 				})
-			}
-		},
-		created() {
-			this.imgUrl = imgBaseUrl
-			//设置scroll-view的样式，高度
-			const windowHeight = uni.getSystemInfoSync().windowHeight
-			this.scrollStyle = `height: ${windowHeight-60}px`
-			
-			
-			
-			
-			const reg = /145/
-			const str = 'das12145dsdsa' 
-			console.log('练习正则：', reg.test(str))
-			
-			
-			
-			
-			
-			
-		},
-		onLoad() {
-			console.time('time1')
-			this.list = JSON.parse(JSON.stringify(this.friendList))
-			
-			this.list.forEach(item => {
-				item.list.forEach(list => {
-					list.checked = false
-				})
 			})
-			console.log(this.list)
-			console.timeEnd('time1')
+			console.log('选择好友列表:', this.list)
 			
-		},
-		mounted() {
-			const query = uni.createSelectorQuery().in(this)
-			query.select('.letters-index-list').boundingClientRect(data => {
-				this.oneLetterHeight = data.height/28
-			}).exec()
 		}
+		
+		
 	}
 </script>
 
@@ -274,7 +212,6 @@
 						margin-right: 30rpx;
 						border-radius: 100%;
 						border: 1rpx solid rgba(70, 70, 70, .1);
-						
 						
 						.my-iconfont {
 							width: 100%;

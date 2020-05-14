@@ -1,2 +1,0 @@
-setCssToHead(["@charset \x22UTF-8\x22;\n.",[1],"profile { height: 100vh; }\n",],undefined,{path:"./pages/profile/profile.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/profile/profile.wxml') } }));

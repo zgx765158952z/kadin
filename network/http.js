@@ -1,8 +1,9 @@
 import axios from '@/js_sdk/gangdiedao-uni-axios'
 
-import { baseUrl } from '@/common/helper.js'
 
-
+// import { baseUrl, req_data } from '@/common/helper.js'
+import { http_config } from '@/common/helper.js'
+import { showRes, showErr } from '@/common/toast.js'
 /**
  * 请求接口日志记录
  */
@@ -22,22 +23,22 @@ function _reslog(res) {
     }
 }
 
-
-const http = axios.create({
-	// baseURL: [baseUrl],
-	baseURL: baseUrl,
-	// baseURL: "http://192.168.1.138:9090",
-	timeout: 5000,  // 不可超过 manifest.json 中配置 networkTimeout的超时时间
-	// #ifdef H5
-	withCredentials: true,
-	// #endif
-	headers: {
-		'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-		// 'Content-Type': 'application/json;charset=UTF-8'
-		// 'X-Requested-With': 'XMLHttpRequest',
-		// 'Access-Control-Allow-Origin': '*', //跨域加上头
-	},
-})
+const http = axios.create(http_config)
+// const http = axios.create({
+// 	// baseURL: [baseUrl],
+// 	baseURL: baseUrl,
+// 	// baseURL: "http://192.168.1.138:9090",
+// 	timeout: 5000,  // 不可超过 manifest.json 中配置 networkTimeout的超时时间
+// 	// #ifdef H5
+// 	withCredentials: true,
+// 	// #endif
+// 	headers: {
+// 		// 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+// 		'Content-Type': 'application/json;charset=UTF-8'
+// 		// 'X-Requested-With': 'XMLHttpRequest',
+// 		// 'Access-Control-Allow-Origin': '*', //跨域加上头
+// 	}
+// })
 
 
 
@@ -49,7 +50,6 @@ http.interceptors.request.use(config => {
 	// const cookie = uni.getStorageSync('cookie')
 	// 设置Cookie
 	// config.headers.Cookie = cookie
-	
 	
 	
 	//登录时发送token
@@ -81,11 +81,10 @@ http.interceptors.response.use(response => {
 			// data: cookie.split(';')[0]
 		// })
 	// }
-	
-
-	
+	// showRes(response)
 	return response
 }, error => {
+	// showErr(error)
 	return Promise.reject(error.message)
 })
 	

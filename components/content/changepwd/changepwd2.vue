@@ -6,7 +6,7 @@
 					设置您的新密码
 				</view>
 				<view class="login-form">
-					<form @submit="registerClick" @reset="resetClick">
+					<form @submit="registerClick">
 						<view class="my-input">
 							<input v-model="password1" @input="handlerPassword1" class="def-input" type="password" maxlength="16" name="password1" placeholder="设置新密码" />
 							<view class="def-input-del" @tap="delPwd1Input">

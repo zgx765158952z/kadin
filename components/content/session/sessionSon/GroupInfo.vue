@@ -7,10 +7,10 @@
 			</view>
 			<view class="group-info-head-center">
 				<view class="group-name">
-					讨论组名字
+					 {{ currentGroup.groupName }}
 				</view>
 				<view class="group-number">
-					276664546999 于2020-02-14创建
+					{{ currentGroup.tid }} 于 {{ currentGroup.createTime }} 创建
 				</view>
 			</view>
 			<view class="group-info-head-right">
@@ -19,12 +19,12 @@
 		</view>
 		
 		<!-- 名片 -->
-		<default-list @tap.native="toDefModify('myGroupCard', null)" textRight="true">
+		<default-list @click.native="toDefModify('myGroupCard', null)" textRight="true">
 			<view slot="def-list-left">
 				我的群名片
 			</view>
 			<view slot="def-list-center">
-				点击设置
+				{{ currentGroup.myGroupName }}
 			</view>
 		</default-list>
 		
@@ -34,28 +34,28 @@
 				群成员
 			</view>
 			<view slot="def-list-center">
-				共199人
+				共{{ groupMemberList[currentGroup.tid].length }}人
 			</view>
 		</default-list>
 		
 		<view class="group-members">
-			<view v-for="(item, index) in 4" :key="index" class="group-members-item">
+			<view v-for="(item, index) in groupMemberList[currentGroup.tid]" :key="index" class="group-members-item">
 				<view class="group-members-item-img" :class="{'group-members-item-img-after': index === 0}">
 					<image src="/static/image/test/test.jpg" mode=""></image>
 				</view>
 				<view class="group-members-item-name">
-					默认好友-赵六
+					{{ item.groupNickname || '' }}
 				</view>
 			</view>
 			
-			<view @tap="toChooseFriend" class="group-members-item">
+			<!-- <view @tap="toAddGroupMember" class="group-members-item">
 				<view class="group-members-item-img">
 					<text class="my-iconfont">&#xe606;</text>
 				</view>
 				<view class="group-members-item-name">
 					邀请好友
 				</view>
-			</view>
+			</view> -->
 		</view>
 		
 		<default-list :myRight="false" textRight="true" marTop="true">
@@ -63,55 +63,55 @@
 				创建者
 			</view>
 			<view slot="def-list-center">
-				好友1
+				{{ currentGroup.creator || '默认好友' }}
 			</view>
 		</default-list>
 		
 		<!-- 群创建者可修改群名称 -->
-		<default-list @tap.native="toDefModify('myGroupCard', null)" textRight="true">
+		<default-list @click.native="toDefModify('myGroupCard', null)" textRight="true">
 			<view slot="def-list-left">
 				群名称
 			</view>
-			<view slot="def-list-center">
-				讨论组名字
+			<view v-if="currentGroup.groupName" slot="def-list-center">
+				{{ currentGroup.groupName }}
 			</view>
 		</default-list>
 		
 		
-		<default-list @tap.native="toDefModify('myGroupCard', null)" textRight="true">
+		<default-list @click.native="toDefModify('myGroupCard', null)" textRight="true">
 			<view slot="def-list-left">
-				群介绍
+				群描述
 			</view>
 			<view slot="def-list-center">
-				暂无
+				{{ currentGroup.groupDescription || '暂无' }}
 			</view>
 		</default-list>
 		
 		
-		<view @tap.native="toDefModify('myGroupCard', null)" class="notice-item" hover-class="tap-hover-color">
+		<view @click.native="toDefModify('myGroupCard', null)" class="notice-item" hover-class="tap-hover-color">
 			<view class="notice-item-left">
 				<view class="notice-name">
 					群公告
 				</view>
 				<view class="notice-content">
-					一个组件包括开始标签和结束标签，标签上可以写属性，并对属性赋值。内容则写在两个标签之内。一个组件包括开始标签和结束标签，标签上可以写属性，并对属性赋值。内容则写在两个标签之内。
+					{{ currentGroup.announcement || '暂无' }}
 				</view>
 			</view>
 			<text class="notice-item-right my-iconfont">&#xe683;</text>
 		</view>
 		
-		<default-list @tap.native="toDefModify('myGroupCard', null)" textRight="true">
+		<default-list @click.native="toHistoryMsg()" textRight="true">
 			<view slot="def-list-left">
 				聊天记录
 			</view>
 		</default-list>
 		
-		<default-list @tap="handleRemind" noBorderBtm="true" textRight="true">
+		<default-list @tap="handleRemind" :noBorderBtm="true" textRight="true">
 			<view slot="def-list-left">
 				消息提醒
 			</view>
 			<view slot="def-list-center">
-				提醒所有消息
+				{{ currentGroup.msgNotification === 2? '提醒所有消息':'不提醒任何消息'}}
 			</view>
 		</default-list>
 		
@@ -121,9 +121,13 @@
 			<view class="clean-chat-record" hover-class="tap-hover-color">
 				清空聊天记录
 			</view>
-			<view @tap="signOutGroup" class="sign-out" hover-class="tap-hover-color">
+			<view v-if="isGroupAdmin === 3" @tap="handleAdmin" class="sign-out" hover-class="tap-hover-color">
+				管理群
+			</view>
+			<view v-else @tap="signOutGroup" class="sign-out" hover-class="tap-hover-color">
 				退出该群
 			</view>
+			
 		</view>
 		
 		
@@ -132,6 +136,9 @@
 
 <script>
 	import DefaultList from '@/components/content/defaultlist/DefaultList.vue'
+	import { mapState, mapGetters } from 'vuex'
+	import { calcTimeHeader }from '@/utils/utils.js'
+	import { quitGroupRequest, modifyMsgRemindRequest } from '@/network/session/session.js'
 	
 	export default {
 		components: {
@@ -142,16 +149,38 @@
 				
 			}
 		},
+		computed: {
+			...mapState(['userInfo', 'currentGroup', 'groupMemberList', 'groupMemberMap']),
+			...mapGetters(['isGroupAdmin'])
+		},
 		methods: {
+			//修改消息提醒类型
+			modifyMsgRemind(type=Number) {
+				const obj = {
+					tid: this.currentGroup.tid,
+					accid: this.userInfo.user.userAccount,
+					ope: type
+				}
+				modifyMsgRemindRequest(obj).then(res => {
+					this.$toast.showRes(res)
+					if(res.data.code === 2000) {
+						
+					}
+				}).catch(err => {
+					this.$toast.showErr(err)
+				})
+			},
 			//跳转到DefModify
 			toDefModify(type, value) {
-				const modifyObj = {
-					type: type,
-					value: value
+				if(this.isGroupAdmin === 3) {
+					const modifyObj = {
+						type: type,
+						value: value
+					}
+					uni.navigateTo({
+						url: `/components/content/defmodify/DefModify?modifyObj=${modifyObj}`
+					})
 				}
-				uni.navigateTo({
-					url: `/components/content/defmodify/DefModify?modifyObj=${modifyObj}`
-				})
 			},
 			
 			//跳转到GroupMembers
@@ -160,39 +189,106 @@
 					url: `/components/content/session/sessionSon/GroupMembers`
 				})
 			},
-			
-			//跳转到ChooseFriend
-			toChooseFriend() {
+			//跳转到HistoryMsg
+			toHistoryMsg() {
 				uni.navigateTo({
-					url: `/components/content/chooseFriend/ChooseFriend`
+					url: '/components/content/session/content/HistoryMsg'
+				})
+			},
+			
+			//跳转到AddGroupMember,只有群主及管理员才有权限
+			toAddGroupMember(type) {
+				uni.navigateTo({
+					url: `/components/content/session/sessionSon/addGroupMember?type=${type}`
+				})
+			},
+			handleAdmin() {
+				uni.showActionSheet({
+					itemList: ['添加群成员', '移除群成员', '添加群管理员', '移除群管理员', '解散该群'],
+					success: res => {
+						console.log(res)
+						switch (res.tapIndex) {
+							case 0: {
+								console.log('添加群成员')
+								this.toAddGroupMember('addGroupMember')
+								break
+							}
+							case 1: {
+								console.log('移除群成员')
+								this.toAddGroupMember('removeGroupMember')
+								break
+							}
+							case 2: {
+								console.log('添加群管理员')
+								this.toAddGroupMember('addGroupManager')
+								break
+							}
+								
+							case 3: {
+								console.log('移除群管理员')
+								this.toAddGroupMember('removeGroupManager')
+								break
+							}
+							case 4: {
+								this.disbandGroup(11)
+							}
+							//#ifdef APP-PLUS
+							case 5: {
+								console.log('取消')
+								break
+							}
+							//#endif
+						}
+					}
 				})
 			},
 			//设置消息提醒
 			handleRemind() {
 				uni.showActionSheet({
-					itemList: ['提醒所有消息', '只接收不提醒', '不提醒任何消息', '取消'],
+					itemList: ['提醒所有消息', '不提醒任何消息', '取消'],
 					success: res => {
 						console.log(res)
 						if(res.tapIndex){
 							switch (res.tapIndex) {
 								case 0:
 									console.log('提醒所有消息')
+									this.modifyMsgRemind(2)
 									break;
 								case 1:
-									console.log('只接收不提醒')
-									break;
-								case 2:
 									console.log('不提醒任何消息')
+									this.modifyMsgRemind(1)
 									break;
-								case 3:
+								//#ifdef APP-PLUS
+								case 2:
 									console.log('取消')
 									break;
+								//#endif
 							}
 						}
 					}
 				})
 			},
-			
+			quitGroup(obj) {
+				uni.showLoading({ mask: true })
+				quitGroupRequest(obj).then(res => {
+					this.$toast.showRes(res)
+					uni.hideLoading()
+					if(res.data.code === 2000) {
+						uni.showToast({
+							title: '已退出该群',
+							icon: 'none',
+							success: res => {
+								setTimeout(() => {
+									uni.navigateBack({ delta: 2 })
+								}, 1500)
+							}
+						})
+					}
+				}).catch(err => {
+					this.$toast.showErr(err)
+					uni.hideLoading()
+				})
+			},
 			//退出该群
 			signOutGroup() {
 				uni.showModal({
@@ -200,25 +296,37 @@
 					content: '确定退出该群?',
 					success: res => {
 						if(res.confirm) {
-							uni.showToast({
-								title: '已退出该群',
-								icon: 'none',
-								mask: true,
-								success: res => {
-									setTimeout(() => {
-										uni.navigateBack({
-											delta: 2
-										})
-									}, 1000)
-								}
-							})
+							const obj = {
+								tid: this.currentGroup.tid,
+								accid: this.userInfo.user.userAccount
+							}
+							this.quitGroup(obj)
+						}
+					}
+				})
+			},
+			
+			//解散该群
+			disbandGroup(obj) {
+				uni.showModal({
+					title: '提示',
+					content: '确定解散该群?',
+					success: res => {
+						if(res.confirm) {
+							uni.showLoading({ mask: true, title: '正在解散群' })
+							
+							setTimeout(() => {
+								uni.hideLoading()
+							}, 2000)
 						}
 					}
 				})
 			}
 			
-			
-			
+		},
+		
+		mounted() {
+			console.log('groupInfo加载数据:', this.currentGroup, this.groupMemberList)
 		}
 	}
 </script>

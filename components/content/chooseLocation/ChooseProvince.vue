@@ -1,7 +1,7 @@
 <template>
 	<view class="choose-province">
 		<block v-for="(item, index) in list" :key="index">
-			<default-list @tap.native="toChooseCity(index)">
+			<default-list @click.native="toChooseCity(index)">
 				<view slot="def-list-left">
 					{{ item.name }}
 				</view>

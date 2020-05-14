@@ -58,11 +58,15 @@
 }
 .addfriend .addfriend-first-item head-img-item .addfriend-left-img {
       font-family: 'iconfont';
-      font-size: 90rpx;
+      font-size: 80rpx;
 }
 .addfriend .addfriend-first-item head-img-item .addfriend-right-img {
       font-family: 'iconfont';
       font-size: 40rpx;
+}
+.addfriend .addfriend-first-item .addfriend-userinfo .end-info {
+      padding: 35rpx 0;
+      box-sizing: border-box;
 }
 .addfriend .addfriend-first-item .head-img-item .item .end-info .right {
       text-align: right;

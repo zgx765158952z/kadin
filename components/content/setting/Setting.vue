@@ -1,7 +1,7 @@
 <template>
 	<view class="setting">
 		
-		<default-list noBorderBtm="true">
+		<default-list :noBorderBtm="true">
 			<text slot="def-list-left">帐户与安全</text>
 		</default-list>
 		
@@ -21,7 +21,7 @@
 			<text slot="def-list-left">隐私</text>
 		</default-list>
 		
-		<default-list noBorderBtm="true">
+		<default-list :noBorderBtm="true">
 			<text slot="def-list-left">通用</text>
 		</default-list>
 		

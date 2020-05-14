@@ -8,8 +8,15 @@ export function searchFriendRequest(params) {
 }
 
 //申请添加好友
-export function ApplyAddFriendRequest(params) {
-	return http.post('/user/addFriendRequest', params)
+export function ApplyAddFriendRequest(data) {
+	return http({
+		headers: {
+			"Content-Type": "application/json"
+		},
+		method: 'post',
+		url: '/user/addFriendRequest',
+		data
+	})
 }
 
 //查询申请添加好友列表

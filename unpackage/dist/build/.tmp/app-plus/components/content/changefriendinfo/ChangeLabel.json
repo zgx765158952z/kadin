@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "添加标签",
+  "titleNView": {
+    "buttons": [
+      {
+        "text": "保存  ",
+        "float": "right",
+        "width": "auto",
+        "fontSize": "17px",
+        "color": "#3399FF"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

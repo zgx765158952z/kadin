@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/index/index",
+    "components/content/login/login",
+    "components/content/session/Session",
+    "components/content/session/content/HistoryMsg",
     "components/content/chooseFriend/ChooseFriend",
     "components/content/session/sessionSon/GroupMembers",
     "components/content/defmodify/DefModify",
     "components/content/session/sessionSon/ChatFriendSetting",
     "components/content/session/sessionSon/GroupInfo",
-    "components/content/session/Session",
-    "components/content/login/login",
     "components/content/changefriendinfo/ChangeLabel",
     "components/content/collection/collectionCpns/CollectSearch",
     "pages/profile/profile",
@@ -52,7 +53,7 @@
     "navigationBarBackgroundColor": "#F7F7F7",
     "backgroundColor": "#F7F7F7",
     "navigationBarShadow": {
-      "colorType": "grey"
+      "colorType": "blue"
     }
   },
   "tabBar": {
@@ -94,6 +95,6 @@
     "autoclose": false
   },
   "appname": "kadingapp",
-  "compilerVersion": "2.5.1",
+  "compilerVersion": "2.6.5",
   "usingComponents": {}
 }

@@ -6,7 +6,7 @@
 					注册帐户
 				</view>
 				<view class="login-form">
-					<form @submit="registerClick" @reset="resetClick">
+					<form @submit="registerClick">
 						<view class="my-input">
 							<input @input="handlerUserPhone" @blur="userPhoneInputDefocus" v-model="userPhone" class="def-input" type="number" maxlength="11" name="userPhone" placeholder="请输入手机号" />
 							<view @tap="delInput" class="def-input-del">

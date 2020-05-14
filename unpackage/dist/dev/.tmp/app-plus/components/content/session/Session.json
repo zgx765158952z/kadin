@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "默认好友",
   "navigationBarBackgroundColor": "#FFFFFF",
+  "enablePullDownRefresh": true,
   "titleNView": {
     "buttons": [
       {
@@ -10,19 +11,12 @@
         "float": "right",
         "fontSize": "21px",
         "color": "#888"
-      },
-      {
-        "fontSrc": "/static/iconfont/iconfont.ttf",
-        "text": "  ",
-        "width": "auto",
-        "float": "right",
-        "fontSize": "21px",
-        "color": "#888"
       }
     ]
   },
   "scrollIndicator": "none",
   "usingComponents": {
-    "def-mask": "/components/content/defmask/DefMask"
+    "def-mask": "/components/content/defmask/DefMask",
+    "loading-icon": "/components/content/loading-icon/LoadingIcon"
   }
 }

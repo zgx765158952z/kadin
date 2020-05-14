@@ -1,21 +1,24 @@
 {
   "pages": [
+    "components/content/startup/Startup",
+    "components/content/login/login",
     "pages/index/index",
+    "components/content/session/Session",
+    "components/content/session/content/HistoryMsg",
+    "components/content/session/sessionSon/addGroupMember",
     "components/content/chooseFriend/ChooseFriend",
     "components/content/session/sessionSon/GroupMembers",
     "components/content/defmodify/DefModify",
     "components/content/session/sessionSon/ChatFriendSetting",
     "components/content/session/sessionSon/GroupInfo",
-    "components/content/session/Session",
-    "components/content/login/login",
     "components/content/changefriendinfo/ChangeLabel",
     "components/content/collection/collectionCpns/CollectSearch",
     "pages/profile/profile",
+    "components/content/remind/Reminded",
     "components/content/remind/Remind",
     "components/content/changefriendinfo/ChangeRemark",
     "components/content/collection/collection",
     "components/content/collection/collectionCpns/CollectChain",
-    "components/content/startup/Startup",
     "pages/contacts/contacts",
     "components/content/myLocation/SearchLocation",
     "components/content/publish/Publish",
@@ -51,10 +54,7 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F7F7F7",
-    "backgroundColor": "#F7F7F7",
-    "navigationBarShadow": {
-      "colorType": "grey"
-    }
+    "backgroundColor": "#F7F7F7"
   },
   "tabBar": {
     "color": "#7A7E83",

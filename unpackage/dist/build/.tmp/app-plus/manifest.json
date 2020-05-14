@@ -22,6 +22,7 @@
     "Maps": {
       "coordType": "gcj02"
     },
+    "SQLite": {},
     "UniNView": {
       "description": "UniNView原生渲染"
     }
@@ -91,6 +92,7 @@
             "appkey_android": "608521951a4c09c8a4f08bd6744b64c9"
           }
         },
+        "ad": {},
         "audio": {
           "mp3": {
             "description": "Android平台录音支持MP3格式文件"
@@ -106,7 +108,7 @@
       }
     },
     "uni-app": {
-      "compilerVersion": "2.5.1",
+      "compilerVersion": "2.6.5",
       "control": "v8",
       "nvueCompiler": "uni-app",
       "renderer": "auto",
@@ -147,5 +149,6 @@
       ],
       "height": "50px"
     }
-  }
+  },
+  "usingComponents": {}
 }

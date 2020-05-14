@@ -29,49 +29,50 @@
   background-color: #F0F0F0;
 }
 .addfriend uni-search-bar .uni-searchbar.data-v-622c0ccb {
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    margin: 0 auto;
-    padding: 20rpx 0;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    width: 96%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  margin: 0 auto;
+  padding: 20rpx 0;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  width: 96%;
 }
 .addfriend uni-search-bar .uni-searchbar.data-v-622c0ccb .uni-searchbar__box.data-v-622c0ccb {
-      background-color: #FFFFFF;
-      height: 68rpx;
+  background-color: #FFFFFF;
+  height: 68rpx;
 }
 .addfriend uni-search-bar .uni-searchbar__cancel.data-v-622c0ccb {
-    font-size: 28rpx;
+  font-size: 28rpx;
 }
 .addfriend .addfri-number {
-    margin-top: 30rpx;
-    font-size: 30rpx;
-    color: #666666;
-    text-align: center;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  color: #666666;
+  text-align: center;
 }
 .addfriend .addfriend-first-item {
-    background-color: #FFFFFF;
-    margin-top: 30rpx;
+  background-color: #FFFFFF;
+  margin-top: 30rpx;
 }
 .addfriend .addfriend-first-item head-img-item .addfriend-left-img {
-      font-family: 'iconfont';
-      font-size: 80rpx;
+  font-family: 'iconfont';
+  font-size: 80rpx;
 }
 .addfriend .addfriend-first-item head-img-item .addfriend-right-img {
-      font-family: 'iconfont';
-      font-size: 40rpx;
+  font-family: 'iconfont';
+  font-size: 40rpx;
 }
 .addfriend .addfriend-first-item .addfriend-userinfo .end-info {
-      padding: 35rpx 0;
-      box-sizing: border-box;
+  padding: 35rpx 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .addfriend .addfriend-first-item .head-img-item .item .end-info .right {
-      text-align: right;
+  text-align: right;
 }
 .addfriend .addfri-uni-list .uni-list.data-v-8ed9886a {
-    margin: 40rpx 0;
+  margin: 40rpx 0;
 }
 

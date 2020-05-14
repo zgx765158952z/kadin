@@ -4,7 +4,11 @@ import { http } from '@/network/http.js'
 
 //获取朋友动态列表
 export function getNewestDynamicRequest(params) {
-	return http.get('/circle/browseFriendCircle'+ params)
+	return http({
+		method: 'get',
+		url: '/circle/browseFriendCircle' + params,
+		timeout: 20000
+	})
 }
 
 //获取个人的动态列表

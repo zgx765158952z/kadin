@@ -5,9 +5,9 @@
 		</view>
 		<view class="applyfriend-top">
 			<view class="def-font2">
-				发送添加好友申请(功能暂未开放)
+				发送添加好友申请
 			</view>
-			<textarea @confirm="applyReason" value="" class="long-input" placeholder="输入申请原因" />
+			<textarea v-model="requestMsg" @confirm="applyReason" value="" class="long-input" placeholder="输入申请原因" />
 		</view>
 		<view class="applyfriend-middle">
 			<view class="def-font2">
@@ -40,7 +40,8 @@
 	export default {
 		data() {
 			return {
-				friendPhone: null
+				friendPhone: null,
+				requestMsg: '', //请求信息
 			}
 		},
 		computed: {
@@ -48,13 +49,20 @@
 		},
 		methods: {
 			finishedApply() {
-				ApplyAddFriendRequest(
-				{
+				if(this.requestMsg === '') {
+					uni.showToast({
+						title: '请求信息不能为空',
+						icon: 'none'
+					})
+					return
+				}
+				let obj = {
 					sender: this.userInfo.user.userPhone,
 					receiver: this.friendPhone,
-					addType: 1
+					addType: 1,
+					requestMsg: this.requestMsg
 				}
-				).then(res => {
+				ApplyAddFriendRequest(obj).then(res => {
 					if(res.status === 200) {
 						console.log(res)
 						if(res.data.code === 4003) {

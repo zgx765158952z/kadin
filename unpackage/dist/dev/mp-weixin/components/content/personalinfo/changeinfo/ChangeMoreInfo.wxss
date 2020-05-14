@@ -29,13 +29,13 @@
   background-color: #F7F7F7;
 }
 .ChangeMoreInfo .Info-list .def-list-center {
-    text-align: right;
+  text-align: right;
 }
 .ChangeMoreInfo .Info-list .def-list-center .def-list-center-text {
-      margin-left: 10rpx;
+  margin-left: 10rpx;
 }
 .ChangeMoreInfo .def-list {
-    padding: 30rpx 40rpx 30rpx 0 !important;
-    margin-left: 40rpx !important;
+  padding: 30rpx 40rpx 30rpx 0 !important;
+  margin-left: 40rpx !important;
 }
 

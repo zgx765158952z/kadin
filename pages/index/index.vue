@@ -1,25 +1,26 @@
 <template>
 	<view class="index">
 		
-		
-		<button @tap="handleShowMask" type="primary">菜单</button>
+		<!-- #ifdef MP-WEIXIN -->
+		<button @tap="sendMsg" type="default" size="mini">发消息</button>
+		<button @tap="toReminded" type="default" size="mini">提醒</button>
+		<button @tap="handleShowMask" type="default" size="mini">菜单</button>
+		<button @tap="handleSendSocket" type="default" size="mini">socket</button>
+		<!-- #endif -->
 		
 		<index-content ref="indexcontent"></index-content>
-		
-		
 		<!-- 菜单 -->
 		<def-mask class="index-def-mask" ref="indexMask">
 			<view class="edit-list" slot="popup-list">
 				<view class="edit-list-horn">
-					
 				</view>
 				<view class="edit-list-item edit-list-item-start" @click="toAddfriend">
 					<image class="edit-list-item-img" src="/static/image/home/addFriend.png" mode=""></image>
 					<view class="edit-list-item-text">添加好友</view>
 				</view>
-				<view class="edit-list-item">
+				<view @tap="toChooseFriend" class="edit-list-item">
 					<image class="edit-list-item-img" src="/static/image/home/addGroup.png" mode=""></image>
-					<text class="edit-list-item-text">添加群聊</text>
+					<text class="edit-list-item-text">发起群聊</text>
 				</view>
 				<view class="edit-list-item">
 					<image class="edit-list-item-img" src="/static/image/home/sweepCode.png" mode=""></image>
@@ -29,6 +30,7 @@
 					<image class="edit-list-item-img" src="/static/image/home/mail.png" mode=""></image>
 					<text class="edit-list-item-text">帮助与反馈</text>
 				</view>
+				
 			</view>
 		</def-mask>
 		
@@ -42,10 +44,15 @@
 	//遮罩层
 	import DefMask from '@/components/content/defmask/DefMask.vue'
 	
-	
-	//网易云IM
+	import { mapState, mapMutations } from 'vuex'
+	import { getAccountImTokenRequest } from '@/network/login.js'
+	import IMController from '@/controller/im.js'
+	import { socketURL } from '@/common/socketConfig.js'
+	//测试发消息
 	import SDK from '@/js_sdk/NIM_Weixin_SDK_v7.3.0/NIM_Web_SDK_weixin_v7.3.0.js'
+	import store from '@/vuex/store.js'
 	
+	let globalData = getApp().globalData
 	export default {
 		components: {
 			IndexContent,
@@ -53,65 +60,136 @@
 		},
 		data() {
 			return {
-				title: 'Hello'
+				nim: null,
+				count: 1,
+				title: 'Hello',
+				imToken: '',
+				toToken: '',
+				receiveMsg: ''
 			}
 		},
-		
+		computed: {
+			...mapState(['userInfo', 'rawMessageList'])
+		},
+		watch: {
+		},
 		methods: {
-			//显示与隐藏遮罩层
-			handleShowMask() {
-				this.$refs.indexMask.isShowMask = !this.$refs.indexMask.isShowMask
+			...mapMutations(['appStartGetData']),
+			
+			//测试发消息
+			sendMsg() {
+				this.nim.sendText({
+					scene: 'p2p',
+					to: '1576463907795',
+					text: `我是AAAAAA---消息${this.count}`,
+					done: res => {
+						this.count ++
+					}
+				})
 			},
 			
 			
+			//webSocket连接
+			connectSocket(account) {
+				let url = socketURL + account
+				
+				globalData.socketTask = uni.connectSocket({
+					url
+				})
+				console.log('globalData.socketTask', globalData.socketTask)
+			},
+			
+			onSocketOpen() {
+				globalData.socketTask.then(res => {
+					console.log('连接打开', res)
+				})
+				
+			},
+			//显示与隐藏遮罩层
+			handleShowMask() {
+				// this.$refs.indexMask.isShowMask = !this.$refs.indexMask.isShowMask
+				if(this.$refs.indexMask.isShowMask) {
+					this.$refs.indexMask.tapHideMask()
+				}else {
+					this.$refs.indexMask.tapShowMask()
+				}
+			},
+			
+			toReminded() {
+				uni.navigateTo({
+					url: '/components/content/remind/Reminded'
+				})
+			},
 			toAddfriend() {
 				uni.navigateTo({
 					url: "/components/content/addfriend/AddFriend"
 				})
 			},
 			
+			//获取当前帐户的IM的token
+			getAccountImToken(accid) {
+				getAccountImTokenRequest(`?accid=${accid}`).then(res => {
+					
+					if(res.status === 200) {
+						if(res.data.code === 2000) {
+							console.log('返回我的的token：', res.data.data)
+							new IMController({
+								token: res.data.data,
+								account: accid
+							})
+						}
+					}
+				}).catch(err => {
+					console.log('错误信息：',err)
+				})
+			},
 			
-			
-			//IM相关方法
-			onConnect(res) {
-				console.log('连接成功')
-				console.log(res)
-			},
-			onWillReconnect(obj) {
-			    // 此时说明 SDK 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
-			    console.log('即将重连');
-			    console.log(obj.retryCount);
-			    console.log(obj.duration);
-			},
-			onDisconnect(error) {
-				// 此时说明 SDK 处于断开状态, 开发者此时应该根据错误码提示相应的错误信息, 并且跳转到登录页面
-				console.log('丢失连接');
-				console.log(error);
-				if (error) {
-					switch (error.code) {
-				      // 账号或者密码错误, 请跳转到登录页面并提示错误
-				      case 302:
-						break;
-						// 重复登录, 已经在其它端登录了, 请跳转到登录页面并提示错误
-					  case 417:
-						break;
-						// 被踢, 请提示错误后跳转到登录页面
-				      case 'kicked':
-						break;
-				      default:
-						break;
-				    }
-				}
-			},
-			onError(error) {
-				config.log(error)
+			//发起群聊
+			toChooseFriend() {
+				uni.navigateTo({
+					url: '/components/content/chooseFriend/ChooseFriend?type=createGroup'
+				})
 			}
+			
+		},
+		//页面加载
+		onLoad() {
+			this.appStartGetData(this.userInfo.user.userAccount)
+			console.log('rawMessageList index', this.rawMessageList)
+			this.getAccountImToken(this.userInfo.user.userAccount)
+			getAccountImTokenRequest('?accid=1576463946323').then(res => {
+				
+				if(res.status === 200) {
+					if(res.data.code === 2000) {
+						console.log('返回我的的token2：', res.data.data)
+						this.nim = SDK.NIM.getInstance({
+							// 初始化SDK
+							debug: false,
+							appKey: 'a59ba9fafb323c6fcc49a5cbf48d369a',
+							token: res.data.data,
+							account: 1576463946323,
+							promise: true,
+							transports: ['websocket'],
+							onconnect: this.test,
+							onwillreconnect: this.test,
+							ondisconnect: this.test,
+							onerror: this.test
+						})
+					}
+				}
+			}).catch(err => {
+				console.log('错误信息：',err)
+			})
+			
+			//webSocket连接
+			this.connectSocket(this.userInfo.user.userAccount)
+			this.onSocketOpen()
 		},
 		//页面卸载
 		onUnload() {
 			console.log('onUnload')
 			//隐藏遮罩层
-			this.$refs.indexMask.isShowMask = false
+			this.$refs.indexMask.tapHideMask()
 			//隐藏弹窗
 			this.$refs.indexcontent.hidePop()
 		},
@@ -119,7 +197,7 @@
 		onHide() {
 			console.log('onHide')
 			//隐藏遮罩层
-			this.$refs.indexMask.isShowMask = false
+			this.$refs.indexMask.tapHideMask()
 			//隐藏弹窗
 			this.$refs.indexcontent.hidePop()
 		},
@@ -127,49 +205,19 @@
 			//隐藏弹窗
 			this.$refs.indexcontent.hidePop()
 			if(options.index === 0) {
-				uni.navigateTo({
-					url: "/components/content/remind/Remind"
-				})
+				this.toReminded()
 			}
 			if(options.index === 1) {
 				this.handleShowMask()
 			}
-		},
-		created() {
-			
-			let data = {}
-			//初始化
-			let nim = SDK.NIM.getInstance({
-				debug: true,
-				appKey: 'a59ba9fafb323c6fcc49a5cbf48d369a',
-				account: '1576463907795',
-				token: '5814066d953e7eb41a18362c08ed53fd',
-				db: false,
-				onconnect: res => {
-					this.onConnect(res)
-				},
-				onwillreconnect: res => {
-					this.onWillReconnect(res)
-				},
-				ondisconnect: err => {
-					this.onDisconnect(err)
-				},
-				onerror: err => {
-					this.onError(err)
-				}
-			})
-			
 		}
+		
 	}
 </script>
 
 <style lang="scss">
 	.index {
 		.edit-list {
-			position: fixed;
-			top: 15rpx;
-			right: 15rpx;
-			z-index: 100;
 			
 			//小尖角
 			.edit-list-horn {

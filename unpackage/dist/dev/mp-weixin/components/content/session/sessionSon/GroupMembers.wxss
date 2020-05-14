@@ -33,40 +33,51 @@
   -webkit-flex-flow: row wrap;
           flex-flow: row wrap;
   padding: 15rpx;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .group-members .group-members-list .group-members-item.data-v-a5f2950c {
-    width: 20%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-flow: column nowrap;
-            flex-flow: column nowrap;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    padding: 15rpx 0;
-    box-sizing: border-box;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  width: 20%;
+  padding: 15rpx 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .group-members .group-members-list .group-members-item image.data-v-a5f2950c {
-      width: 110rpx;
-      height: 110rpx;
-      border-radius: 20rpx;
+  width: 110rpx;
+  height: 110rpx;
+  border-radius: 20rpx;
+}
+.group-members .group-members-list .group-members-item .delmember-icon.data-v-a5f2950c {
+  position: absolute;
+  right: 15rpx;
+  top: 15rpx;
+  font-size: 36rpx;
+  color: #DF5000;
 }
 .group-members .group-members-list .group-members-item .group-members-name.data-v-a5f2950c {
-      width: 100%;
-      text-align: center;
-      font-size: 28rpx;
-      color: #989898;
-      padding: 0 10rpx;
-      box-sizing: border-box;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+  width: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  color: #989898;
+  padding: 0 10rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 

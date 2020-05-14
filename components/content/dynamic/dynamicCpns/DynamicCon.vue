@@ -92,26 +92,25 @@
 		
 		<block v-else>
 			<view class="dynamic-loading">
-				玩命加载中...
+				<loading-icon></loading-icon>
 			</view>
 		</block>
 		
 		<!-- 赞与评论按钮组 -->
-		<block v-if="isShowPraise">
-			<view @tap.stop="hidePraiseCommentMask" class="praise-and-comment-mask">
-				<view class="praise-and-comment" :style="popStyle">
-					<view class="praise-item" @tap.stop="toPraise" hover-class="tap-hover-color5">
-						<text class="my-iconfont praise-item-icon">&#xe617;</text>
-						<text v-if="!hasPraise" class="praise-item-text">赞</text>
-						<text v-else class="praise-item-text">取消</text>
-					</view>
-					<view @tap.stop="toComment" class="comment-item" hover-class="tap-hover-color5">
-						<text class="my-iconfont comment-item-icon">&#xe60b;</text>
-						<text class="comment-item-text">评论</text>
-					</view>
+		<view v-if="isShowPraise" @tap.stop="hidePraiseCommentMask" class="praise-and-comment-mask">
+			<view class="praise-and-comment" :class="isShowPraise?'effect-in':'effect-hide'" :style="popStyle">
+				<view class="praise-item" @tap.stop="toPraise" hover-class="tap-hover-color5">
+					<text class="my-iconfont praise-item-icon">&#xe617;</text>
+					<text v-if="!hasPraise" class="praise-item-text">赞</text>
+					<text v-else class="praise-item-text">取消</text>
 				</view>
+				<view @tap.stop="toComment" class="comment-item" hover-class="tap-hover-color5">
+					<text class="my-iconfont comment-item-icon">&#xe60b;</text>
+					<text class="comment-item-text">评论</text>
+				</view>
+				<view class="praise-and-comment-porn"></view>
 			</view>
-		</block>
+		</view>
 		
 		
 		
@@ -133,9 +132,12 @@
 	import { mapState, mapActions } from 'vuex'
 	import { doCommentRequest, doDynamicLikeRequest } from '@/network/dynamic.js'
 		
-	
+	import LoadingIcon from '@/components/content/loading-icon/LoadingIcon.vue'
 	
 	export default {
+		components: {
+			LoadingIcon
+		},
 		data() {
 			return {
 				imgList: [
@@ -152,6 +154,7 @@
 				currentPageUrl: '',
 				//控制点赞与评论按钮组的显示
 				isShowPraise: false,
+				
 				//控制赞与取消
 				hasPraise: false,
 				//当前选中列表下标
@@ -390,22 +393,15 @@
 					console.log('后面的信息：',data)
 					
 				}).exec(list => {
-					console.log(list)
 					for(let i=0; i<list.length; i++)
 					{
 						beforeHeightAll += list[i].height
 					}
-					//计算出最后需要滚动的高度
-					console.log('beforeHeightAll', beforeHeightAll)
-					console.log('height', list[index].height)
-					console.log('top', list[index].top)
 					//选定评论列表的高度
 					let lastHeight = list[index].height
 					//选定评论列表的top
 					let lastTop = list[index].top
 					let lastScrollTop = beforeHeightAll-lastHeight-lastTop
-					console.log(lastScrollTop)
-					
 					
 					this.$nextTick(() => {
 						
@@ -518,17 +514,6 @@
 					url: `/components/content/dynamic/MyDynamic?account=${this.userInfo.user.userAccount}`
 				})
 			},
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			//评论框聚焦
@@ -736,7 +721,7 @@
 		.dynamic-loading {
 			position: fixed;
 			top: 35%;
-			left: 35%;
+			left: 43%;
 		}
 		
 		
@@ -746,7 +731,6 @@
 		.comment-frame {
 			display: flex;
 			align-items: center;
-			align-content: center;
 			
 			position: fixed;
 			bottom: 0;
@@ -833,6 +817,17 @@
 				.comment-item-text {
 					margin-left: 10rpx;
 				}
+			}
+			.praise-and-comment-porn {
+				position: absolute;
+				top: 50%;
+				right: -8rpx;
+				width: 20rpx;
+				height: 20rpx;
+				margin-top: -10rpx;
+				background-color: #2E2E2E;
+				z-index: 1;
+				transform: rotate(45deg);
 			}
 		}
 	}

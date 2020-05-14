@@ -1,2 +1,0 @@
-setCssToHead(["@charset \x22UTF-8\x22;\n",],undefined,{path:"./components/content/myLocation/SearchLocation.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./components/content/myLocation/SearchLocation.wxml') } }));

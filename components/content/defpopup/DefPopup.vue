@@ -38,7 +38,7 @@
 			popList: {
 				type: Array,
 				default() {
-					return []
+					return ['标为关注', '置顶聊天', '删除该聊天']
 				}
 			},
 			//弹窗定位样式
@@ -81,7 +81,7 @@
 				font-size: $uni-font-size-lg;
 				box-sizing: border-box;
 				background-color: #FFFFFF;
-				box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.5);
+				box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.5);
 				line-height: 100rpx;
 				transtion: tranform 0.15s ease-in-out 0s;
 				transform: scale(0, 0);

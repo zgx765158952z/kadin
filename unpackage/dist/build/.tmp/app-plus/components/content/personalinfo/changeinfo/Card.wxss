@@ -81,7 +81,8 @@
                   flex-flow: row nowrap;
 }
 .card .card-middle .card-top .card-top-info .name-and-gender .info-name {
-            font-size: 32rpx;
+            font-size: 36rpx;
+            font-weight: bold;
 }
 .card .card-middle .card-top .card-top-info .name-and-gender .info-gender {
             display: -webkit-box;

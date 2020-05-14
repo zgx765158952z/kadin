@@ -28,11 +28,26 @@
 *
 */
 
+
+
 .icontianjiahaoyou:before {
   content: "\e702";
+}
+/* 复选勾 */
+.iconchecked::before { 
+  content: "\e612";
 }
 
 .iconqunliao:before {
   content: "\e690";
 }
 
+/* 编辑、写 */
+.iconwrite::before {
+	content: "\e609";
+}
+
+/* 事项提醒右下角添加 */
+.iconaddremind::before {
+	content: "\e606";
+}

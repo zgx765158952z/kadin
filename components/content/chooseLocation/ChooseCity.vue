@@ -2,7 +2,7 @@
 	<view class="choose-city">
 		<block v-if="cityList.length > 1">
 			<block v-for="(item, index) in cityList" :key="index">
-				<default-list @tap.native="toChooseLocation(item.name)">
+				<default-list @click.native="toChooseLocation(item.name)">
 					<view slot="def-list-left">
 						{{ item.name }}
 					</view>
@@ -12,7 +12,7 @@
 		
 		<block v-else>
 			<block v-for="(item, index) in cityList[0].districtAndCounty" :key="index">
-				<default-list @tap.native="toChooseLocation(item)">
+				<default-list @click.native="toChooseLocation(item)">
 					<view slot="def-list-left">
 						{{ item }}
 					</view>

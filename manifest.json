@@ -18,7 +18,8 @@
         /* 模块配置 */
         "modules" : {
             "Push" : {},
-            "Maps" : {}
+            "Maps" : {},
+            "SQLite" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -64,9 +65,11 @@
                         "appkey_ios" : "",
                         "appkey_android" : "608521951a4c09c8a4f08bd6744b64c9"
                     }
-                }
+                },
+                "ad" : {}
             }
-        }
+        },
+        "nvueLaunchMode" : "fast"
     },
     /* 快应用特有相关 */
     "quickapp" : {},

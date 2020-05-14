@@ -6,7 +6,7 @@
 					验证帐户信息
 				</view>
 				<view class="login-form">
-					<form @submit="registerClick" @reset="resetClick">
+					<form @submit="registerClick">
 						<view class="my-input">
 							<input @input="handlerUserPhone" @blur="userPhoneInputDefocus" v-model="userPhone" class="def-input" type="number" maxlength="11" name="userPhone" placeholder="手机号/用户名" />
 							<view class="def-input-del" @tap="delInput">

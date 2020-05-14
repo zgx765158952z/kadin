@@ -28,16 +28,16 @@
   padding: 20rpx 40rpx;
 }
 .change-address1 .addr-list .addr-list-top {
-    font-size: 34rpx;
+  font-size: 34rpx;
 }
 .change-address1 .addr-list .addr-list-top .addr-list-top-text {
-      margin-left: 30rpx;
+  margin-left: 30rpx;
 }
 .change-address1 .addr-list .addr-list-bottom {
-    font-size: 32rpx;
-    color: #999;
+  font-size: 32rpx;
+  color: #999;
 }
 .change-address1 .addr-list .addr-list-bottom .addr-list-bottom-text {
-      margin-left: 10rpx;
+  margin-left: 10rpx;
 }
 

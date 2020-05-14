@@ -29,7 +29,7 @@
   background-color: #F0F0F0;
   margin: 0 auto;
 }
-.collection .collectiontop uni-search-bar .uni-searchbar.data-v-622c0ccb {
+.collection .collectioncontent uni-search-bar .uni-searchbar.data-v-622c0ccb {
     -webkit-box-pack: center;
     -webkit-justify-content: center;
             justify-content: center;
@@ -39,11 +39,11 @@
     -webkit-align-items: center;
             align-items: center;
 }
-.collection .collectiontop uni-search-bar .uni-searchbar.data-v-622c0ccb .uni-searchbar__box.data-v-622c0ccb {
+.collection .collectioncontent uni-search-bar .uni-searchbar.data-v-622c0ccb .uni-searchbar__box.data-v-622c0ccb {
       background-color: #FFFFFF;
       height: 75rpx;
 }
-.collection .collectiontop uni-search-bar .uni-searchbar__cancel.data-v-622c0ccb {
+.collection .collectioncontent uni-search-bar .uni-searchbar__cancel.data-v-622c0ccb {
     font-size: 28rpx;
 }
 

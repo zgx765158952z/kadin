@@ -29,12 +29,12 @@
   margin: 0 40rpx !important;
 }
 .change-address2 .def-list .def-list-center {
-    margin-left: 50rpx !important;
-    color: #000000 !important;
+  margin-left: 50rpx !important;
+  color: #000000 !important;
 }
 .change-address2 .def-list .def-list-right image {
-    width: 50rpx !important;
-    height: 50rpx !important;
+  width: 50rpx !important;
+  height: 50rpx !important;
 }
 .change-address2 .first-name-list .def-list-center {
   margin-left: 85rpx !important;

@@ -39,11 +39,11 @@
           align-content: center;
 }
 .def-mask .myMask.data-v-02150d0e {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 99;
-    height: 100%;
-    width: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
 }
 

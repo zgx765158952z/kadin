@@ -26,7 +26,7 @@
 /* 文章场景相关 */
 .profilecon default-list .iconfont-img {
   font-family: 'iconfont';
-  font-size: 60rpx;
+  font-size: 50rpx;
 }
 .profilecon default-list .font-img1 {
   color: #F7A46B;

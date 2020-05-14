@@ -9,7 +9,6 @@
     ]
   },
   "usingComponents": {
-    "collection-top": "/components/content/collection/collectionCpns/CollectionTop",
-    "collection-btm": "/components/content/collection/collectionCpns/CollectionBtm"
+    "collection-content": "/components/content/collection/collectionCpns/CollectionContent"
   }
 }

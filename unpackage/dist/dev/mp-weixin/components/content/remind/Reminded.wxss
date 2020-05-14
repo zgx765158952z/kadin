@@ -1,0 +1,164 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.reminded-item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.reminded-btm {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.center-box {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  border: 1rpx solid rgba(100, 100, 100, 0.1);
+}
+.index-list-active {
+  background-color: #F3F3F3 !important;
+}
+.iconchecked {
+  font-size: 30rpx;
+  color: #fff;
+  background-color: #4CD964;
+}
+.reminded {
+  min-height: 100vh;
+}
+.reminded .reminded-list {
+  padding-bottom: 100rpx;
+}
+.reminded .reminded-list .reminded-item {
+  padding: 30rpx;
+  background-color: #fff;
+}
+.reminded .reminded-list .reminded-item .reminded-item-left {
+  margin: 0 30rpx;
+}
+.reminded .reminded-list .reminded-item .reminded-item-center {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.reminded .reminded-list .reminded-item .reminded-item-center .reminded-item-center-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 30rpx;
+}
+.reminded .reminded-list .reminded-item .reminded-item-center .nosavereminded-title {
+  color: #007AFF;
+}
+.reminded .reminded-list .reminded-item .reminded-item-center .completedreminded-title {
+  color: #999999;
+}
+.reminded .reminded-list .reminded-item .reminded-item-center .obsoletereminded-title {
+  color: #BD2C00;
+}
+.reminded .reminded-list .reminded-item .reminded-item-center .reminded-item-center-time {
+  font-size: 22rpx;
+  color: #999999;
+}
+.reminded .reminded-list .reminded-item:active {
+  background-color: #F3F3F3;
+}
+.reminded .reminded-list .moreRemindTitle {
+  text-align: center;
+}
+.reminded .reminded-btm {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  padding: 30rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0 -3rpx 3rpx #c0c0c0;
+          box-shadow: 0 -3rpx 3rpx #c0c0c0;
+  background-color: #f3f3f3;
+  z-index: 1;
+}
+.reminded .reminded-btm .reminded-btm-first {
+  margin: 0 30rpx;
+}
+.reminded .reminded-btm .reminded-btm-second {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  font-size: 30rpx;
+}
+.reminded .reminded-btm .reminded-btm-third {
+  font-size: 30rpx;
+  color: #DD524D;
+}
+.reminded .reminded-menu {
+  position: fixed;
+  right: -50rpx;
+  bottom: -50rpx;
+  width: 0;
+  height: 0;
+  border: 50rpx solid transparent;
+  border-left-color: #F0AD4E;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.reminded .reminded-menu .iconaddremind {
+  position: absolute;
+  font-size: 30rpx;
+  left: -45rpx;
+  top: 50%;
+  margin-top: -15rpx;
+  color: #fff;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.reminded .reminded-menu:active {
+  border-left-color: #969896;
+}
+

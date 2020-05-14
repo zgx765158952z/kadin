@@ -1,2 +1,0 @@
-setCssToHead(["@charset \x22UTF-8\x22;\n.",[1],"startup { display: -webkit-box; display: -webkit-flex; display: flex; -webkit-box-align: center; -webkit-align-items: center; align-items: center; }\n.",[1],"startup .",[1],"handlerStart { position: fixed; right: ",[0,10],"; top: ",[0,10],"; }\n",],undefined,{path:"./components/content/startup/Startup.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./components/content/startup/Startup.wxml') } }));

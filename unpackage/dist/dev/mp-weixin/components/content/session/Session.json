@@ -2,6 +2,7 @@
   "navigationBarTitleText": "默认好友",
   "navigationBarBackgroundColor": "#FFFFFF",
   "usingComponents": {
-    "def-mask": "/components/content/defmask/DefMask"
+    "def-mask": "/components/content/defmask/DefMask",
+    "loading-icon": "/components/content/loading-icon/LoadingIcon"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "事项提醒",
+  "navigationBarTitleText": "添加提醒",
   "usingComponents": {
     "mx-date-picker": "/components/mx-datepicker/mx-datepicker"
   }

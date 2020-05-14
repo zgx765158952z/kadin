@@ -1,6 +1,6 @@
 <template>
 	<view class="profile set-bgc">
-		<profile-head :nickname="userInfo.user.nickname" :userAccount="userInfo.user.userAccount" @tap.native="toPersonalInfo"></profile-head>
+		<profile-head :nickname="userInfo.user.nickname" :userAccount="userInfo.user.userAccount" @click.native="toPersonalInfo"></profile-head>
 		<profile-con></profile-con>
 		<profile-btm></profile-btm>
 		<!-- #ifdef APP-PLUS -->

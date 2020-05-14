@@ -1,1 +1,1 @@
-<view class="contacts set-bgc"><contacts-con vue-id="1" bind:__l="__l"></contacts-con><def-mask class="index-def-mask vue-ref" vue-id="2" data-ref="contactsMask" bind:__l="__l"></def-mask></view>
+<view class="contacts set-bgc"><contacts-con vue-id="e8b1ac40-1" bind:__l="__l"></contacts-con><def-mask class="index-def-mask vue-ref" vue-id="e8b1ac40-2" data-ref="contactsMask" bind:__l="__l"></def-mask></view>

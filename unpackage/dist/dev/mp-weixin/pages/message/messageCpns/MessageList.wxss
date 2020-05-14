@@ -27,27 +27,26 @@
 .messagelist.data-v-9d0f6d92 {
   height: 100vh;
 }
-.messagelist default-list .messagelist-img.data-v-9d0f6d92 {
-    font-family: 'iconfont';
-    font-size: 56rpx;
+.messagelist .messagelist-img.data-v-9d0f6d92 {
+  font-size: 56rpx;
 }
-.messagelist default-list .item-img1.data-v-9d0f6d92 {
-    color: #7C32C9;
+.messagelist .item-img1.data-v-9d0f6d92 {
+  color: #7C32C9;
 }
-.messagelist default-list .item-img2.data-v-9d0f6d92 {
-    color: #2E77ED;
+.messagelist .item-img2.data-v-9d0f6d92 {
+  color: #2E77ED;
 }
-.messagelist default-list .item-img3.data-v-9d0f6d92 {
-    color: #6B400D;
+.messagelist .item-img3.data-v-9d0f6d92 {
+  color: #6B400D;
 }
-.messagelist default-list .item-img4.data-v-9d0f6d92 {
-    color: #D7CAFF;
+.messagelist .item-img4.data-v-9d0f6d92 {
+  color: #D7CAFF;
 }
-.messagelist default-list .item-img5.data-v-9d0f6d92 {
-    color: #4E30DC;
+.messagelist .item-img5.data-v-9d0f6d92 {
+  color: #4E30DC;
 }
-.messagelist default-list .messagelist-title.data-v-9d0f6d92 {
-    color: #333;
-    font-size: 32rpx;
+.messagelist .messagelist-title.data-v-9d0f6d92 {
+  color: #333;
+  font-size: 32rpx;
 }
 

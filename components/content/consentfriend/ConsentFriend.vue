@@ -1,6 +1,6 @@
 <template>
 	<view class="consentfriend set-bgc">
-		<default-list class="consentfriend-def-list" noBorderBtm="true">
+		<default-list class="consentfriend-def-list" :noBorderBtm="true">
 			<view slot="def-list-left" class="def-list-left">
 				<image src="/static/image/global/phone.png"></image>
 			</view>

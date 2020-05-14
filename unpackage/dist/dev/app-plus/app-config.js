@@ -1,1 +1,153 @@
-"use weex:vue";var __wxConfig = {"debug":false,"appname":"kadingapp","entryPagePath":"pages/index/index.html","page":{"pages/index/index.html":{"window":{"navigationBarTitleText":"卡丁","titleNView":{"buttons":[{"fontSrc":"/static/iconfont/iconfont.ttf","text":"   ","width":"auto","float":"left","fontSize":"20px"},{"fontSrc":"/static/iconfont/iconfont.ttf","text":"   ","width":"auto","float":"right","fontSize":"20px"}]},"scrollIndicator":"none","usingComponents":{"index-content":"/pages/index/indexCpns/IndexContent","def-mask":"/components/content/defmask/DefMask"}}},"components/content/chooseFriend/ChooseFriend.html":{"window":{"navigationBarTitleText":"选择好友","navigationBarBackgroundColor":"#FFFFFF","titleNView":{"buttons":[{"text":"确定(0) ","float":"right","width":"auto","fontSize":"17px","color":"#3399FF"}]},"scrollIndicator":"none","usingComponents":{}}},"components/content/session/sessionSon/GroupMembers.html":{"window":{"navigationBarTitleText":"群成员","navigationBarBackgroundColor":"#FFFFFF","scrollIndicator":"none","usingComponents":{}}},"components/content/defmodify/DefModify.html":{"window":{"navigationBarTitleText":"修改信息","navigationBarBackgroundColor":"#FFFFFF","titleNView":{"buttons":[{"text":"保存  ","float":"right","width":"auto","fontSize":"17px","color":"#3399FF"}]},"usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/session/sessionSon/ChatFriendSetting.html":{"window":{"navigationBarTitleText":"默认好友","navigationBarBackgroundColor":"#FFFFFF","usingComponents":{"head-img-item":"/components/content/defimglist/HeadImgItem","default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/session/sessionSon/GroupInfo.html":{"window":{"navigationBarTitleText":"讨论组","navigationBarBackgroundColor":"#FFFFFF","scrollIndicator":"none","usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/session/Session.html":{"window":{"navigationBarTitleText":"默认好友","navigationBarBackgroundColor":"#FFFFFF","titleNView":{"buttons":[{"fontSrc":"/static/iconfont/iconfont.ttf","text":" ","width":"auto","float":"right","fontSize":"21px","color":"#888"},{"fontSrc":"/static/iconfont/iconfont.ttf","text":"  ","width":"auto","float":"right","fontSize":"21px","color":"#888"}]},"scrollIndicator":"none","usingComponents":{"def-mask":"/components/content/defmask/DefMask"}}},"components/content/login/login.html":{"window":{"navigationBarTitleText":"","titleNView":{"buttons":[{"text":"游客   ","float":"right","fontSize":"30rpx","width":"auto","color":"#666"}]},"usingComponents":{}}},"components/content/changefriendinfo/ChangeLabel.html":{"window":{"navigationBarTitleText":"添加标签","titleNView":{"buttons":[{"text":"保存  ","float":"right","width":"auto","fontSize":"17px","color":"#3399FF"}]},"usingComponents":{}}},"components/content/collection/collectionCpns/CollectSearch.html":{"window":{"navigationBarTitleText":"我的收藏","usingComponents":{}}},"pages/profile/profile.html":{"window":{"navigationBarTitleText":"我的","titleNView":false,"usingComponents":{"profile-head":"/pages/profile/profileCpns/ProfileHead","profile-con":"/pages/profile/profileCpns/ProfileCon","profile-btm":"/pages/profile/profileCpns/ProfileBtm"}}},"components/content/remind/Remind.html":{"window":{"navigationBarTitleText":"事项提醒","titleNView":{"buttons":[{"text":"完成  ","float":"right","width":"auto","fontSize":"17px","color":"#3399FF"}]},"usingComponents":{"mx-date-picker":"/components/mx-datepicker/mx-datepicker"}}},"components/content/changefriendinfo/ChangeRemark.html":{"window":{"navigationBarTitleText":"设置备注和标签","titleNView":{"buttons":[{"text":"完成  ","float":"right","width":"auto","fontSize":"17px","color":"#3399FF"}]},"usingComponents":{}}},"components/content/collection/collection.html":{"window":{"navigationBarTitleText":"收藏","titleNView":{"buttons":[{"type":"favorite","float":"right"}]},"usingComponents":{"collection-content":"/components/content/collection/collectionCpns/CollectionContent"}}},"components/content/collection/collectionCpns/CollectChain.html":{"window":{"navigationBarTitleText":"外链","titleNView":false,"usingComponents":{}}},"components/content/startup/Startup.html":{"window":{"titleNView":false,"usingComponents":{}}},"pages/contacts/contacts.html":{"window":{"navigationBarTitleText":"通讯录","titleNView":{"buttons":[{"fontSrc":"/static/iconfont/iconfont.ttf","text":" ","width":"auto","float":"right","fontSize":"20px"}]},"scrollIndicator":"none","usingComponents":{"contacts-con":"/pages/contacts/contactsCpns/ContactsCon","contacts-index":"/pages/contacts/contactsCpns/ContactsIndex","def-mask":"/components/content/defmask/DefMask"}}},"components/content/myLocation/SearchLocation.html":{"window":{"titleNView":{"searchInput":[{"autoFocus":"true","placeholder":"搜索附近位置"}],"buttons":[{"text":"取消  ","float":"right","width":"auto","fontSize":"17px","color":"#3399FF"}]},"usingComponents":{}}},"components/content/publish/Publish.html":{"window":{"navigationBarTitleText":"发表动态","titleNView":{"buttons":[{"text":"完成  ","float":"right","width":"auto","fontSize":"17px","color":"#3399FF","background":"#0000FF"}]},"usingComponents":{"head-img-item":"/components/content/defimglist/HeadImgItem"}}},"components/content/dynamic/Dynamic.html":{"window":{"navigationBarTitleText":"朋友动态","titleNView":{"buttons":[{"fontSrc":"/static/iconfont/iconfont.ttf","text":"  ","float":"right","width":"auto","fontSize":"17px"}]},"scrollIndicator":"none","usingComponents":{"dynamic-con":"/components/content/dynamic/dynamicCpns/DynamicCon"}}},"components/content/dynamic/MyDynamic.html":{"window":{"navigationBarTitleText":"我的动态","scrollIndicator":"none","usingComponents":{}}},"components/content/myLocation/LocationInfo.html":{"window":{"navigationBarTitleText":"所在位置","titleNView":{"buttons":[{"fontSrc":"/static/iconfont/iconfont.ttf","text":" ","width":"auto","float":"right","fontSize":"20px"}]},"usingComponents":{"head-img-item":"/components/content/defimglist/HeadImgItem"}}},"components/content/register/register2.html":{"window":{"navigationBarTitleText":"","usingComponents":{}}},"components/content/register/register1.html":{"window":{"navigationBarTitleText":"","navigationBarBackgroundColor":"#F7F7F7","usingComponents":{}}},"components/content/personalinfo/PersonalInfo.html":{"window":{"navigationBarTitleText":"个人信息","usingComponents":{}}},"components/content/chooseLocation/ChooseLocation.html":{"window":{"navigationBarTitleText":"选择地区","usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/chooseLocation/ChooseProvince.html":{"window":{"navigationBarTitleText":"选择省份","usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/chooseLocation/ChooseCity.html":{"window":{"navigationBarTitleText":"选择区县","usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/personalinfo/changeinfo/ChangeAddress1.html":{"window":{"navigationBarTitleText":"我的地址","titleNView":{"buttons":[{"text":"添加  ","float":"right","width":"auto","fontSize":"17px","color":"#666"}]},"usingComponents":{}}},"components/content/personalinfo/changeinfo/ChangeAddress2.html":{"window":{"navigationBarTitleText":"新增地址","titleNView":{"buttons":[{"text":"保存  ","float":"right","width":"auto","fontSize":"17px","color":"#666"}]},"usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/personalinfo/changeinfo/Card.html":{"window":{"navigationBarTitleText":"二维码名片","titleNView":{"buttons":[{"type":"menu","float":"right","width":"auto"}]},"usingComponents":{}}},"components/content/personalinfo/changeinfo/moreCpns/Signature.html":{"window":{"navigationBarTitleText":"个性签名","titleNView":{"buttons":[{"text":"保存  ","float":"right","width":"auto","fontSize":"17px","color":"#666"}]},"usingComponents":{}}},"components/content/personalinfo/changeinfo/moreCpns/GenderInfo.html":{"window":{"navigationBarTitleText":"设置性别","titleNView":{"buttons":[{"text":"保存  ","float":"right","width":"auto","fontSize":"17px","color":"#666"}]},"usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/personalinfo/changeinfo/ChangeMoreInfo.html":{"window":{"navigationBarTitleText":"更多信息","usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/personalinfo/changeinfo/ChangeName.html":{"window":{"navigationBarTitleText":"更改名字","titleNView":{"buttons":[{"text":"保存  ","float":"right","width":"auto","fontSize":"17px","color":"#666"}]},"usingComponents":{}}},"components/content/changepwd/changepwd1.html":{"window":{"navigationBarTitleText":"","usingComponents":{}}},"components/content/addfriend/AddFriend.html":{"window":{"navigationBarTitleText":"添加朋友","usingComponents":{"head-img-item":"/components/content/defimglist/HeadImgItem","uni-search-bar":"/components/uni-search-bar/uni-search-bar","uni-list":"/components/uni-list/uni-list","uni-list-item":"/components/uni-list-item/uni-list-item"}}},"components/content/consentfriend/ConsentFriend.html":{"window":{"navigationBarTitleText":"新的朋友","titleNView":{"buttons":[{"text":"添加朋友  ","float":"right","width":"auto","fontSize":"34rpx","color":"#666"}]},"usingComponents":{"head-img-item":"/components/content/defimglist/HeadImgItem","default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/addfriend/AddfriendInfo.html":{"window":{"navigationBarTitleText":"","navigationBarBackgroundColor":"#FFFFFF","titleNView":{"buttons":[{"type":"menu","float":"right","width":"auto"}]},"usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/applyfriend/ApplyFriend.html":{"window":{"navigationBarTitleText":"","navigationBarBackgroundColor":"#FFFFFF","titleNView":{"buttons":[{"text":"完成  ","float":"right","width":"auto","fontSize":"17px","color":"#666"}]},"usingComponents":{}}},"components/content/friend/FriendInfo.html":{"window":{"navigationBarTitleText":"","navigationBarBackgroundColor":"#FFFFFF","titleNView":{"buttons":[{"type":"menu","float":"right","width":"auto"}]},"usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"pages/message/message.html":{"window":{"navigationBarTitleText":"消息","usingComponents":{"message-list":"/pages/message/messageCpns/MessageList"}}},"components/content/payment/PayMent.html":{"window":{"navigationBarTitleText":"支付","usingComponents":{}}},"components/content/setting/Setting.html":{"window":{"navigationBarTitleText":"设置","usingComponents":{"default-list":"/components/content/defaultlist/DefaultList"}}},"components/content/changepwd/changepwd2.html":{"window":{"navigationBarTitleText":"","usingComponents":{}}}},"global":{"window":{"navigationBarTextStyle":"black","navigationBarTitleText":"uni-app","navigationBarBackgroundColor":"#F7F7F7","backgroundColor":"#F7F7F7","navigationBarShadow":{"colorType":"grey"}}},"tabBar":{"color":"#7A7E83","selectedColor":"#3399FF","backgroundColor":"#ffffff","borderStyle":"black","list":[{"pagePath":"pages/index/index.html","text":"首页","iconPath":"static/image/tabBar/home.png","selectedIconPath":"static/image/tabBar/home_active.png"},{"pagePath":"pages/contacts/contacts.html","text":"通讯录","iconPath":"static/image/tabBar/contacts.png","selectedIconPath":"static/image/tabBar/contacts_active.png"},{"pagePath":"pages/message/message.html","text":"消息","iconPath":"static/image/tabBar/message.png","selectedIconPath":"static/image/tabBar/message_active.png"},{"pagePath":"pages/profile/profile.html","text":"我的","iconPath":"static/image/tabBar/profile.png","selectedIconPath":"static/image/tabBar/profile_active.png"}],"position":"bottom"},"networkTimeout":{"request":60000,"connectSocket":60000,"uploadFile":60000,"downloadFile":60000},"platform":"devtools","pages":["pages/index/index","components/content/chooseFriend/ChooseFriend","components/content/session/sessionSon/GroupMembers","components/content/defmodify/DefModify","components/content/session/sessionSon/ChatFriendSetting","components/content/session/sessionSon/GroupInfo","components/content/session/Session","components/content/login/login","components/content/changefriendinfo/ChangeLabel","components/content/collection/collectionCpns/CollectSearch","pages/profile/profile","components/content/remind/Remind","components/content/changefriendinfo/ChangeRemark","components/content/collection/collection","components/content/collection/collectionCpns/CollectChain","components/content/startup/Startup","pages/contacts/contacts","components/content/myLocation/SearchLocation","components/content/publish/Publish","components/content/dynamic/Dynamic","components/content/dynamic/MyDynamic","components/content/myLocation/LocationInfo","components/content/register/register2","components/content/register/register1","components/content/personalinfo/PersonalInfo","components/content/chooseLocation/ChooseLocation","components/content/chooseLocation/ChooseProvince","components/content/chooseLocation/ChooseCity","components/content/personalinfo/changeinfo/ChangeAddress1","components/content/personalinfo/changeinfo/ChangeAddress2","components/content/personalinfo/changeinfo/Card","components/content/personalinfo/changeinfo/moreCpns/Signature","components/content/personalinfo/changeinfo/moreCpns/GenderInfo","components/content/personalinfo/changeinfo/ChangeMoreInfo","components/content/personalinfo/changeinfo/ChangeName","components/content/changepwd/changepwd1","components/content/addfriend/AddFriend","components/content/consentfriend/ConsentFriend","components/content/addfriend/AddfriendInfo","components/content/applyfriend/ApplyFriend","components/content/friend/FriendInfo","pages/message/message","components/content/payment/PayMent","components/content/setting/Setting","components/content/changepwd/changepwd2"],"nvueCompiler":"uni-app","renderer":"auto","splashscreen":{"alwaysShowBeforeRender":true,"autoclose":false},"compilerVersion":"2.5.1","usingComponents":{}};
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/ 		var executeModules = data[2];
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 		// add entry modules from loaded chunk to deferred list
+/******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
+/******/
+/******/ 		// run deferred modules when all chunks ready
+/******/ 		return checkDeferredModules();
+/******/ 	};
+/******/ 	function checkDeferredModules() {
+/******/ 		var result;
+/******/ 		for(var i = 0; i < deferredModules.length; i++) {
+/******/ 			var deferredModule = deferredModules[i];
+/******/ 			var fulfilled = true;
+/******/ 			for(var j = 1; j < deferredModule.length; j++) {
+/******/ 				var depId = deferredModule[j];
+/******/ 				if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 			}
+/******/ 			if(fulfilled) {
+/******/ 				deferredModules.splice(i--, 1);
+/******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	}
+/******/
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"app-config": 0
+/******/ 	};
+/******/
+/******/ 	var deferredModules = [];
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	var jsonpArray = this["webpackJsonp"] = this["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
+/******/
+/******/
+/******/ 	// run deferred modules from other chunks
+/******/ 	checkDeferredModules();
+/******/ })
+/************************************************************************/
+/******/ ([]);

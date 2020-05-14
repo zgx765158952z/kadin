@@ -20,7 +20,7 @@
 			</view>
 		</default-list>
 		
-		<default-list @tap.native="changeMsgRemind" :myRight="false" noBorderBtm="true">
+		<default-list @click.native="changeMsgRemind" :myRight="false" :noBorderBtm="true">
 			<view slot="def-list-left">
 				消息提醒
 			</view>

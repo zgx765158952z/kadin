@@ -1,1 +1,1 @@
-<view class="dynamic"><block wx:if="{{hackReset}}"><dynamic-con vue-id="1" dynamicList="{{dynamicList}}" bind:__l="__l"></dynamic-con></block></view>
+<view class="dynamic"><dynamic-con class="vue-ref" vue-id="79fdf810-1" data-ref="dynamiccon" bind:__l="__l"></dynamic-con></view>

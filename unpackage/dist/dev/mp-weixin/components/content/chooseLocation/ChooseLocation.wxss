@@ -29,19 +29,19 @@
   background-color: #F7F7F7;
 }
 .choose-location .choose-location-head {
-    padding-top: 20rpx;
-    border-top: 1rpx solid rgba(100, 100, 100, 0.1);
+  padding-top: 20rpx;
+  border-top: 1rpx solid rgba(100, 100, 100, 0.1);
 }
 .choose-location .choose-location-head .current-location-list .def-list-left-text-loading {
-      color: #4CD964;
+  color: #4CD964;
 }
 .choose-location .choose-location-content {
-    padding-top: 20rpx;
+  padding-top: 20rpx;
 }
 .choose-location .choose-category-text {
-    color: #999;
-    font-size: 32rpx;
-    margin: 15rpx 30rpx;
+  color: #999;
+  font-size: 32rpx;
+  margin: 15rpx 30rpx;
 }
 .def-list-left-text {
   margin-left: 10rpx;

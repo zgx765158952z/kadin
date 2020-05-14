@@ -45,7 +45,7 @@
   z-index: 199;
 }
 .contactsindex .letters-index-item.data-v-083c3741 {
-    text-align: center;
-    border-radius: 12rpx;
+  text-align: center;
+  border-radius: 12rpx;
 }
 

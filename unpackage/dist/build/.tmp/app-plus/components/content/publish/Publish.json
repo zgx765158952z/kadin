@@ -3,11 +3,12 @@
   "titleNView": {
     "buttons": [
       {
-        "text": "发表  ",
+        "text": "完成  ",
         "float": "right",
         "width": "auto",
         "fontSize": "17px",
-        "color": "#3399FF"
+        "color": "#3399FF",
+        "background": "#0000FF"
       }
     ]
   },

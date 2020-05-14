@@ -1,1 +1,1 @@
-<view class="collection"><collection-top class="collectiontop" vue-id="1" bind:__l="__l"></collection-top><collection-btm vue-id="2" bind:__l="__l"></collection-btm></view>
+<view class="collection"><collection-content class="collectioncontent" vue-id="1d7444d8-1" myCollectList="{{myCollectList}}" bind:__l="__l"></collection-content></view>

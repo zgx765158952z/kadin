@@ -2,6 +2,34 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		
 		{
+			"path": "components/content/startup/Startup",
+			"style": {
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		},
+		
+		{
+			"path": "components/content/login/login",
+			"style": {
+				"navigationBarTitleText": "",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text": "游客   ",
+								"float": "right",
+								"fontSize":"30rpx",
+								"width": "auto",
+								"color": "#666"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "卡丁",
@@ -29,6 +57,97 @@
 				}
 			}
 		},
+		
+		
+		
+		
+		
+		
+		
+		{
+			"path": "components/content/session/Session",
+			"style": {
+				"navigationBarTitleText": "默认好友",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"\ue702 ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"21px",
+								"color":"#888"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/session/content/HistoryMsg",
+			"style": {
+				"navigationBarBackgroundColor":"#F7F7F7",
+				
+				
+				"titleNView": {
+					"autoBackButton": false,
+					"buttons": [
+						{
+							"text":"取消",
+							"width": "auto",
+							"float":"right",
+							"fontSize":"14px",
+							"color": "#0077AA"
+						}
+					],
+					"searchInput": {
+						"backgroundColor": "#fff",
+						"align": "left",
+						"autoFocus": true,
+						"placeholder": "搜索",
+						"placeholderColor": "#999",
+						"borderRadius": "6px"
+					}
+				}
+			}
+			
+		},
+		
+		
+		
+		
+		{
+			"path": "components/content/session/sessionSon/addGroupMember",
+			"style": {
+				"navigationBarTitleText": "邀请好友进群",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"确定(0) ",
+								"float": "right",
+								"width": "auto",
+								"fontSize":"17px",
+								"color":"#3399FF"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		
+		
 		{
 			"path": "components/content/chooseFriend/ChooseFriend",
 			"style": {
@@ -51,6 +170,7 @@
 				}
 			}
 		},
+		
 		
 		
 		
@@ -120,56 +240,8 @@
 		
 		
 		
-		{
-			"path": "components/content/session/Session",
-			"style": {
-				"navigationBarTitleText": "默认好友",
-				"navigationBarBackgroundColor":"#FFFFFF",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text":"\ue702 ",
-								"width": "auto",
-								"float":"right",
-								"fontSize":"21px",
-								"color":"#888"
-							},
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text":"\ue66d  ",
-								"width": "auto",
-								"float":"right",
-								"fontSize":"21px",
-								"color":"#888"
-							}
-						]
-					},
-					//隐藏滚动条
-					"scrollIndicator":"none"
-				}
-			}
-		},
-		{
-			"path": "components/content/login/login",
-			"style": {
-				"navigationBarTitleText": "",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [
-							{
-								"text": "游客   ",
-								"float": "right",
-								"fontSize":"30rpx",
-								"width": "auto",
-								"color": "#666"
-							}
-						]
-					}
-				}
-			}
-		},
+		
+		
 		{
 			"path": "components/content/changefriendinfo/ChangeLabel",
 			"style": {
@@ -211,9 +283,30 @@
 		
 		
 		{
-			"path": "components/content/remind/Remind",
+			"path": "components/content/remind/Reminded",
 			"style": {
 				"navigationBarTitleText": "事项提醒",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSrc": "/static/iconfont/iconfont.ttf",
+								"text":"\ue691   ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"20px"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+			"path": "components/content/remind/Remind",
+			"style": {
+				"navigationBarTitleText": "添加提醒",
 				"app-plus": {
 					"titleNView": {
 						"buttons": [
@@ -229,7 +322,6 @@
 				}
 			}
 		},
-		
 		
 		{
 			"path": "components/content/changefriendinfo/ChangeRemark",
@@ -284,14 +376,7 @@
 		},
 		
 		
-		{
-			"path": "components/content/startup/Startup",
-			"style": {
-				"app-plus": {
-					"titleNView": false
-				}
-			}
-		},
+		
 		
 		{
 			"path": "pages/contacts/contacts",
@@ -745,8 +830,8 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F7F7F7",
 		"backgroundColor": "#F7F7F7",
-		"navigationBarShadow": {
-			"colorType": "grey"
+		"app-plus": {
+			"softinputMode": "adjustResize"
 		}
 	},
 	"tabBar": {

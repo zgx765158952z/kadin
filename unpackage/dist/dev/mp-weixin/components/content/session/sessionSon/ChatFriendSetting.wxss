@@ -30,32 +30,32 @@
   background-color: #F7F7F7;
 }
 .chat-friend-setting .chat-friend-setting-head image.data-v-7f9becac {
-    width: 90rpx;
-    height: 90rpx;
-    border-radius: 100%;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 100%;
 }
 .chat-friend-setting .chat-setting-btm.data-v-7f9becac {
-    margin: 30rpx 0;
-    background-color: #FFFFFF;
+  margin: 30rpx 0;
+  background-color: #FFFFFF;
 }
 .chat-friend-setting .chat-setting-btm .clean-chat-record.data-v-7f9becac {
-      position: relative;
-      margin-bottom: 1rpx;
+  position: relative;
+  margin-bottom: 1rpx;
 }
 .chat-friend-setting .chat-setting-btm .clean-chat-record.data-v-7f9becac::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -1rpx;
-        width: 100%;
-        height: 1rpx;
-        background-color: rgba(100, 100, 100, 0.1);
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1rpx;
+  width: 100%;
+  height: 1rpx;
+  background-color: rgba(100, 100, 100, 0.1);
 }
 .chat-friend-setting .chat-setting-btm > view.data-v-7f9becac {
-      text-align: center;
-      padding: 30rpx 0;
-      color: #FA5251;
-      font-size: 32rpx;
-      font-weight: 900;
+  text-align: center;
+  padding: 30rpx 0;
+  color: #FA5251;
+  font-size: 32rpx;
+  font-weight: 900;
 }
 

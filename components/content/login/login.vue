@@ -6,7 +6,7 @@
 					登录帐户
 				</view>
 				<view class="login-form">
-					<form @submit="loginClick" @reset="resetClick">
+					<form @submit="loginClick">
 						<view class="my-input">
 							<input @input="handlerUserPhone" v-model="userPhone" class="def-input" type="text" maxlength="11" name="userPhone" placeholder="手机号/用户名" />
 							<view class="def-input-del" @tap.stop="delUserPhone">
@@ -46,10 +46,15 @@
 
 <script>
 	import { doLogin } from '@/network/login.js'
-	import { isPoneAvailable, isPasswordAvailable} from '@/common/index.js'
+	import { 
+		//#ifdef APP-PLUS
+		getCid,
+		//#endif
+		isPoneAvailable, 
+		isPasswordAvailable
+	} from '@/common/index.js'
 	
-	import { mapMutations, mapActions } from 'vuex'
-	
+	import { mapState, mapMutations, mapActions } from 'vuex'
 	
 	import baseUrl  from '@/common/helper.js'
 	
@@ -70,7 +75,16 @@
 			...mapActions(['doGetMyUserInfo']),
 			loginClick(e) {
 				const value = e.detail.value;
+				//#ifdef APP-PLUS
+				const cid = getCid()
+				//#endif
 				const userData = {
+					//#ifdef APP-PLUS
+					cid,
+					//#endif
+					//#ifdef MP-WEIXIN
+					cid: '9f5ebffc66c1c4627abd08f2f782e10a',
+					//#endif
 					userPhone: value.userPhone,
 					userPassword: value.userPassword
 				}

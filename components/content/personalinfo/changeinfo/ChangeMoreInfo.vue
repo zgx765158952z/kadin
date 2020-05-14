@@ -1,6 +1,6 @@
 <template>
 	<view class="ChangeMoreInfo">
-		<default-list @tap.native="toGenderInfo" class="Info-list">
+		<default-list @click.native="toGenderInfo" class="Info-list">
 			<view slot="def-list-left">
 				性别
 			</view>
@@ -9,7 +9,7 @@
 			</view>
 		</default-list>
 		
-		<default-list @tap.native="toChooseLocation" class="Info-list">
+		<default-list @click.native="toChooseLocation" class="Info-list">
 			<view slot="def-list-left">
 				地区
 			</view>
@@ -18,7 +18,7 @@
 			</view>
 		</default-list>
 		
-		<default-list noBorderBtm="false" @tap.native="toSignature" class="Info-list">
+		<default-list @click.native="toSignature" class="Info-list">
 			<view slot="def-list-left">
 				个性签名
 			</view>

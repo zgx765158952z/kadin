@@ -1,6 +1,6 @@
 <template>
 	<view class="GenderInfo">
-		<default-list @tap.native="changeCheckde(index)" v-for="(item, index) in genderChecked" :key="index" class="info-list" :myRight="false">
+		<default-list @click.native="changeCheckde(index)" v-for="(item, index) in genderChecked" :key="index" class="info-list" :myRight="false">
 			<view slot="def-list-left">
 				{{ item.value }}
 			</view>

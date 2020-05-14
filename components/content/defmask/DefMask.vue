@@ -6,39 +6,28 @@
 		<slot >
 			<!-- 弹出窗口插槽 -->
 		</slot>
-		<view v-if="isShowMask" class="popup">
+		<view v-if="isShowMask" class="popup" :class="animationShow?'effect-in':'effect-hide'" :style="fixedStyle">
 			<slot name="popup-list">
 				
 			</slot>
 		</view>
-		<!-- <view class="edit-list">
-			<view class="edit-list-item edit-list-item-start" @click="toAddfriend">
-				<image class="edit-list-item-img" src="/static/image/home/addFriend.png" mode=""></image>
-				<view class="edit-list-item-text">添加好友</view>
-			</view>
-			<view class="edit-list-item">
-				<image class="edit-list-item-img" src="/static/image/home/addGroup.png" mode=""></image>
-				<text class="edit-list-item-text">添加群聊</text>
-			</view>
-			<view class="edit-list-item">
-				<image class="edit-list-item-img" src="/static/image/home/sweepCode.png" mode=""></image>
-				<text class="edit-list-item-text">扫一扫</text>
-			</view>
-			<view class="edit-list-item edit-list-item-last">
-				<image class="edit-list-item-img" src="/static/image/home/mail.png" mode=""></image>
-				<text class="edit-list-item-text">帮助与反馈</text>
-			</view>
-		</view> -->
 	</view>
 </template>
 
 <script>
 	export default {
 		props: {
+			fixedStyle: {
+				type: String,
+				default() {
+					return 'position: fixed; top: 16rpx; right: 16rpx; z-index: 100;'
+				}
+			}
 		},
 		data() {
 			return {
-				isShowMask: false
+				isShowMask: false,
+				animationShow: false
 			}
 		},
 		methods: {
@@ -53,16 +42,16 @@
 			
 			//显示遮罩层
 			tapShowMask() {
-				setTimeout(() => {
-					this.isShowMask = true
-				}, 200)
+				this.animationShow = true
+				this.isShowMask = true
 			},
 			
 			//隐藏遮罩层
 			tapHideMask(e) {
+				this.animationShow = false
 				setTimeout(() => {
 					this.isShowMask = false
-				}, 200)
+				}, 300)
 			},
 			
 			

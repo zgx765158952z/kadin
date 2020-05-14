@@ -170,87 +170,176 @@
   -webkit-box-direction: reverse;
   -webkit-flex-flow: column-reverse nowrap;
           flex-flow: column-reverse nowrap;
-  position: absolute;
   background-color: #F7F7F7;
-  overflow-y: scroll;
 }
-.session {
-  position: relative;
-  height: 100vh;
+@keyframes voiceMove {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+@-webkit-keyframes voiceMove {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+.session .session-loading {
+  position: fixed;
+  top: 35%;
+  left: 40%;
 }
 .session .msg-list {
-    padding: 30rpx;
-    font-size: 32rpx;
-    box-sizing: border-box;
+  padding: 10rpx 30rpx;
+  font-size: 32rpx;
+  box-sizing: border-box;
 }
 .session .msg-list .msg-list-time {
-      text-align: center;
-      margin: 15rpx 0;
+    text-align: center;
+    margin: 15rpx 0;
 }
 .session .msg-list .msg-list-time .time-text, .session .msg-list .msg-list-time .withdraw-text {
-        padding: 3rpx 15rpx;
-        border-radius: 24rpx;
-        background-color: rgba(192, 192, 192, 0.5);
-        color: #FFFFFF;
-        font-size: 28rpx;
+      padding: 3rpx 15rpx;
+      border-radius: 24rpx;
+      background-color: rgba(192, 192, 192, 0.5);
+      color: #FFFFFF;
+      font-size: 28rpx;
 }
 .session .msg-list .msg-list-time .time-text {
-        font-weight: 900;
+      font-weight: 900;
 }
 .session .msg-list .msg-item .my-item .msg-item-img, .session .msg-list .msg-item .friend-item .msg-item-img {
-      width: 90rpx;
-      height: 90rpx;
-      border-radius: 8rpx;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 8rpx;
 }
 .session .msg-list .msg-item .my-item .friend-item-msg, .session .msg-list .msg-item .friend-item .friend-item-msg {
-      margin-left: 30rpx;
+    margin-left: 30rpx;
 }
 .session .msg-list .msg-item .my-item .my-item-msg, .session .msg-list .msg-item .friend-item .my-item-msg {
-      margin-right: 30rpx;
+    margin-right: 30rpx;
 }
 .session .msg-list .msg-item .my-item .item-msg, .session .msg-list .msg-item .friend-item .item-msg {
-      max-width: 70%;
+    max-width: 70%;
 }
 .session .msg-list .msg-item .my-item .item-msg .friend-name, .session .msg-list .msg-item .friend-item .item-msg .friend-name {
-        display: inline-block;
-        margin: 5rpx 0 5rpx 8rpx;
-        font-size: 24rpx;
+      display: inline-block;
+      margin: 5rpx 0 5rpx 8rpx;
+      font-size: 24rpx;
 }
 .session .msg-list .msg-item .my-item .item-msg .msg, .session .msg-list .msg-item .friend-item .item-msg .msg {
-        position: relative;
-        color: #333;
-        padding: 14rpx 22rpx;
-        box-sizing: border-box;
-        border-radius: 26rpx;
-        z-inde: 1;
+      position: relative;
+      color: #333;
+      padding: 14rpx 22rpx;
+      box-sizing: border-box;
+      border-radius: 26rpx;
+      z-inde: 1;
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .msg-voice, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-flow: row nowrap;
+                flex-flow: row nowrap;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+                justify-content: space-between;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+                align-items: center;
+        -webkit-align-content: center;
+                align-content: center;
+        width: 200rpx;
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .msg-voice .msg-voice-icon, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice .msg-voice-icon {
+          position: relative;
+          margin-left: 30rpx;
+          width: 40rpx;
+          height: 40rpx;
+          -webkit-transform: rotate(-45deg);
+                  transform: rotate(-45deg);
+          overflow: hidden;
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .msg-voice .msg-voice-icon .curve, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice .msg-voice-icon .curve {
+            position: absolute;
+            border: 6rpx solid #333;
+            border-radius: 50%;
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .msg-voice .msg-voice-icon .first-voice, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice .msg-voice-icon .first-voice {
+            top: -7rpx;
+            left: -7rpx;
+            width: 6rpx;
+            height: 6rpx;
+            background-color: #333;
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .msg-voice .msg-voice-icon .second-voice, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice .msg-voice-icon .second-voice {
+            top: -18rpx;
+            left: -18rpx;
+            width: 24rpx;
+            height: 24rpx;
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .msg-voice .msg-voice-icon .third-voice, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice .msg-voice-icon .third-voice {
+            top: -28rpx;
+            left: -28rpx;
+            width: 44rpx;
+            height: 44rpx;
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .msg-voice .msg-voice-icon-ing .second-voice, .session .msg-list .msg-item .my-item .item-msg .msg .msg-voice .msg-voice-icon-ing .third-voice, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice .msg-voice-icon-ing .second-voice, .session .msg-list .msg-item .friend-item .item-msg .msg .msg-voice .msg-voice-icon-ing .third-voice {
+          -webkit-animation: voiceMove 1s infinite ease-in-out;
+                  animation: voiceMove 1s infinite ease-in-out;
 }
 .session .msg-list .msg-item .my-item .item-msg .msg .friend-horn, .session .msg-list .msg-item .friend-item .item-msg .msg .friend-horn {
-          position: absolute;
-          display: inline-block;
-          left: -12rpx;
-          top: 20rpx;
-          width: 30rpx;
-          height: 30rpx;
-          background-color: #FFFFFF;
-          -webkit-transform: rotate(45deg);
-                  transform: rotate(45deg);
+        position: absolute;
+        display: inline-block;
+        left: -12rpx;
+        top: 20rpx;
+        width: 30rpx;
+        height: 30rpx;
+        background-color: #FFFFFF;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
 }
 .session .msg-list .msg-item .my-item .item-msg .msg .my-horn, .session .msg-list .msg-item .friend-item .item-msg .msg .my-horn {
-          position: absolute;
-          display: inline-block;
-          right: -12rpx;
-          top: 20rpx;
-          width: 30rpx;
-          height: 30rpx;
-          background-color: #4CD964;
-          -webkit-transform: rotate(45deg);
-                  transform: rotate(45deg);
+        position: absolute;
+        display: inline-block;
+        right: -12rpx;
+        top: 20rpx;
+        width: 30rpx;
+        height: 30rpx;
+        background-color: #4CD964;
+        -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+}
+.session .msg-list .msg-item .my-item .item-msg .msg .my-msg-tips, .session .msg-list .msg-item .friend-item .item-msg .msg .my-msg-tips {
+        position: absolute;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+                justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+                align-items: center;
+        width: 50rpx;
+        height: 50rpx;
+        left: -60rpx;
+        top: 50%;
+        margin-top: -25rpx;
+        font-size: 40rpx;
+        color: #BD2C00;
 }
 .session .msg-list .msg-item .my-item .item-msg .friend-msg, .session .msg-list .msg-item .friend-item .item-msg .friend-msg {
-        background-color: #FFFFFF;
+      background-color: #FFFFFF;
 }
 .session .msg-list .msg-item .my-item .item-msg .my-msg, .session .msg-list .msg-item .friend-item .item-msg .my-msg {
-        background-color: #4CD964;
+      background-color: #4CD964;
 }
 .session-btm {
   position: fixed;
@@ -313,6 +402,15 @@
 }
 .session-btm .session-first .speaking-class {
       background-color: #c0c0c0;
+}
+.session-btm .session-first .send-btn {
+      background-color: #1aad19;
+      color: #fff;
+      font-size: 32rpx;
+      padding: 12rpx 14rpx;
+      box-sizing: border-box;
+      border-radius: 8rpx;
+      margin: 0 10rpx;
 }
 .session-btm .session-tool {
     margin: 30rpx auto;

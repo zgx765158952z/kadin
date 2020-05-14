@@ -1,8 +1,8 @@
 {
   "navigationBarTitleText": "添加朋友",
   "usingComponents": {
-    "head-img-item": "/components/content/defimglist/HeadImgItem",
     "uni-search-bar": "/components/uni-search-bar/uni-search-bar",
+    "head-img-item": "/components/content/defimglist/HeadImgItem",
     "uni-list": "/components/uni-list/uni-list",
     "uni-list-item": "/components/uni-list-item/uni-list-item"
   }

@@ -28,43 +28,43 @@
   height: 100vh;
 }
 .consentfriend .consentfriend-def-list .def-list-left {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
 }
 .consentfriend .consentfriend-def-list .def-list-left image {
-      width: 50rpx;
-      height: 50rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 .consentfriend .consentfriend-def-list .def-list-center {
-    color: #181818;
+  color: #181818;
 }
 .consentfriend .consent-list {
-    margin-top: 30rpx;
+  margin-top: 30rpx;
 }
 .consentfriend .consent-list .consent-item {
-      position: relative;
-      background-color: #FFFFFF;
+  position: relative;
+  background-color: #FFFFFF;
 }
 .consentfriend .consent-list .consent-item .right-btn {
-        position: absolute;
-        z-index: 999;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-                justify-content: space-between;
-        right: 25rpx;
-        top: 35rpx;
+  position: absolute;
+  z-index: 999;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  right: 25rpx;
+  top: 35rpx;
 }
 .consentfriend .consent-list .consent-item .right-btn button {
-          font-size: 23rpx;
+  font-size: 23rpx;
 }
 .consentfriend .consent-list .consent-item .right-btn .consent-btn {
-          background-color: #1aad19;
+  background-color: #1aad19;
 }
 

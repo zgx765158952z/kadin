@@ -29,9 +29,9 @@
   margin: 0 auto;
 }
 .register2 .login-head {
-    text-align: center;
-    font-size: 40rpx;
-    font-weight: bold;
-    color: #333366;
+  text-align: center;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333366;
 }
 

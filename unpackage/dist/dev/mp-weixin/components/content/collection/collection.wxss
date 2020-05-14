@@ -30,20 +30,20 @@
   margin: 0 auto;
 }
 .collection .collectioncontent uni-search-bar .uni-searchbar.data-v-622c0ccb {
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    margin: 0 auto;
-    padding: 20rpx 0;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  margin: 0 auto;
+  padding: 20rpx 0;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
 }
 .collection .collectioncontent uni-search-bar .uni-searchbar.data-v-622c0ccb .uni-searchbar__box.data-v-622c0ccb {
-      background-color: #FFFFFF;
-      height: 75rpx;
+  background-color: #FFFFFF;
+  height: 75rpx;
 }
 .collection .collectioncontent uni-search-bar .uni-searchbar__cancel.data-v-622c0ccb {
-    font-size: 28rpx;
+  font-size: 28rpx;
 }
 

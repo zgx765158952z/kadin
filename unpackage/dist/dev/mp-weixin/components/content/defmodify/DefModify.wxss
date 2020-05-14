@@ -29,100 +29,103 @@
   height: 100%;
 }
 .def-modify .def-modify-input.data-v-562018d6 {
-    position: relative;
-    margin: 0 30rpx;
-    margin-bottom: 1rpx;
-    padding-top: 30rpx;
-    box-sizing: border-box;
+  position: relative;
+  margin: 0 30rpx;
+  margin-bottom: 1rpx;
+  padding-top: 30rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .def-modify .def-modify-input textarea.data-v-562018d6 {
-      color: #333;
-      font-size: 36rpx;
-      padding: 15rpx;
+  color: #333;
+  font-size: 36rpx;
+  padding: 15rpx;
 }
 .def-modify .def-modify-input.data-v-562018d6::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 1rpx;
-      width: 100%;
-      background-color: magenta;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1rpx;
+  width: 100%;
+  background-color: magenta;
 }
 .def-modify .def-modify-text.data-v-562018d6 {
-    padding: 30rpx;
-    box-sizing: border-box;
+  padding: 30rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .def-modify .def-modify-text .def-modify-text-head.data-v-562018d6 {
-      position: relative;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-              justify-content: center;
-      -webkit-box-align: center;
-      -webkit-align-items: center;
-              align-items: center;
-      -webkit-align-content: center;
-              align-content: center;
-      padding-bottom: 20rpx;
-      box-sizing: border-box;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-align-content: center;
+          align-content: center;
+  padding-bottom: 20rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 .def-modify .def-modify-text .def-modify-text-head image.data-v-562018d6 {
-        width: 90rpx;
-        height: 90rpx;
-        border-radius: 12rpx;
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 12rpx;
 }
 .def-modify .def-modify-text .def-modify-text-head .def-modify-text-head-right.data-v-562018d6 {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-                flex: 1;
-        margin-left: 20rpx;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  margin-left: 20rpx;
 }
 .def-modify .def-modify-text .def-modify-text-head .def-modify-text-head-right .modify-name.data-v-562018d6 {
-          font-size: 32rpx;
+  font-size: 32rpx;
 }
 .def-modify .def-modify-text .def-modify-text-head .def-modify-text-head-right .modify-time.data-v-562018d6 {
-          font-size: 28rpx;
-          color: #666666;
+  font-size: 28rpx;
+  color: #666666;
 }
 .def-modify .def-modify-text .def-modify-text-head.data-v-562018d6::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -1rpx;
-        width: 100%;
-        height: 1rpx;
-        background-color: rgba(100, 100, 100, 0.2);
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1rpx;
+  width: 100%;
+  height: 1rpx;
+  background-color: rgba(100, 100, 100, 0.2);
 }
 .def-modify .def-modify-text .def-modify-text-content.data-v-562018d6 {
-      margin: 30rpx 0;
-      font-size: 32rpx;
-      line-height: 40rpx;
+  margin: 30rpx 0;
+  font-size: 32rpx;
+  line-height: 40rpx;
 }
 .def-modify .def-modify-text .def-modify-text-tips.data-v-562018d6 {
-      position: fixed;
-      bottom: 150rpx;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 28rpx;
-      color: #666;
+  position: fixed;
+  bottom: 150rpx;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
 }
 .def-modify .def-modify-text .def-modify-text-tips.data-v-562018d6::before, .def-modify .def-modify-text .def-modify-text-tips.data-v-562018d6::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        width: 15%;
-        height: 1rpx;
-        z-index: 1;
-        background-color: rgba(100, 100, 100, 0.3);
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 15%;
+  height: 1rpx;
+  z-index: 1;
+  background-color: rgba(100, 100, 100, 0.3);
 }
 .def-modify .def-modify-text .def-modify-text-tips.data-v-562018d6::before {
-        left: 70rpx;
+  left: 70rpx;
 }
 .def-modify .def-modify-text .def-modify-text-tips.data-v-562018d6::after {
-        right: 70rpx;
+  right: 70rpx;
 }
 

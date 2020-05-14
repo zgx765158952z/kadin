@@ -1,0 +1,24 @@
+{
+  "navigationBarBackgroundColor": "#F7F7F7",
+  "titleNView": {
+    "autoBackButton": false,
+    "buttons": [
+      {
+        "text": "取消",
+        "width": "auto",
+        "float": "right",
+        "fontSize": "14px",
+        "color": "#0077AA"
+      }
+    ],
+    "searchInput": {
+      "backgroundColor": "#fff",
+      "align": "left",
+      "autoFocus": true,
+      "placeholder": "搜索",
+      "placeholderColor": "#999",
+      "borderRadius": "6px"
+    }
+  },
+  "usingComponents": {}
+}

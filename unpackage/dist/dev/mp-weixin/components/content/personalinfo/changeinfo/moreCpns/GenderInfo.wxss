@@ -29,7 +29,7 @@
   background-color: #F7F7F7;
 }
 .GenderInfo .info-list .def-list-right image {
-    width: 50rpx !important;
-    height: 50rpx !important;
+  width: 50rpx !important;
+  height: 50rpx !important;
 }
 

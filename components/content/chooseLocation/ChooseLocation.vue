@@ -5,7 +5,7 @@
 				当前位置
 			</view>
 			
-			<default-list noBorderBtm="true" class="current-location-list" @tap.native="changeUserRegion">
+			<default-list :noBorderBtm="true" class="current-location-list" @click.native="changeUserRegion">
 				<view slot="def-list-left">
 					<block v-if="currentAddress.country.length > 0">
 						<text class="def-list-left-text-loading">{{ currentAddress.country }}</text>
@@ -23,7 +23,7 @@
 			<view class="choose-category-text">
 				全部地区
 			</view>
-			<default-list @tap.native="toChooseProvince">
+			<default-list @click.native="toChooseProvince">
 				<view slot="def-list-left">
 					中国大陆
 					<text v-if="userInfo.user.region" class="def-list-left-text">{{ userInfo.user.region }}</text>
@@ -146,6 +146,11 @@
 		onLoad() {
 			console.log('onLoad')
 			
+		},
+		onUnload() {
+			uni.$off('ProvinceCity', () => {
+				
+			})
 		}
 		
 	}

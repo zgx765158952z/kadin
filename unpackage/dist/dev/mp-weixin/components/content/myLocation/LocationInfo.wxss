@@ -29,21 +29,21 @@
   background-color: #F7F7F7;
 }
 .location-list .location-select-item .location-select-item-title {
-    color: #007AFF;
+  color: #007AFF;
 }
 .location-list .head-img-item .start-img {
-    display: none !important;
+  display: none !important;
 }
 .location-list .head-img-item .end-info {
-    padding: 27rpx 0 27rpx 27rpx !important;
+  padding: 27rpx 0 27rpx 27rpx !important;
 }
 .location-list .head-img-item .end-info .right {
-      min-width: 0 !important;
+  min-width: 0 !important;
 }
 .location-list .location-item-btn {
-    font-family: 'iconfont';
-    text-align: right;
-    font-size: 40rpx;
-    color: #1AAB1B;
+  font-family: 'iconfont';
+  text-align: right;
+  font-size: 40rpx;
+  color: #1AAB1B;
 }
 

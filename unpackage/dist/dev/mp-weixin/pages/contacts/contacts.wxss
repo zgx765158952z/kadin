@@ -29,10 +29,10 @@
   height: 100%;
 }
 .contacts contacts-index {
-    z-index: 10000;
+  z-index: 10000;
 }
 .contacts def-mask {
-    position: fixed;
-    z-index: 10001;
+  position: fixed;
+  z-index: 10001;
 }
 

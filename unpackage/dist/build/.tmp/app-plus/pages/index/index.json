@@ -4,20 +4,21 @@
     "buttons": [
       {
         "fontSrc": "/static/iconfont/iconfont.ttf",
-        "text": " ",
+        "text": "   ",
         "width": "auto",
         "float": "left",
         "fontSize": "20px"
       },
       {
         "fontSrc": "/static/iconfont/iconfont.ttf",
-        "text": " ",
+        "text": "   ",
         "width": "auto",
         "float": "right",
         "fontSize": "20px"
       }
     ]
   },
+  "scrollIndicator": "none",
   "usingComponents": {
     "index-content": "/pages/index/indexCpns/IndexContent",
     "def-mask": "/components/content/defmask/DefMask"
