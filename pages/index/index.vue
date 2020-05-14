@@ -94,14 +94,17 @@
 				let url = socketURL + account
 				
 				globalData.socketTask = uni.connectSocket({
-					url
+					url,
+					complete: res => {
+						console.log('socket连接回调', res)
+					}
 				})
-				console.log('globalData.socketTask', globalData.socketTask)
+				
 			},
 			
 			onSocketOpen() {
-				globalData.socketTask.then(res => {
-					console.log('连接打开', res)
+				globalData.socketTask.onOpen(res => {
+					console.log('监听socket打开', res)
 				})
 				
 			},

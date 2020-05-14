@@ -226,14 +226,17 @@ var globalData = getApp().globalData;var _default =
       var url = _socketConfig.socketURL + account;
 
       globalData.socketTask = uni.connectSocket({
-        url: url });
+        url: url,
+        complete: function complete(res) {
+          console.log('socket连接回调', res);
+        } });
 
-      console.log('globalData.socketTask', globalData.socketTask);
+
     },
 
     onSocketOpen: function onSocketOpen() {
-      globalData.socketTask.then(function (res) {
-        console.log('连接打开', res);
+      globalData.socketTask.onOpen(function (res) {
+        console.log('监听socket打开', res);
       });
 
     },

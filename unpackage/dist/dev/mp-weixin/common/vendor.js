@@ -16934,7 +16934,7 @@ module.exports = function (e) {var t = {};function n(r) {if (t[r]) return t[r].e
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.socketURL = void 0; //websocket URL
-var socketURL = 'ws://192.168.1.138:6060/socketServer/';exports.socketURL = socketURL;
+var socketURL = 'ws://192.168.1.138:9090/socketServer/';exports.socketURL = socketURL;
 
 var socketConfig = {
   socketURL: socketURL };
