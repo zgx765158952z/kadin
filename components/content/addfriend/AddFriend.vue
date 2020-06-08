@@ -11,9 +11,9 @@
 		
 		
 		<view class="addfriend-first-item">
-			<block v-if="isShowBtmList">
+			<view v-if="isShowBtmList">
 				<head-img-item>
-					<text class="addfriend-left-img" slot="start-img">&#xe640;</text>
+					<text class="addfriend-left-img my-iconfont" slot="start-img">&#xe640;</text>
 					<text slot="title">雷达加朋友</text>
 					<text slot="msg">添加身边朋友</text>
 					<text class="addfriend-right-img" slot="right">&#xe683;</text>
@@ -21,14 +21,14 @@
 				
 				
 				<head-img-item>
-					<text class="addfriend-left-img" slot="start-img">&#xe60a;</text>
+					<text class="addfriend-left-img my-iconfont" slot="start-img">&#xe60a;</text>
 					<text slot="title">建群</text>
 					<text slot="msg">与朋友加入同一群聊</text>
 					<text class="addfriend-right-img" slot="right">&#xe683;</text>
 				</head-img-item>
 				
 				<head-img-item>
-					<text class="addfriend-left-img" slot="start-img">&#xe69a;</text>
+					<text class="addfriend-left-img my-iconfont" slot="start-img">&#xe69a;</text>
 					<text slot="title">扫一扫</text>
 					<text slot="msg">扫描二维码</text>
 					<text class="addfriend-right-img" slot="right">&#xe683;</text>
@@ -36,33 +36,29 @@
 				
 				
 				<head-img-item :noBorderBtm="true">
-					<text class="addfriend-left-img" slot="start-img">&#xe702;</text>
+					<text class="addfriend-left-img my-iconfont" slot="start-img">&#xe702;</text>
 					<text slot="title">手机联系人</text>
 					<text slot="msg">添加或邀请通讯录中的朋友</text>
 					<text class="addfriend-right-img" slot="right">&#xe683;</text>
 				</head-img-item>
-			</block>
+			</view>
 			
 			
 			
-			<block v-if="!isShowBtmList">
+			<view v-if="!isShowBtmList">
 				<head-img-item :noBorderBtm="true" class="addfriend-userinfo" @click.native="toFriendInfo">
-					<block v-if="addfriendInfo.image.length > 0">
-						<image slot="start-img" class="addfriend-left-img" :src="imgUrl+addfriendInfo.image" mode="aspectFill"></image>
-					</block>
-					<block v-else>
-						<text class="addfriend-left-img" slot="start-img">&#xe668;</text>
-					</block>
+					<image v-if="addfriendInfo.image.length > 0" slot="start-img" class="addfriend-left-img my-iconfont" :src="imgUrl+addfriendInfo.image" mode="aspectFill"></image>
 					
-					<block v-if="addfriendInfo.nickname">
-						<text slot="title">{{ addfriendInfo.nickname }}</text>
-					</block>
-					<block v-if="addfriendInfo.signature">
-						<text slot="msg">{{ addfriendInfo.signature }}</text>
-					</block>
+					<text v-else class="addfriend-left-img my-iconfont" slot="start-img">&#xe668;</text>
+					
+					<text v-if="addfriendInfo.nickname" slot="title">{{ addfriendInfo.nickname }}</text>
+					
+					
+					<text v-if="addfriendInfo.signature" slot="msg">{{ addfriendInfo.signature }}</text>
+					
 					<text class="addfriend-right-img" slot="right">&#xe683;</text>
 				</head-img-item>
-			</block>
+			</view>
 			
 		</view>
 		
@@ -217,16 +213,13 @@
 		.addfriend-first-item {
 			background-color: #FFFFFF;
 			margin-top: 30rpx;
-			head-img-item {
-				.addfriend-left-img {
-					font-family: 'iconfont';
-					font-size: 80rpx;
-				}
-				
-				.addfriend-right-img {
-					font-family: 'iconfont';
-					font-size: 40rpx;
-				}
+			.addfriend-left-img {
+				font-size: 80rpx;
+			}
+			
+			.addfriend-right-img {
+				font-family: 'iconfont';
+				font-size: 40rpx;
 			}
 			
 			.addfriend-userinfo {
@@ -234,9 +227,6 @@
 					padding: 35rpx 0;
 					box-sizing: border-box;
 				}
-			}
-			.head-img-item .item .end-info .right {
-				text-align: right;
 			}
 		}
 		

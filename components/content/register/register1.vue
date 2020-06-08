@@ -15,9 +15,10 @@
 						</view>
 						<view class="input-and-code">
 							<input class="left-input def-font-lg" maxlength="4" type="number" name="code" placeholder="短信验证码" />
-							<button :disabled="sendCodeBtn" @click="cliSendCode" class="right-btn def-font-lg" type="primary">{{ sendCodeBtnVal }}</button>
+							<!-- <button :disabled="sendCodeBtn" @click="cliSendCode" class="right-btn def-font-lg" type="primary">{{ sendCodeBtnVal }}</button> -->
+							<text @click="cliSendCode" class="right-btn def-font-lg" :class="{'right-btn-disabled': sendCodeBtn}">{{ sendCodeBtnVal }}</text>
 						</view>
-						<button form-type="submit" type="primary" class="def-button def-font-lg">下一步</button>
+						<button form-type="submit" type="primary" class="def-button">下一步</button>
 					</form>
 				</view>
 			</view>

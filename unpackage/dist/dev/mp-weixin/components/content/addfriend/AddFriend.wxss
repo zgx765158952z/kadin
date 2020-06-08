@@ -56,11 +56,10 @@
   background-color: #FFFFFF;
   margin-top: 30rpx;
 }
-.addfriend .addfriend-first-item head-img-item .addfriend-left-img {
-  font-family: 'iconfont';
+.addfriend .addfriend-first-item .addfriend-left-img {
   font-size: 80rpx;
 }
-.addfriend .addfriend-first-item head-img-item .addfriend-right-img {
+.addfriend .addfriend-first-item .addfriend-right-img {
   font-family: 'iconfont';
   font-size: 40rpx;
 }
@@ -68,9 +67,6 @@
   padding: 35rpx 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-}
-.addfriend .addfriend-first-item .head-img-item .item .end-info .right {
-  text-align: right;
 }
 .addfriend .addfri-uni-list .uni-list.data-v-8ed9886a {
   margin: 40rpx 0;

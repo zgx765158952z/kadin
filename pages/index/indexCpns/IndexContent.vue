@@ -73,7 +73,6 @@
 			</view>
 		</view> -->
 
-		<view @longpress="handlerLongtap">22222</view>
 
 		<view class="def-popup">
 			<view @tap="hidePop" @touchmove.stop.prevent="moveHandle" v-if="showPop" class="def-popup-mask">

@@ -119,14 +119,18 @@ var _vuex = __webpack_require__(/*! vuex */ 13);
 
 
 
+
 var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+
+
 
 
 {
   globalData: {
     nim: null,
-    socketTask: null },
-
+    socketTask: null,
+    newRemindVibrate: null //新提醒震动
+  },
   computed: _objectSpread({},
   (0, _vuex.mapState)(['hasLogin', 'userInfo', 'rawMessageList', 'groupMemberList', 'groupMemberMap'])),
 
@@ -172,7 +176,62 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
       } else {
         console.log('未登录');
       }
+    },
+
+    //监听网络状态变化
+    onNetworkStatusChange: function onNetworkStatusChange() {
+      uni.onNetworkStatusChange(function (res) {
+        console.log('监听网络状态变化:', res);
+        uni.showToast({
+          title: "\u7F51\u7EDC\u7C7B\u578B:".concat(res.networkType, "-").concat(res.isConnected),
+          icon: 'none' });
+
+      });
+    },
+    myTimeoutTest: function myTimeoutTest() {
+
+    },
+
+    myCycleTime: function myCycleTime(timeStamp) {
+      setInterval(function () {
+        var date = new Date();
+        console.log('getDate()', date.getTime());
+      }, 10000);
     } }),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -195,9 +254,32 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
 
   onLaunch: function onLaunch() {
     console.log('App Launch');
-
+    console.log('this.globalData', this.globalData);
     //再次进入应用时判断是否登录
     this.loginStatus();
+    this.onNetworkStatusChange();
+
+    // {
+    // 	id: 1,
+    // 	remindContent: '主任务A',
+    // 	remindTime: '1590980220000',
+    // 	remindPerson: ['1590980220000'],
+    // 	remindLocation: '天河区',
+    // 	subtaskList: [
+    // 		{
+    // 			id: 2
+    // 		},
+    // 		{
+    // 			id: 3
+    // 		}
+    // 	]
+    // }
+
+
+
+
+
+
 
 
 
@@ -233,7 +315,6 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
       console.log('groupMemberList:', _this.groupMemberList);
       console.log('groupMemberMap', _this.groupMemberMap);
     }, 2000);
-
   },
   onHide: function onHide() {
     console.log('App Hide');

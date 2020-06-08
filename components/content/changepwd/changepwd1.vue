@@ -10,12 +10,13 @@
 						<view class="my-input">
 							<input @input="handlerUserPhone" @blur="userPhoneInputDefocus" v-model="userPhone" class="def-input" type="number" maxlength="11" name="userPhone" placeholder="手机号/用户名" />
 							<view class="def-input-del" @tap="delInput">
-								<image v-if="showPhoneInput" class="def-input-del-img" src="/static/image/global/delete.png"></image>
+								<text v-if="showPhoneInput" class="my-iconfont def-input-del-icon">&#xe61a;</text>
 							</view>
 						</view>
 						<view class="input-and-code">
 							<input class="left-input" maxlength="4" type="number" name="code" placeholder="短信验证码" />
-							<button :disabled="sendCodeBtn" @tap="cliSendCode" class="right-btn" type="primary">{{ sendCodeBtnVal }}</button>
+							<!-- <button :disabled="sendCodeBtn"  type="primary">{{ sendCodeBtnVal }}</button> -->
+							<text @tap="cliSendCode" class="right-btn def-font-lg" :class="{'right-btn-disabled': sendCodeBtn}">{{ sendCodeBtnVal }}</text>
 						</view>
 						<button type="primary" class="def-button" form-type="submit">下一步</button>
 					</form>

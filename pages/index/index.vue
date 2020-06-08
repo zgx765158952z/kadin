@@ -5,9 +5,10 @@
 		<button @tap="sendMsg" type="default" size="mini">发消息</button>
 		<button @tap="toReminded" type="default" size="mini">提醒</button>
 		<button @tap="handleShowMask" type="default" size="mini">菜单</button>
-		<button @tap="handleSendSocket" type="default" size="mini">socket</button>
-		<!-- #endif -->
+		<button @tap="handleSendSocket" type="default" size="mini">socket发送消息</button>
 		
+		<!-- #endif -->
+		<button @tap="toInteraction" type="default" size="mini">互动页面</button>
 		<index-content ref="indexcontent"></index-content>
 		<!-- 菜单 -->
 		<def-mask class="index-def-mask" ref="indexMask">
@@ -44,7 +45,7 @@
 	//遮罩层
 	import DefMask from '@/components/content/defmask/DefMask.vue'
 	
-	import { mapState, mapMutations } from 'vuex'
+	import { mapState, mapMutations, mapActions } from 'vuex'
 	import { getAccountImTokenRequest } from '@/network/login.js'
 	import IMController from '@/controller/im.js'
 	import { socketURL } from '@/common/socketConfig.js'
@@ -75,7 +76,7 @@
 		},
 		methods: {
 			...mapMutations(['appStartGetData']),
-			
+			...mapActions(['updateNewest']),
 			//测试发消息
 			sendMsg() {
 				this.nim.sendText({
@@ -88,6 +89,11 @@
 				})
 			},
 			
+			toInteraction() {
+				uni.navigateTo({
+					url: '/components/content/interaction/Interaction'
+				})
+			},
 			
 			//webSocket连接
 			connectSocket(account) {
@@ -106,7 +112,26 @@
 				globalData.socketTask.onOpen(res => {
 					console.log('监听socket打开', res)
 				})
-				
+			},
+			onSocketMessage() {
+				globalData.socketTask.onMessage(res => {
+					console.log('接收到服务器的socket消息:', res)
+					let str = res.data
+					this.updateNewest(str)
+				})
+			},
+			handleSendSocket() {
+				globalData.socketTask.send({
+					data: `我是${this.userInfo.user.userAccount}`,
+					success: res => {
+						console.log('socket发送消息成功:', res)
+					}
+				})
+			},
+			onSocketError() {
+				globalData.socketTask.onError(err => {
+					console.log('监听socket错误:', err)
+				})
 			},
 			//显示与隐藏遮罩层
 			handleShowMask() {
@@ -152,11 +177,12 @@
 				uni.navigateTo({
 					url: '/components/content/chooseFriend/ChooseFriend?type=createGroup'
 				})
-			}
+			},
 			
 		},
 		//页面加载
 		onLoad() {
+			console.log('userInfo', this.userInfo.user.userAccount)
 			this.appStartGetData(this.userInfo.user.userAccount)
 			console.log('rawMessageList index', this.rawMessageList)
 			this.getAccountImToken(this.userInfo.user.userAccount)
@@ -187,6 +213,21 @@
 			//webSocket连接
 			this.connectSocket(this.userInfo.user.userAccount)
 			this.onSocketOpen()
+			this.onSocketError()
+			setTimeout(() => {
+				this.onSocketMessage()
+			}, 80)
+			
+			
+		},
+		onShow() {
+			// uni.setTabBarBadge({
+			// 	index: 1,
+			// 	text: "1",
+			// })
+			// uni.showTabBarRedDot({
+			// 	index: 1
+			// })
 		},
 		//页面卸载
 		onUnload() {
@@ -208,9 +249,6 @@
 			//隐藏弹窗
 			this.$refs.indexcontent.hidePop()
 			if(options.index === 0) {
-				this.toReminded()
-			}
-			if(options.index === 1) {
 				this.handleShowMask()
 			}
 		}

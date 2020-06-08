@@ -7,7 +7,7 @@
 				</view>
 				<view class="input-item">
 					<input @focus="focusInput1" @blur="blurInput1" v-model="changeInfo.remarkName" class="remark-name-input" type="text" focus placeholder="添加备注名" />
-					<view v-if="isShowInput1" @tap.stop="delRemarkVal" class="my-iconfont input-del-icon">&#xe627;</view>
+					<view v-if="isShowInput1" @tap.stop="delRemarkVal" class="my-iconfont input-del-icon">&#xe61a;</view>
 				</view>
 				
 			</view>
@@ -33,7 +33,7 @@
 				<view v-for="(item, index) in changeInfo.friendPhoneList" :key="index" class="input-item">
 					<block v-if="index < 5">
 						<input @input="addingPhone" :data-index="index" class="phone-input phone-input-border" v-model="changeInfo.friendPhoneList[index]" type="number" placeholder="添加电话号码" />
-						<view @tap.stop="delPhoneList(index)" v-if="item" class="my-iconfont input-del-icon">&#xe627;</view>
+						<view @tap.stop="delPhoneList(index)" v-if="item" class="my-iconfont input-del-icon">&#xe61a;</view>
 					</block>
 				</view>
 			</view>
@@ -44,7 +44,7 @@
 				</view>
 				<view class="input-item">
 					<input @focus="focusInput3" @blur="blurInput3" v-model="changeInfo.friendDescribe" class="describe-input" type="text" placeholder="添加更多备注信息" />
-					<view v-if="isShowInput3" @tap.stop="delDescribeVal" class="my-iconfont input-del-icon">&#xe627;</view>
+					<view v-if="isShowInput3" @tap.stop="delDescribeVal" class="my-iconfont input-del-icon">&#xe61a;</view>
 				</view>
 			</view>
 			

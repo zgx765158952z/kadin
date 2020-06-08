@@ -1,1 +1,1 @@
-<view class="dynamic"><dynamic-con class="vue-ref" vue-id="79fdf810-1" data-ref="dynamiccon" bind:__l="__l"></dynamic-con></view>
+<view class="dynamic"><button type="default" size="mini" data-event-opts="{{[['tap',[['toPulish',['$event']]]]]}}" bindtap="__e">发布新动态</button><dynamic-con class="vue-ref" vue-id="79fdf810-1" imgUrl="{{imgUrl}}" data-ref="dynamiccon" bind:__l="__l"></dynamic-con></view>

@@ -1,15 +1,12 @@
 <template>
 	<view class="contactscon">
-		
-		
-		
 		<scroll-view class="scrollList" scroll-y :scroll-into-view="currentLetter">
 			<view class="contactstop" id="top">
 				<view class="contacts-list">
 					<view class="contacts-list-img">
 						<view class="image-friend">&#xe702;</view>
 					</view>
-					<view @click="toConsentFriend" class="contacts-list-title">
+					<view @click="toConsentFriend" class="contacts-list-title" :class="{'newfriend-list-title': newFriendRequest}">
 						新的朋友
 					</view>
 				</view>
@@ -78,7 +75,7 @@
 			}
 		},
 		computed: {
-			...mapState(['friendList'])
+			...mapState(['friendList', 'newFriendRequest'])
 		},
 		methods: {
 			
@@ -168,7 +165,7 @@
 		mounted() {
 			const query = uni.createSelectorQuery().in(this)
 			query.select('.contactsindex').boundingClientRect(data => {
-				const oneHeight = data.height/28
+				const oneHeight = (data.height)/28
 				this.oneIndexHeight = oneHeight
 			}).exec()
 		}
@@ -210,6 +207,19 @@
 			margin-left: 30rpx;
 			padding: 30rpx 0;
 			border-bottom: 1rpx solid rgba(100, 100, 100, .1);
+		}
+		.newfriend-list-title {
+			position: relative;
+			&::after {
+				content: '';
+				position: absolute;
+				left: 150rpx;
+				top: 40rpx;
+				width: 20rpx;
+				height: 20rpx;
+				background-color: #DD524D;
+				border-radius: 50%;
+			}
 		}
 		.bordernone {
 			border: none;

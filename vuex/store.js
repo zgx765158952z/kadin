@@ -5,7 +5,8 @@ import dealGroupMsg from '@/utils/dealGroupMsg.js'
 import { queryFriendRequest } from '@/network/addfriend.js'
 import { getMyUserInfo } from "@/network/myUserInfo.js"
 import { getNewestDynamicRequest, getMyDynamicRequest, getPersonDynamicRequest } from '@/network/dynamic.js'
-import { formatList } from '@/common/index.js'
+import { formatList, setNewestFriendCard } from '@/common/index.js'
+import { handlePushMsg } from '@/common/socketHelper.js'
 
 import { queryGroupInfoRequest } from '@/network/session/session.js'
 import { judgeMessageType, calcTimeHeader, judgeOverTwoMinute, generateRichTextNode, generateImageNode, generateFingerGuessImageFile, generateBigEmojiImageFile } from '@/utils/utils.js'
@@ -32,9 +33,9 @@ var state = {
 	//个人动态的数据
 	personDynamicList: [],
 	
+	friendCard: {}, //好友列表，含名片信息，额外添加在线信息
 	
 	/*即时通讯篇*/
-	friendCard: {}, //好友列表，含名片信息，额外添加在线信息
 	currentChatTo: '', // 正在聊天 sessionId
 	currentChatList: [], //正在聊天的会话列表
 	rawMessageList: {}, //所有的聊天列表
@@ -52,6 +53,12 @@ var state = {
 	
 	historyMsgList: [], //当前帐户的所有聊天记录
 	
+	/* 收到的socket服务器回调消息  用于更新 */
+	//data: "{'pushType': '定时推送', 'object': {'id': 75, 'remindTitle': 'title'.....}}"
+	newPushMsg: null, //定时推送
+	newFriendRequest: [], //朋友请求添加好友
+	newFriendDynamic: null, //好友动态更新
+	newAppVersion: null, //APP版本更新
 	
 	/* 本地数据库存储的信息 */
 	localUserInfo: {} //本地所有人的信息
@@ -140,6 +147,21 @@ var mutations = {
 		uni.setStorageSync('userInfo', userInfo)
 	},
 	
+	//清空数据更新
+	clearNewData(state, payload) {
+		switch(payload) {
+			case 'clearnewPushMsg': { //清除新定时提醒标志
+				state.newPushMsg = null
+			}
+			case 'clearnewFriendRequest': { //清除添加好友新请求标志
+				state.newFriendRequest = null
+			}
+			case 'clearnewFriendDynamic': { //清除朋友圈新动态标志
+				state.newFriendDynamic = null
+			}
+			
+		}
+	},
 	
 	//退出登录,未登录状态,删除用户信息
 	logout(state) {
@@ -172,10 +194,17 @@ var mutations = {
 			return b.time - a.time
 		})
 		if(data.index === 1) {
-			state.friendDynamicList = newList
+			state.friendDynamicList.push(...newList)
 		}else if(data.index === 2) {
 			state.personDynamicList = newList
 		}
+	},
+	
+	//自己发表动态后更新朋友圈数据
+	updateFriendDynamicList(state, data) {
+		state.friendDynamicList.splice(0, 0, data)
+		console.log('我发表了新动态:', data)
+		console.log('最新动态', state.friendDynamicList)
 	},
 	/***
 		1,打开应用
@@ -249,6 +278,9 @@ var actions = {
 				}else if(res.data.code === 2000) {
 					if(res.data.data.length > 0) {
 						state.friendList = formatList(res.data.data)
+						
+						state.friendCard = setNewestFriendCard(state, res.data.data)
+						console.log('state.friendCard:', state.friendCard)
 					}
 				}
 			}
@@ -264,9 +296,8 @@ var actions = {
 	
 	
 	//获取所有朋友的动态
-	getNewestDynamic(context) {
-		getNewestDynamicRequest(`?account=${store.state.userInfo.user.userAccount}`).then((res) => {
-			console.log(res)
+	getNewestDynamic(context, payload) {
+		getNewestDynamicRequest(payload).then((res) => {
 			if(res.status === 200) {
 				if(res.data.code === 2000) {
 					//传多个参数方式
@@ -275,6 +306,11 @@ var actions = {
 						list: res.data.data,
 						index:1
 					})
+					context.commit({
+						type: 'clearNewData',
+						payload: 'clearnewFriendDynamic'
+					})
+					return true
 				}else {
 					uni.showToast({
 						title: '程序走丢了,请稍后重试',
@@ -298,6 +334,7 @@ var actions = {
 				icon: 'none'
 			})
 		})
+		return false
 	},
 	
 	//获取自己的动态
@@ -342,7 +379,7 @@ var actions = {
 	
 	//获取某个朋友的动态
 	doGetPersonDynamicRequest(context, payload) {
-		getPersonDynamicRequest(`?account=${store.getters.getUserAccount}&friendAccount=${payload.friendAccount}`).then(res => {
+		getPersonDynamicRequest(payload).then(res => {
 			console.log(res)
 			if(res.status === 200) {
 				if(res.data.code === 2000) {
@@ -377,8 +414,40 @@ var actions = {
 		})
 	},
 	
-	
-	
+	/*  接收socket服务器的消息并更新本地一些数据  */
+	updateNewest(context, payload) {
+		switch(payload) {
+			case "定时推送": {
+				let globalData = getApp().globalData
+				handlePushMsg(payload.object, globalData)
+				state.newPushMsg = payload.object
+				break
+			}
+			case "好友请求": {
+				state.newFriendDynamic = payload.object
+				break
+			}
+			case "朋友圈更新": {
+				console.log('朋友圈更新')
+				uni.showTabBarRedDot({
+					index: 1
+				})
+				break
+			}
+			case "点赞评论更新": {
+				console.log('点赞评论更新')
+				state.newFriendRequest += 1
+				uni.setTabBarBadge({
+					index: 1,
+					text: state.newFriendRequest,
+				})
+				break
+			}
+			case "APP版本更新": {
+				state.newAppVersion = payload.object
+			}
+		}
+	},
 	
 	/*即时通讯篇*/
 	

@@ -65,6 +65,19 @@
   padding: 30rpx 0;
   border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
 }
+.contacts-list .newfriend-list-title.data-v-7ab7fc9e {
+  position: relative;
+}
+.contacts-list .newfriend-list-title.data-v-7ab7fc9e::after {
+  content: '';
+  position: absolute;
+  left: 150rpx;
+  top: 40rpx;
+  width: 20rpx;
+  height: 20rpx;
+  background-color: #DD524D;
+  border-radius: 50%;
+}
 .contacts-list .bordernone.data-v-7ab7fc9e {
   border: none;
 }

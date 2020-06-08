@@ -1,100 +1,88 @@
 <template>
 	<view class="dynamiccon">
-		
 		<view @tap="toMyDynamic" class="dynamiccon-top" hover-class="tap-hover-color">
 			<text class="dynamiccon-top-left">我的动态</text>
 			<view class="dynamiccon-top-right">
 				<text class="dynamiccon-top-right-text">&#xe683;</text>
 			</view>
 		</view>
-		<block v-if="friendDynamicList.length > 0">
-			<block v-for="(item, index) in friendDynamicList" :key="index" :data-index="index">
-				<view class="dyc-list" :class="'dyc-list'+index">
-					<view @tap="toFriendInfo(item.account)" class="dyc-list-head-img">
-						<image :src="imgUrl + item.faceImage" mode="aspectFill"></image>
-					</view>
-					<view class="dyc-list-con">
-						<view @tap="toFriendInfo(item.account)" class="dyc-list-name cliFontColor">
-							{{ item.name }}
-						</view>
-						<view class="dyc-list-text">
-							<text selectable="true">
-								{{ item.content }}
-							</text>
-						</view>
-						<!-- <view v-if="false" class="dyc-list-img1">
-							<image src="/static/image/test/test.jpg" mode="widthFix"></image>
-							
-						</view> -->
-						
-						<!-- <view v-if="true" class="dyc-list-img2">
-							<view @tap="toPreviewImg" class="dyc-list-img2-son">
-								<image src="/static/image/test/test.jpg" mode="widthFix"></image>
-							</view>
-							<view @tap="toPreviewImg" class="dyc-list-img2-son">
-								<image src="/static/image/test/test.jpg" mode="widthFix"></image>
-							</view>
-							<view @tap="toPreviewImg" class="dyc-list-img2-son">
-								<image src="/static/image/test/test.jpg" mode="widthFix"></image>
-							</view>
-							<view @tap="toPreviewImg" class="dyc-list-img2-son">
-								<image src="/static/image/test/test.jpg" mode="widthFix"></image>
-							</view>
-							<view @tap="toPreviewImg" class="dyc-list-img2-son">
-								<image src="/static/image/test/test.jpg" mode="widthFix"></image>
-							</view>
-						</view> -->
-						
-						<!-- 时间与定位 -->
-						<view class="dyc-local-list">
-							<view class="left-time-local">
-								<text class="left-time">{{ item.time | getFormatTime }}</text>
-								<text class="left-local">{{ item.location }}</text>
-							</view>
-							<view @tap.stop="handlerPraise(index)" class="right-praise" :class="'dynamic-right-praise'+index">
-								<image class="right-praise-img" :class="'right-praise-img'+index" :data-index="index" src="/static/image/global/ellipsis.png"></image>
-							</view>
-						</view>
-						
-						<view class="praise-comment">
-							<!-- 点赞列表，需判断列表第一个对象是否为空 -->
-							<view v-if="item.likePerson.length > 0 && JSON.stringify(item.likePerson[0]) !== '{}'" class="praise-list" :class="{'praise-list-borderbtm': item.comment.length > 0}">
-								<view class="praise-list-leftImg">
-									<text class="my-iconfont praise-list-loveImg">&#xe617;</text>
-								</view>
-								<block v-for="(item2, index2) in item.likePerson" :key="index2">
-									<text v-for="(value, key, ind1) in item2"  @tap.stop="toFriendInfo(key)" :key="ind1" class="praise-list-name">
-										<text class="praise-name">{{ value }}</text>
-										<text class="praise-list-comma" v-if="index2 === item.likePerson.length-1"></text>
-										<text class="praise-list-comma" v-else>,</text>
-									</text>
-								</block>
-								
-							</view>
-							
-							<!-- 评论列表 -->
-							<block v-if="item.comment.length > 0">
-								<view class="comment-list">
-									<view v-for="(item3, index3) in item.comment" :key="index3" @tap.stop="showComment(index,index3)" class="comment-list-item">
-										<text @tap.stop="toFriendInfo(item3.user)" class="comment-list-item-name">{{ item3.userNickname }}</text><block  v-if="item3.commentFatherId !== 0"><text>回复</text><text @tap.stop="toFriendInfo(item3.toUser)" class="comment-list-item-name" v-if="item3.friendName">{{ item3.friendName }}</text></block>
-										<text class="comment-list-item-text"><text class="colon">:</text><text :selectable="true">{{ item3.commentContent }}</text></text>
-									</view>
-								</view>
-							</block>
-							
-						</view>
-						
-						
-					</view>
+		<view class="dynamiccon-new">
+			<view @tap="toInteraction" class="new-dynamic">
+				<image src="../../../../static/image/test/test.jpg" mode="aspectFill"></image>
+				<view class="new-dynamic-count">
+					8条新消息
 				</view>
-			</block>
-		</block>
-		
-		<block v-else>
-			<view class="dynamic-loading">
-				<loading-icon></loading-icon>
 			</view>
-		</block>
+		</view>
+		<view v-if="friendDynamicList.length > 0">
+			<view v-for="(item, index) in friendDynamicList" :key="index" :data-index="index" class="dyc-list" :class="'dyc-list'+index">
+				<view @tap="toFriendInfo(item.account)" class="dyc-list-head-img">
+					<image :src="imgUrl + item.faceImage" mode="aspectFill"></image>
+				</view>
+				<view class="dyc-list-con">
+					<view @tap="toFriendInfo(item.account)" class="dyc-list-name cliFontColor">
+						{{ item.name }}
+					</view>
+					<view class="dyc-list-text">
+						<text selectable="true">
+							{{ item.content }}
+						</text>
+					</view>
+					<!-- <view v-if="false" class="dyc-list-img1">
+						<image src="/static/image/test/test.jpg" mode="aspectFill"></image>
+						
+					</view> -->
+					<view v-if="item.images" class="dyc-list-img2">
+						<view @tap="toPreviewImg(item.images, imgIndex)" v-for="(imgItem, imgIndex) in item.images" :key="imgIndex" class="dyc-list-img2-son">
+							<image :src="imgUrl + imgItem" mode="aspectFill"></image>
+						</view>
+					</view>
+					
+					<!-- 时间与定位 -->
+					<view class="dyc-local-list">
+						<view class="left-time-local">
+							<text class="left-time">{{ item.time | getFormatTime }}</text>
+							<text class="left-local">{{ item.location }}</text>
+						</view>
+						<view @tap.stop="handlerPraise(index)" class="right-praise" :class="'dynamic-right-praise'+index">
+							<text class="my-iconfont right-praise-img" :class="'right-praise-img'+index">&#xe625;</text>
+						</view>
+					</view>
+					
+					<view class="praise-comment">
+						<!-- 点赞列表，需判断列表第一个对象是否为空 -->
+						<view v-if="item.likePerson.length > 0 && JSON.stringify(item.likePerson[0]) !== '{}'" class="praise-list" :class="{'praise-list-borderbtm': item.comment.length > 0}">
+							<view class="praise-list-leftImg">
+								<text class="my-iconfont praise-list-loveImg">&#xe617;</text>
+							</view>
+							<text v-for="(item2, index2) in item.likePerson" :key="index2">
+								<text v-for="(value, key, ind1) in item2" :key="ind1" @tap.stop="toFriendInfo(key)" class="praise-list-name">
+									<text class="praise-name">{{ item2[key] }}</text>
+									<text class="praise-list-comma" v-if="index2 === item.likePerson.length-1"></text>
+									<text class="praise-list-comma" v-else>,</text>
+								</text>
+							</text>
+							
+						</view>
+						
+						<!-- 评论列表 -->
+						<view v-if="item.comment.length > 0" class="comment-list">
+							<view v-for="(item3, index3) in item.comment" :key="index3" @tap.stop="showComment(index,index3)" class="comment-list-item">
+								<text @tap.stop="toFriendInfo(item3.user)" class="comment-list-item-name">{{ item3.userNickname }}</text><block  v-if="item3.commentFatherId !== 0"><text>回复</text><text @tap.stop="toFriendInfo(item3.toUser)" class="comment-list-item-name" v-if="item3.friendName">{{ item3.friendName }}</text></block>
+								<text class="comment-list-item-text"><text class="colon">:</text><text :selectable="true">{{ item3.commentContent }}</text></text>
+							</view>
+						</view>
+						
+					</view>
+					
+					
+				</view>
+			</view>
+		</view>
+		
+		<view v-else class="dynamic-loading">
+			<view class="dynamic-loading-title">无动态</view>
+		</view>
 		
 		<!-- 赞与评论按钮组 -->
 		<view v-if="isShowPraise" @tap.stop="hidePraiseCommentMask" class="praise-and-comment-mask">
@@ -127,29 +115,22 @@
 
 <script>
 	
-	import { formatTimeStamp } from "@/common/index.js"
-	import { imgBaseUrl } from '@/common/helper.js'
+	import { calcTimeHeader } from "@/utils/utils.js"
 	import { mapState, mapActions } from 'vuex'
 	import { doCommentRequest, doDynamicLikeRequest } from '@/network/dynamic.js'
-		
-	import LoadingIcon from '@/components/content/loading-icon/LoadingIcon.vue'
+	import { imgBaseUrl } from '@/common/helper.js'
 	
 	export default {
-		components: {
-			LoadingIcon
+		props: {
+			imgUrl: {
+				type: String,
+				default() {
+					return ''
+				}
+			}
 		},
 		data() {
 			return {
-				imgList: [
-					'/static/image/test/test.jpg',
-					'/static/image/test/02.jpg',
-					'/static/image/publish/aite.png',
-					'/static/image/publish/location.png',
-					'/static/image/publish/person.png'
-				],
-				
-				imgUrl: '',
-				
 				//当前页面url
 				currentPageUrl: '',
 				//控制点赞与评论按钮组的显示
@@ -179,18 +160,26 @@
 			}
 		},
 		computed: {
-			...mapState(['userInfo', 'friendDynamicList'])
+			...mapState(['userInfo', 'friendDynamicList']),
+		},
+		watch: {
+			hasComment(newV) {
+				if(newV) {
+					uni.hideTabBar()
+				}else {
+					uni.showTabBar()
+				}
+			}
 		},
 		filters: {
 			//格式化时间戳为 9:10
 			getFormatTime(timeStamp) {
-				return formatTimeStamp(timeStamp, 'yyyy-MM-dd hh-mm')
+				return calcTimeHeader(timeStamp)
 			}
 			
 		},
 		methods: {
 			
-			...mapActions(['getNewestDynamic']),
 			//改变自己对该动态点赞的状态,并返回已点赞likePerson列表的下标
 			queryMeHasPraise(index) {
 				const obj = this.friendDynamicList[index]
@@ -240,7 +229,7 @@
 					fatherId: index ? newObj.comment[index].commentId: 0
 				}
 				doCommentRequest(obj).then(res => {
-					console.log(res)
+					console.log('评论成功:', res)
 					if(res.status === 200) {
 						if(res.data.code === 2000) {
 							this.$nextTick(() => {
@@ -287,7 +276,7 @@
 					const topHeight = data.top
 					
 					//弹窗样式
-					this.popStyle = `top: ${topHeight-9}px; right:45px`
+					this.popStyle = `top: ${topHeight-9}px; right:50px`
 					this.$nextTick(() => {
 						setTimeout(() => {
 							this.isShowPraise = !this.isShowPraise
@@ -304,8 +293,8 @@
 				const newObj = this.friendDynamicList[this.currentIndex]
 				const obj = {
 					account: newObj.account,
-					LikeAccount: this.userInfo.user.userAccount,
-					friendCircleDynamicId: newObj.id
+					likeAccount: this.userInfo.user.userAccount,
+					friendCircleId: newObj.id
 				}
 				doDynamicLikeRequest(obj).then(res => {
 					console.log(res)
@@ -457,33 +446,41 @@
 				})
 			},
 			
-			
-			
+			//跳转到评论互动页
+			toInteraction() {
+				uni.navigateTo({
+					url: '/components/content/interaction/Interaction'
+				})
+			},
 			
 			
 			//预览图片等操作
-			toPreviewImg() {
+			toPreviewImg(images, imgIndex) {
+				let imgList = Object.assign([], images)
+				for(let i=0; i<imgList.length; i++) {
+					imgList[i] = this.imgUrl + imgList[i]
+				}
+				console.log('imgList', imgList)
+				let itemList = ['发送给朋友', '保存图片', '收藏']
 				//预览图片
 				uni.previewImage({
-					urls: this.imgList,
+					urls: imgList,
 					indicator: 'default',
+					current: imgIndex,
 					longPressActions: {
-						itemList: ['发送给朋友', '保存图片', '收藏'],
-						success: function(data) {
-							const data1 = data;
-							console.log(data1)
-							
-							switch(data1.tapIndex) {
+						itemList,
+						success: data => {
+							switch(data.tapIndex) {
 								case 0:
-									console.log('发送给朋友');
 									break;
 								case 1:
-									console.log('保存图片到系统相册:', this.imgList[data1.index]);
 									//保存图片到系统相册
 									uni.saveImageToPhotosAlbum({
-										filePath: this.imgList[data1.index],
+										filePath: imgList[data.index],
 										success(data2) {
-											console.log('保存成功：',data2)
+											uni.showToast({
+												title: '已保存到系统相册'
+											})
 											return
 										},
 										fail(err2) {
@@ -492,7 +489,6 @@
 									})
 									break;
 								case 2:
-									console.log('收藏');
 									break;
 							}
 						},
@@ -502,7 +498,6 @@
 					}
 				})
 			},
-			
 			
 			
 			
@@ -521,7 +516,6 @@
 				if(e.detail.height) {
 					//获取键盘高度
 					this.keyboardHeight = e.detail.height
-					console.log(this.keyboardHeight)
 				}
 			},
 			//显示表情
@@ -530,14 +524,6 @@
 			}
 			
 		},
-		created() {
-			this.imgUrl = imgBaseUrl
-			this.$nextTick(() => {
-				this.getNewestDynamic()
-			})
-			console.log('created')
-		}
-		
 	}
 </script>
 
@@ -547,8 +533,8 @@
 		
 		.dynamiccon-top {
 			display: flex;
-			padding: 27rpx 30rpx;
-			border-bottom: 1rpx solid rgba(100, 100, 100, .1);
+			padding: 20rpx 30rpx;
+			border-bottom: 1rpx solid rgba(100, 100, 100, .05);
 			.dynamiccon-top-left {
 				width: auto;
 				font-size: $uni-font-size-lg;
@@ -563,16 +549,46 @@
 				}
 			}
 		}
+		.dynamiccon-new {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 20rpx 0;
+			.new-dynamic {
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: center;
+				align-items: center;
+				padding: 14rpx;
+				box-sizing: border-box;
+				border-radius: 10rpx;
+				background-color: #575757;
+				&:active {
+					background-color: #333;
+				}
+				image {
+					width: 65rpx;
+					height: 65rpx;
+					border-radius: 10rpx;
+				}
+				.new-dynamic-count {
+					font-size: 32rpx;
+					margin: 0 30rpx;
+					text-align: center;
+					color: #fff;
+				}
+			}
+		}
 		.dyc-list {
 			display: flex;
-			padding: 20rpx 20rpx 50rpx 20rpx;
-			border-bottom: 1rpx solid rgba(120, 120, 120, .1);
+			padding: 15rpx 30rpx 30rpx 30rpx;
+			border-bottom: 1rpx solid rgba(100, 100, 100, .05);
 			.dyc-list-head-img {
 				width: auto;
-				margin-right: 20rpx;
+				margin: 10rpx 20rpx 0 0;
 				image {
-					width: 90rpx;
-					height: 90rpx;
+					width: 85rpx;
+					height: 85rpx;
 					border-radius: 12rpx;
 				}
 			}
@@ -600,10 +616,12 @@
 					flex-flow: row wrap;
 					margin-top: 20rpx;
 					.dyc-list-img2-son {
-						width: 32%;
-						margin: 0 2rpx;
+						width: 30%;
+						height: 180rpx;
+						padding: 4rpx;
 						image {
 							width: 100%;
+							height: 100%;
 						}
 					}
 				}
@@ -623,6 +641,17 @@
 					.right-praise {
 						position: relative;
 						
+						.right-praise-img {
+							font-size: 45rpx;
+							color: #888;
+							padding: 0 10rpx;
+							box-sizing: border-box;
+							border-radius: 8rpx;
+							background-color: #F7F7F7;
+							&:active {
+								background-color: #C0C0C0;
+							}
+						}
 						
 						
 						.tap-hover-color5 {
@@ -634,18 +663,6 @@
 							.comment-item-icon {
 								color: #D4D4D4;
 							}
-						}
-						image {
-							display: flex;
-							align-items: center;
-							width: 45rpx;
-							height: 45rpx;
-							padding: 0 10rpx;
-							border-radius: 8rpx;
-							background-color: #F7F7F7;
-						}
-						image:active {
-							background-color: #C0C0C0;
 						}
 					}
 				}
@@ -662,7 +679,7 @@
 							position: relative;
 							display: inline-block;
 							.praise-list-loveImg {
-								font-size: $uni-font-size-sm;
+								font-size: $uni-font-size-base;
 								font-weight: bold;
 								color: #586A93;
 							}
@@ -672,6 +689,7 @@
 							margin: 0;
 							color: #586A93;
 							font-weight: 800;
+							z-index: 1;
 							.praise-list-comma {
 								margin-right: 5rpx;
 							}
@@ -752,7 +770,7 @@
 			
 			.comment-frame-icon {
 				width: auto;
-				font-size: 50rpx;
+				font-size: 60rpx;
 				margin-right: 20rpx;
 			}
 			.comment-frame-btm {
@@ -761,13 +779,14 @@
 				font-size: $uni-font-size-lg;
 				border-radius: 10rpx;
 				
-				border: 4rpx solid $uni-text-color-disable;
+				border: 1rpx solid $uni-text-color-disable;
 				color: $uni-text-color-disable;
 			}
 			
 			//评论输入框有内容时的样式
 			.hasCommentContent {
 				background-color: #1aad19;
+				color: #fff;
 			}
 		}
 	}

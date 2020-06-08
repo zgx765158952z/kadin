@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var utility_1 = require("utility");
 var helper_1 = require("./helper");
-var pkg = require('../../package.json');
+var pkg = require('../package.json');
 var Queue = []; // 消息队列
 var Pool = {}; // Promise池
 var IsOpen = false; // 是否打开,socket只会open一次哦

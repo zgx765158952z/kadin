@@ -2,12 +2,12 @@
 	<view class="remind">
 		<view class="remind-head">
 			<input @focus="isFocus1" focus @blur="isBlur1" v-model="remindInfo.remindTitle" class="remind-head-son" type="text" placeholder="提醒标题..." />
-			<text @tap.stop="resetInput1" v-if="showDel1" class="my-iconfont del-icon">&#xe627;</text>
+			<text @tap.stop="resetInput1" v-if="showDel1" class="my-iconfont del-icon">&#xe61a;</text>
 		</view>
 		<view class="remind-msg">
 			<!-- <input @focus="isFocus2" @blur="isBlur2" v-model="remindInfo.remindContent" class="remind-msg-son" type="text" value="" placeholder="提醒内容..."/> -->
 			<textarea @focus="isFocus2" @blur="isBlur2" auto-height v-model="remindInfo.remindContent" class="remind-msg-son" type="text" placeholder="提醒内容..."/>
-			<text @tap.stop="resetInput2" v-if="showDel2" class="my-iconfont del-icon">&#xe627;</text>
+			<text @tap.stop="resetInput2" v-if="showDel2" class="my-iconfont del-icon">&#xe61a;</text>
 		</view>
 		
 		
@@ -87,7 +87,6 @@
 				</view>
 			</view>
 		</view>
-		
 		<!-- #ifdef MP-WEIXIN -->
 		<button type="default" @tap="finishRemind">完成</button>
 		<!-- #endif -->
@@ -125,6 +124,8 @@
 				//当前选择年月日时分
 				selectDateTime: currentDate,
 				
+				//当前提醒子列表下标
+				currentSublistIndex: 0,
 				
 				//提醒时间的频率列表
 				timeFreqList: ['一次', '每天', '每周', '每月'],

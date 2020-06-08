@@ -3,6 +3,7 @@
     "components/content/startup/Startup",
     "components/content/login/login",
     "pages/index/index",
+    "components/content/interaction/Interaction",
     "components/content/session/Session",
     "components/content/session/content/HistoryMsg",
     "components/content/session/sessionSon/addGroupMember",
@@ -61,6 +62,11 @@
     "selectedColor": "#3399FF",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
+    "midButton": {
+      "iconPath": "static/image/global/add.png",
+      "height": "60px",
+      "iconWidth": "45px"
+    },
     "list": [
       {
         "pagePath": "pages/index/index",
@@ -69,16 +75,16 @@
         "selectedIconPath": "static/image/tabBar/home_active.png"
       },
       {
+        "pagePath": "components/content/dynamic/Dynamic",
+        "text": "动态",
+        "iconPath": "static/image/tabBar/message.png",
+        "selectedIconPath": "static/image/tabBar/message_active.png"
+      },
+      {
         "pagePath": "pages/contacts/contacts",
         "text": "通讯录",
         "iconPath": "static/image/tabBar/contacts.png",
         "selectedIconPath": "static/image/tabBar/contacts_active.png"
-      },
-      {
-        "pagePath": "pages/message/message",
-        "text": "消息",
-        "iconPath": "static/image/tabBar/message.png",
-        "selectedIconPath": "static/image/tabBar/message_active.png"
       },
       {
         "pagePath": "pages/profile/profile",

@@ -1,0 +1,1 @@
+<block wx:if="{{showMask}}"><view class="def-slide"><block wx:if="{{showMask}}"><view data-event-opts="{{[['tap',[['hide',['$event']]]]]}}" class="def-slide-mask" catchtap="__e"></view></block><view class="{{['def-slide-popup',showPopup?'translationLeft':'translationRight']}}"><slot name="def-slide-popup"></slot></view></view></block>

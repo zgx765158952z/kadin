@@ -26,34 +26,34 @@ const sendCodeMixin = {
 	methods: {
 		//发送验证码
 		cliSendCode() {
-			if(isPoneAvailable(this.userPhone)) {
-				//验证码倒计时
-				this.countDown();
-				sendCode("?phone=" + this.userPhone).then(res => {
-					if(res.status === 200) {
-						if(res.data.code === 4000) {
-							uni.showToast({ title: '非法手机号', icon: 'none' });
-						}else if(res.data.code === 5003) {
-							uni.showToast({ title: '发送验证码操作频繁,请稍后再获取', icon: 'none' });
-						}else if(res.data.code === 2000) {
-							this.getCode = res.data.data;
-							uni.showToast({ title: '发送成功', icon: 'none' });
+			if(!this.sendCodeBtn) {
+				if(isPoneAvailable(this.userPhone)) {
+					//验证码倒计时
+					this.countDown();
+					sendCode("?phone=" + this.userPhone).then(res => {
+						if(res.status === 200) {
+							if(res.data.code === 4000) {
+								uni.showToast({ title: '非法手机号', icon: 'none' });
+							}else if(res.data.code === 5003) {
+								uni.showToast({ title: '发送验证码操作频繁,请稍后再获取', icon: 'none' });
+							}else if(res.data.code === 2000) {
+								this.getCode = res.data.data;
+								uni.showToast({ title: '发送成功', icon: 'none' });
+							} else {
+								uni.uni.showToast({ title: '发送失败', icon: 'none' });
+							}
+							
 						} else {
-							uni.uni.showToast({ title: '发送失败', icon: 'none' });
+							uni.uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });
 						}
 						
-					} else {
-						uni.uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });
-					}
-					
-					console.log(res)
-				}).catch(err => {
-					uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });
-				}).finally(() => {
-					console.log('finally')
-				})
-			}else {
-				uni.showToast({ title: '请填写正确手机号', icon: 'none' })
+						console.log(res)
+					}).catch(err => {
+						uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });
+					})
+				}else {
+					uni.showToast({ title: '请填写正确手机号', icon: 'none' })
+				}
 			}
 		},
 		//手机号输入框失焦时,判断手机是否注册
@@ -62,7 +62,7 @@ const sendCodeMixin = {
 			const pages = getCurrentPages();
 			
 			const value = e.detail.value;
-			if(value.length > 0 && value.length === 11) {
+			if(value && value.length === 11) {
 				queryPhoneHasBeenUsed(`?phone=${value}`).then(res => {
 					if(res.status === 200) {
 						console.log(res)

@@ -5,11 +5,12 @@
 		  <!-- 这里是状态栏 -->
 		</view>
 		<view class="startup-content">
-			<view @tap="stopCounter" class="handlerStart">
-				跳过<block v-if="counter > 0">(<text>{{ counter }}</text>)</block>
-			</view>
+			<view class="startup-animation">启动页动画展示</view>
 		</view>
-		<view class="startup-animation">启动页动画展示</view>
+		
+		<view @tap="stopCounter" class="handlerSkip">
+			跳过<text v-if="counter > 0">(<text>{{ counter }}</text>)</text>
+		</view>
 	</view>
 </template>
 
@@ -80,17 +81,27 @@
 
 <style lang="scss">
 	.startup {
+		min-height: 100vh;
 		.startup-content {
-			display: flex;
-			align-items: center;
-			position: relative;
-			.handlerStart {
-				position: absolute;
-				right: 10rpx;
-				top: 0;
-			}
 			.startup-animation {
-				
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+		
+		.handlerSkip { //跳过
+			position: fixed;
+			right: 20rpx;
+			bottom: 20rpx;
+			padding: 6rpx 12rpx;
+			box-sizing: border-box;
+			background-color: #999;
+			color: #fff;
+			font-size: $uni-font-size-base;
+			border-radius: 10rpx;
+			&:active {
+				background-color: #666;
 			}
 		}
 	}

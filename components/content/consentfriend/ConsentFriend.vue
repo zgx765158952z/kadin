@@ -1,52 +1,30 @@
 <template>
 	<view class="consentfriend set-bgc">
 		<default-list class="consentfriend-def-list" :noBorderBtm="true">
-			<view slot="def-list-left" class="def-list-left">
-				<image src="/static/image/global/phone.png"></image>
-			</view>
-			<view slot="def-list-center" class="def-list-center">
-				添加手机联系人
-			</view>
-			
-			<view class="def-list-right">
-				
-			</view>
+			<view class="my-iconfont" slot="def-list-left" >&#xe620;</view>
+			<view class="consentfriend-def-list-center" slot="def-list-center">添加手机联系人</view>
+			<view class="def-list-right" slot="def-list-right"></view>
 		</default-list>
 		
 		<view class="consent-list">
-			<block v-if="consentFriendList.length > 0">
-				<block v-for="(item, index) in consentFriendList" :key="index">
-					<view class="consent-item">
-						<head-img-item>
-							<block v-if="item.faceImage">
-								<image slot="start-img" :src="imgUrl+item.faceImage" mode="aspectFill"></image>
-							</block>
-							<block v-else>
-								<image slot="start-img" src="/static/image/global/boyHeadImg.png"></image>
-							</block>
-							<block v-if="item.nickname">
-								<text slot="title">
-									{{ item.nickname }} 
-								</text>
-							</block>
-							<block v-else>
-								<text slot="title">
-									未命名 
-								</text>
-							</block>
-							<text slot="msg">
-								申请条件申请条件申请条件申请条件申请条件申请条件申请条件申请条件
-							</text>
-							<view v-if="!isShowAgree" slot="right">
-								已添加
-							</view>
-						</head-img-item>
-						<view v-if="isShowAgree" class="right-btn">
-							<button class="consent-btn"  @tap="doAgree(index)" type="primary">同意</button>
+			
+			<view v-if="consentFriendList.length > 0">
+				<view v-for="(item, index) in consentFriendList" :key="index" class="consent-item">
+					<head-img-item :noBorderBtm="(index+1)===consentFriendList.length">
+						<image v-if="item.faceImage" slot="start-img" :src="imgUrl+item.faceImage"></image>
+						<image v-else slot="start-img" src="/static/image/global/boyHeadImg.png"></image>
+						<text v-if="item.nickname" slot="title">
+							{{ item.nickname }} 
+						</text>
+						<text v-if="item.requestMsg" slot="msg">
+							{{ item.requestMsg }}
+						</text>
+						<view v-if="!item.isFriend" @tap="doAgree(index)" :class="{'consent-btn': !item.isFriend}" slot="right">
+							同意
 						</view>
-					</view>
-				</block>
-			</block>
+					</head-img-item>
+				</view>
+			</view>
 			
 		</view>
 		
@@ -58,7 +36,8 @@
 	import DefaultList from '@/components/content/defaultlist/DefaultList.vue'
 	
 	import { queryFriendRequestListRequest, argeeFriendRequest } from '@/network/addfriend.js'
-
+	import { mapState, mapMutations } from 'vuex'
+	
 	import { imgBaseUrl } from "@/common/helper.js"
 	
 	export default {
@@ -66,24 +45,35 @@
 			HeadImgItem,
 			DefaultList
 		},
+		computed: {
+			...mapState(['userInfo', 'newFriendRequest'])
+		},
 		data() {
 			return {
 				consentFriendList: null,
-				isShowAgree: true,
-				userAccount: '',
 				currentIndex: '',
 				imgUrl: ''
 			}
 		},
+		
 		methods: {
+			...mapMutations(['clearNewData']),
 			//获取申请好友列表
 			queryListRequest() {
-				queryFriendRequestListRequest(`?myAccount=${this.userAccount}`).then(res => {
+				queryFriendRequestListRequest(`?myAccount=${this.userInfo.user.userAccount}`).then(res => {
 					console.log(res)
 					if(res.status === 200) {
 						if(res.data.code === 2000) {
 							if(res.data.data && res.data.data.length > 0) {
 								this.consentFriendList = res.data.data
+								this.consentFriendList.forEach(item => {
+									item.isFriend = false
+								})
+								if(this.newFriendRequest) {
+									this.clearNewData('clearnewPushMsg')
+								}
+							}else {
+								this.consentFriendList = null
 							}
 						}
 					}else if(res.status === 404) {
@@ -110,15 +100,16 @@
 				const senderAccount = this.consentFriendList[index].userAccount;
 				
 				const SenderAndAccept = {
-					senderAccount: senderAccount,
-					acceptAccount: this.userAccount,
+					senderAccount,
+					acceptAccount: this.userInfo.user.userAccount,
 					integer: 1
 				}
 				argeeFriendRequest(SenderAndAccept).then(res => {
 					if(res.status === 200) {
 						if(res.data.code === 2000) {
-							this.isShowAgree = false
-							
+							this.consentFriendList[index].isFriend = true
+							console.log('this.consentFriendList:', this.consentFriendList)
+							this.queryListRequest()
 						}else if(res.status === 404) {
 							uni.showToast({
 								title: '网络走丢了,请稍后重试',
@@ -148,16 +139,10 @@
 			
 			
 		},
-		computed: {
-			//计算同意或忽略哪一个申请
-			calcWhichAgreeIgnore(index) {
-				
-			}
-		},
 		onLoad() {
+			this.imgUrl = imgBaseUrl
 			//获取申请好友列表
 			this.queryListRequest()
-			
 		},
 		onNavigationBarButtonTap(option) {
 			if(option.index === 0) {
@@ -165,11 +150,6 @@
 					url: '/components/content/addfriend/AddFriend'
 				})
 			}
-		},
-		created() {
-			const userInfo = uni.getStorageSync('userInfo')
-			this.userAccount = userInfo.user.userAccount;
-			this.imgUrl = imgBaseUrl
 		},
 		mounted() {
 		}
@@ -181,20 +161,12 @@
 	
 	.consentfriend {
 		height: 100vh;
-		.defaultlist {
-			// border-top: 30rpx solid #F7F7F7;
-			// border-bottom: 30rpx solid #F7F7F7;
-		}
 		.consentfriend-def-list {
-			.def-list-left {
-				display: flex;
-				align-items: center;
-				image {
-					width: 50rpx;
-					height: 50rpx;
-				}
+			.my-iconfont {
+				color: #55A532;
+				font-size: 36rpx;
 			}
-			.def-list-center {
+			.consentfriend-def-list-center {
 				color: #181818;
 			}
 		}
@@ -205,19 +177,27 @@
 			.consent-item {
 				position: relative;
 				background-color: #FFFFFF;
-				.right-btn {
-					position: absolute;
-					z-index: 999;
-					display: flex;
-					justify-content: space-between;
-					right: 25rpx;
-					top: 35rpx;
-					button {
-						font-size: 23rpx;
-					}
-					.consent-btn {
-						background-color: #1aad19;
-					}
+				image {
+					width: 92rpx;
+					height: 92rpx;
+				}
+				// .right-btn {
+				// 	position: absolute;
+				// 	z-index: 999;
+				// 	display: flex;
+				// 	justify-content: space-between;
+				// 	right: 25rpx;
+				// 	top: 35rpx;
+				// 	button {
+				// 		font-size: 18rpx;
+				// 	}
+				// 	.consent-btn {
+				// 		background-color: #1aad19;
+				// 	}
+				// }
+				.consent-btn {
+					font-size: 32rpx;
+					color: #007AFF;
 				}
 			}
 		}

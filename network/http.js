@@ -82,6 +82,7 @@ http.interceptors.response.use(response => {
 		// })
 	// }
 	// showRes(response)
+	console.log(response)
 	return response
 }, error => {
 	// showErr(error)

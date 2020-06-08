@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "朋友动态",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "dynamic-con": "/components/content/dynamic/dynamicCpns/DynamicCon"
   }

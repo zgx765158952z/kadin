@@ -1,13 +1,14 @@
 <template>
-	<view class="defaultlist" :class="marTop ? 'defaultlist-martop':'' ">
+	<view class="defaultlist" :class="{'defaultlist-martop': marTop}">
 		<view hover-class="tap-hover-color">
-			<view class="def-list" :class=" noBorderBtm ? 'def-list-no-border': '' ">
+			<view class="def-list" :class="{'def-list-no-border': noBorderBtm}">
 				<view class="def-list-left">
-					<slot name="def-list-left">
-					</slot>
+					<slot name="def-list-left"></slot>
 				</view>
 				<view class="def-list-center" :class="{'alignRight': textRight}">
 					<slot name="def-list-center">
+					</slot>
+					<slot name="def-list-content" v-if="hasContent">
 					</slot>
 				</view>
 				<view class="def-list-right">
@@ -17,26 +18,29 @@
 				
 			</view>
 		</view>
-		
 	</view>
 </template>
 
 <script>
 	export default {
 		props: {
-			myRight: {
+			myRight: { //是否自定义右边图标
 				type: Boolean,
 				default: true
 			},
-			noBorderBtm: {
+			noBorderBtm: { //是否有下边框
 				type: Boolean,
 				default: false
 			},
-			marTop: {
+			marTop: { //是否有上边距
 				type: Boolean,
 				default: false
 			},
-			textRight: {
+			textRight: { //中间文本是否右对齐
+				type: Boolean,
+				default: false
+			},
+			hasContent: { //是否显示内容
 				type: Boolean,
 				default: false
 			}
@@ -44,23 +48,22 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.defaultlist {
 		background-color: #FFFFFF;
 		
 		.def-list {
 			display: flex;
 			align-items: center;
-			// padding: 30rpx 27rpx 30rpx 0;
-			// margin-left: 27rpx;
+			flex-flow: row nowrap;
 			
 			padding: 30rpx 30rpx 30rpx 0;
+			box-sizing: border-box;
 			margin-left: 30rpx;
 			font-size: $uni-font-size-lg;
 			border-bottom: 1rpx solid rgba(100, 100, 100, .1);
 			.def-list-left {
 				width: auto;
-				// color: $uni-text-color;
 			}
 			.def-list-center {
 				flex: 1;

@@ -49,4 +49,36 @@
   color: #333;
   font-size: 32rpx;
 }
+.messagelist .messagelist-content.data-v-9d0f6d92 {
+  padding: 0 15rpx;
+  line-height: 36rpx;
+  font-size: 32rpx;
+  margin-left: 20rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #DD524D;
+  border-radius: 50%;
+}
+.messagelist .messagelist-content-new.data-v-9d0f6d92 {
+  width: 20rpx;
+  height: 20rpx;
+  background-color: #DD524D;
+  border-radius: 50%;
+}
+.messagelist .messagelist-content-mutinumber.data-v-9d0f6d92 {
+  padding: 0 5rpx !important;
+}
+.messagelist .newfriend-dynamic.data-v-9d0f6d92 {
+  position: relative;
+}
+.messagelist .newfriend-dynamic.data-v-9d0f6d92::after {
+  content: '';
+  position: absolute;
+  right: -40rpx;
+  top: 14rpx;
+  width: 20rpx;
+  height: 20rpx;
+  background-color: #DD524D;
+  border-radius: 50%;
+}
 

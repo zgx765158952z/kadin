@@ -15,14 +15,18 @@
 		mapMutations,
 		mapActions
 	} from 'vuex'
-
+	
+	
 	import {
 		formatTimeStamp
 	} from '@/common/index.js'
+	
+	
 	export default {
 		globalData: {
 			nim: null,
-			socketTask: null
+			socketTask: null,
+			newRemindVibrate: null, //新提醒震动
 		},
 		computed: {
 			...mapState(['hasLogin', 'userInfo', 'rawMessageList', 'groupMemberList', 'groupMemberMap'])
@@ -71,11 +75,28 @@
 				}
 			},
 
+			//监听网络状态变化
+			onNetworkStatusChange() {
+				uni.onNetworkStatusChange(res => {
+					console.log('监听网络状态变化:', res)
+					uni.showToast({
+						title: `网络类型:${res.networkType}-${res.isConnected}`,
+						icon: 'none'
+					})
+				})
+			},
+			myTimeoutTest() {
+				
+			},
+			
+			myCycleTime(timeStamp) {
+				setInterval(() => {
+					let date = new Date()
+					console.log('getDate()', date.getTime())
+				}, 10000)
+			},
 			
 			
-			
-
-
 			
 			// #ifdef APP-PLUS
 			//初始化本地数据
@@ -85,18 +106,76 @@
 					getRawMsg(account, 'p2p-1579139382461')
 				}
 			},
+			toReminded() {
+				uni.navigateTo({
+					url: '/components/content/remind/Reminded'
+				})
+			},
 			
-			
+			//判断当前运行平台
+			judgePlatform(){  
+			    switch ( plus.os.name ) {  
+			        case "Android":  
+						console.log('Android')
+						// Android平台: plus.android.*  
+						let main = plus.android.runtimeMainActivity();
+						//为了防止快速点按返回键导致程序退出重写quit方法改为隐藏至后台  
+						plus.runtime.quit = function(){  
+							main.moveTaskToBack(false);  
+						};  
+						//重写toast方法如果内容为 ‘再按一次退出应用’ 就隐藏应用，其他正常toast  
+						plus.nativeUI.toast = (function(str){  
+							if(str == '再按一次退出应用'){  
+								main.moveTaskToBack(false);
+								console.log('隐藏到后台1')
+								return false;  
+							}else{  
+								console.log('隐藏到后台2')
+								uni.showToast({  
+									title:str,  
+									icon:'none',  
+								})  
+							}  
+						});
+			        break;  
+			        case "iOS":  
+			        // iOS平台: plus.ios.*  
+			        break;  
+			        default:  
+			        // 其它平台  
+			        break;  
+			    }  
+			}
 			// #endif
 			
 		},
 		onLaunch: function() {
 			console.log('App Launch')
-			
+			console.log('this.globalData', this.globalData)
 			//再次进入应用时判断是否登录
 			this.loginStatus()
+			this.onNetworkStatusChange()
+			
+			// {
+			// 	id: 1,
+			// 	remindContent: '主任务A',
+			// 	remindTime: '1590980220000',
+			// 	remindPerson: ['1590980220000'],
+			// 	remindLocation: '天河区',
+			// 	subtaskList: [
+			// 		{
+			// 			id: 2
+			// 		},
+			// 		{
+			// 			id: 3
+			// 		}
+			// 	]
+			// }
+			
+			
 			
 			//#ifdef APP-PLUS
+			this.judgePlatform()
 			plus.push.addEventListener('click', function(msg) {
 				console.log('新的推送通知:', msg)
 				uni.switchTab({
@@ -112,10 +191,13 @@
 						})
 					}
 				})
-				
 			}, false)
-			const allPushMsg = plus.push.getAllMessage()
-			console.log('当前所有的推送消息:', allPushMsg)
+			
+			//监听tabbar中间按钮点击事件
+			uni.onTabBarMidButtonTap(() => {
+				this.toReminded()
+			})
+			
 			//#endif
 		},
 		onShow: function() {
@@ -130,7 +212,6 @@
 				console.log('groupMemberList:', this.groupMemberList)
 				console.log('groupMemberMap', this.groupMemberMap)
 			}, 2000)
-
 		},
 		onHide: function() {
 			console.log('App Hide')
@@ -157,6 +238,7 @@
 			opacity: 0;
 			/* 初始状态  透明度为0 */
 			transform: scale(0.0);
+			
 		}
 
 		100% {
@@ -186,9 +268,9 @@
 		/*动画名称*/
 		-webkit-animation-duration: .5s;
 		/*动画持续时间*/
-		-webkit-animation-count: 1;
+		-webkit-animation-iteration-count: 1;
 		/*动画次数*/
-		-webkit-animation-delay: 0s;
+		-webkit-animation-delay: -.3s;
 		/*延迟时间*/
 	}
 
@@ -198,12 +280,61 @@
 		/*动画名称*/
 		-webkit-animation-duration: .5s;
 		/*动画持续时间*/
-		-webkit-animation-count: 1;
+		-webkit-animation-iteration-count: 1;
+		/*动画次数*/
+		-webkit-animation-delay: -.3s;
+		/*延迟时间*/
+	}
+	
+	@keyframes expandDown {
+		0% {
+			transform: scale(1,0);
+		}
+		100% {
+			transform: scale(1,1);
+		}
+	}
+	
+	@keyframes zoomUp {
+		0% {
+			transform: scale(1,1);
+		}
+		100% {
+			transform: scale(1,0);
+		}
+	}
+	.expandDown {
+		-webkit-animation-name: expandDown;
+		/*动画名称*/
+		-webkit-animation-duration: 1s;
+		/*动画持续时间*/
+		-webkit-animation-iteration-count: 1;
 		/*动画次数*/
 		-webkit-animation-delay: 0s;
 		/*延迟时间*/
+		max-height: 100%;
 	}
-
+	
+	.zoomUp {
+		-webkit-animation-name: zoomUp;
+		/*动画名称*/
+		-webkit-animation-duration: 1s;
+		/*动画持续时间*/
+		-webkit-animation-iteration-count: 1;
+		/*动画次数*/
+		-webkit-animation-delay: .3s;
+		/*延迟时间*/
+		max-height: 0;
+		overflow: auto;
+	}
+	/*  弹性布局   */
+	//水平与垂直居中
+	.def-center-box {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+	}
 
 	//背景颜色
 	.set-bgc {
@@ -246,6 +377,7 @@
 		margin-top: 50rpx;
 		font-size: $uni-font-size-lg;
 	}
+	
 
 	//水平垂直居中
 	.center-box {
@@ -274,6 +406,12 @@
 		color: #4CD964;
 	}
 
+	//默认用户名字:颜色、大小
+	.def-username {
+		font-size: $uni-font-size-base;
+		font-weight: bold;
+		color: #536C99;
+	}
 	//默认上边框
 	.def-top-border {
 		position: relative;
@@ -282,10 +420,10 @@
 			content: '';
 			position: absolute;
 			left: 0;
-			top: -1rpx;
+			top: 0;
 			height: 1rpx;
 			width: 100%;
-			background-color: rgba(70, 70, 70, .1);
+			background-color: rgba(0, 0, 0, .03);
 		}
 	}
 
@@ -297,10 +435,10 @@
 			content: '';
 			position: absolute;
 			left: 0;
-			bottom: -1rpx;
+			bottom: 0;
 			height: 1rpx;
 			width: 100%;
-			background-color: rgba(70, 70, 70, .1);
+			background-color: rgba(0, 0, 0, .03);
 		}
 	}
 
@@ -308,6 +446,7 @@
 	.my-iconfont {
 		font-family: 'iconfont';
 	}
+
 
 
 	.def-popup {
@@ -354,7 +493,7 @@
 		display: flex;
 		align-items: center;
 		height: 100%;
-		width: 90%;
+		width: 80%;
 		margin: 0 auto;
 	}
 
@@ -422,9 +561,10 @@
 			right: 0rpx;
 			top: 10rpx;
 			z-index: 9;
-
+			
 			.def-input-del-icon {
 				font-size: $uni-font-size-base;
+				color: $uni-text-color-grey;
 			}
 		}
 
@@ -461,9 +601,21 @@
 			.right-btn {
 				width: auto;
 				font-size: $uni-font-size-lg;
-				padding: 15rpx 50rpx;
-				line-height: 36rpx;
+				// padding: 15rpx 50rpx;
+				// line-height: 36rpx;
+				
+				color: #007AFF;
 			}
+			.right-btn-disabled {
+				color: $uni-text-color-disable;
+			}
+		}
+		
+		.submit-btn {
+			margin-top: 50rpx;
+			text-align: center;
+			font-size: $uni-font-size-lg;
+			color: #fff;
 		}
 	}
 

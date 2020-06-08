@@ -27,19 +27,11 @@
 .consentfriend {
   height: 100vh;
 }
-.consentfriend .consentfriend-def-list .def-list-left {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-          align-items: center;
+.consentfriend .consentfriend-def-list .my-iconfont {
+  color: #55A532;
+  font-size: 36rpx;
 }
-.consentfriend .consentfriend-def-list .def-list-left image {
-  width: 50rpx;
-  height: 50rpx;
-}
-.consentfriend .consentfriend-def-list .def-list-center {
+.consentfriend .consentfriend-def-list .consentfriend-def-list-center {
   color: #181818;
 }
 .consentfriend .consent-list {
@@ -49,22 +41,12 @@
   position: relative;
   background-color: #FFFFFF;
 }
-.consentfriend .consent-list .consent-item .right-btn {
-  position: absolute;
-  z-index: 999;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-          justify-content: space-between;
-  right: 25rpx;
-  top: 35rpx;
+.consentfriend .consent-list .consent-item image {
+  width: 92rpx;
+  height: 92rpx;
 }
-.consentfriend .consent-list .consent-item .right-btn button {
-  font-size: 23rpx;
-}
-.consentfriend .consent-list .consent-item .right-btn .consent-btn {
-  background-color: #1aad19;
+.consentfriend .consent-list .consent-item .consent-btn {
+  font-size: 32rpx;
+  color: #007AFF;
 }
 

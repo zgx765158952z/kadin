@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "事项提醒",
-  "usingComponents": {}
+  "usingComponents": {
+    "def-slide": "/components/content/defslide/DefSlide"
+  }
 }

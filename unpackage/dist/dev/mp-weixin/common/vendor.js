@@ -1560,7 +1560,33 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 118:
+/***/ 12:
+/*!************************************************!*\
+  !*** E:/learning/kadingapp/common/imConfig.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var envir = 'online';
+var ENVIRONMENT_CONFIG = {};
+
+var configMap = {
+  online: {
+    appkey: 'a59ba9fafb323c6fcc49a5cbf48d369a' } };
+
+
+
+
+ENVIRONMENT_CONFIG = configMap[envir];
+
+//是否开启私有化部署
+ENVIRONMENT_CONFIG.openPrivateConf = false;
+
+module.exports = ENVIRONMENT_CONFIG;
+
+/***/ }),
+
+/***/ 127:
 /*!*********************************************!*\
   !*** E:/learning/kadingapp/common/utils.js ***!
   \*********************************************/
@@ -1572,7 +1598,7 @@ uni$1;exports.default = _default;
 
 
 
-var _register = __webpack_require__(/*! @/network/register.js */ 119);
+var _register = __webpack_require__(/*! @/network/register.js */ 128);
 var _index = __webpack_require__(/*! @/common/index.js */ 14);
 
 
@@ -1803,10 +1829,10 @@ var sendCodeMixin = { data: function data() {return { //绑定手机号input
       sendCodeBtnVal: '发送验证码', counter: 60, //绑定验证码input
       getCode: null, //存储定时
       interval: null };}, methods: { //发送验证码
-    cliSendCode: function cliSendCode() {var _this = this;if ((0, _index.isPoneAvailable)(this.userPhone)) {//验证码倒计时
-        this.countDown();(0, _register.sendCode)("?phone=" + this.userPhone).then(function (res) {if (res.status === 200) {if (res.data.code === 4000) {uni.showToast({ title: '非法手机号', icon: 'none' });} else if (res.data.code === 5003) {uni.showToast({ title: '发送验证码操作频繁,请稍后再获取', icon: 'none' });} else if (res.data.code === 2000) {_this.getCode = res.data.data;uni.showToast({ title: '发送成功', icon: 'none' });} else {uni.uni.showToast({ title: '发送失败', icon: 'none' });}} else {uni.uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });}console.log(res);}).catch(function (err) {uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });}).finally(function () {console.log('finally');});} else {uni.showToast({ title: '请填写正确手机号', icon: 'none' });}}, //手机号输入框失焦时,判断手机是否注册
+    cliSendCode: function cliSendCode() {var _this = this;if (!this.sendCodeBtn) {if ((0, _index.isPoneAvailable)(this.userPhone)) {//验证码倒计时
+          this.countDown();(0, _register.sendCode)("?phone=" + this.userPhone).then(function (res) {if (res.status === 200) {if (res.data.code === 4000) {uni.showToast({ title: '非法手机号', icon: 'none' });} else if (res.data.code === 5003) {uni.showToast({ title: '发送验证码操作频繁,请稍后再获取', icon: 'none' });} else if (res.data.code === 2000) {_this.getCode = res.data.data;uni.showToast({ title: '发送成功', icon: 'none' });} else {uni.uni.showToast({ title: '发送失败', icon: 'none' });}} else {uni.uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });}console.log(res);}).catch(function (err) {uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });});} else {uni.showToast({ title: '请填写正确手机号', icon: 'none' });}}}, //手机号输入框失焦时,判断手机是否注册
     userPhoneInputDefocus: function userPhoneInputDefocus(e) {//获取当前页面栈的实例,拿到页面url,用于判断当前操作是注册还是修改密码
-      var pages = getCurrentPages();var value = e.detail.value;if (value.length > 0 && value.length === 11) {(0, _register.queryPhoneHasBeenUsed)("?phone=".concat(value)).then(function (res) {if (res.status === 200) {console.log(res);if (res.data.code === 4003) {if (pages[pages.length - 1].route === 'components/content/register/register1') {uni.showToast({ title: '该号码已注册', icon: 'none' });}} else if (res.data.code === 2000) {if (pages[pages.length - 1].route === 'components/content/changepwd/changepwd1') {uni.showToast({ title: '该号码未注册', icon: 'none' });}}} else {uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });}}).catch(function (err) {uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });});} else {uni.showToast({ title: '手机号为11位', icon: 'none' });}}, //验证码倒计时
+      var pages = getCurrentPages();var value = e.detail.value;if (value && value.length === 11) {(0, _register.queryPhoneHasBeenUsed)("?phone=".concat(value)).then(function (res) {if (res.status === 200) {console.log(res);if (res.data.code === 4003) {if (pages[pages.length - 1].route === 'components/content/register/register1') {uni.showToast({ title: '该号码已注册', icon: 'none' });}} else if (res.data.code === 2000) {if (pages[pages.length - 1].route === 'components/content/changepwd/changepwd1') {uni.showToast({ title: '该号码未注册', icon: 'none' });}}} else {uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });}}).catch(function (err) {uni.showToast({ title: '您可能与服务器断开了连接', icon: 'none' });});} else {uni.showToast({ title: '手机号为11位', icon: 'none' });}}, //验证码倒计时
     countDown: function countDown() {var _this2 = this;this.interval = setInterval(function () {if (_this2.counter > 0) {--_this2.counter;_this2.sendCodeBtnVal = _this2.counter + 's后重新获取';_this2.sendCodeBtn = true;} else if (_this2.counter === 0) {_this2.sendCodeBtnVal = '重新发送验证码';_this2.sendCodeBtn = false;_this2.counter = 60;clearInterval(_this2.interval);}}, 1000);} }, onUnload: function onUnload() {//页面卸载时清除定时器
     clearInterval(this.interval);} }; //首页遮罩层与弹窗
 exports.sendCodeMixin = sendCodeMixin;var listPopShadeMixin = { data: function data() {return { winSize: {}, //遮罩的显示与隐藏
@@ -1949,7 +1975,7 @@ exports.sendCodeMixin = sendCodeMixin;var listPopShadeMixin = { data: function d
 
 /***/ }),
 
-/***/ 119:
+/***/ 128:
 /*!*************************************************!*\
   !*** E:/learning/kadingapp/network/register.js ***!
   \*************************************************/
@@ -1980,32 +2006,6 @@ function doRegister(params) {
 function queryPhoneHasBeenUsed(params) {
   return _http.http.get('/query/queryPhoneStatus' + params);
 }
-
-/***/ }),
-
-/***/ 12:
-/*!************************************************!*\
-  !*** E:/learning/kadingapp/common/imConfig.js ***!
-  \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var envir = 'online';
-var ENVIRONMENT_CONFIG = {};
-
-var configMap = {
-  online: {
-    appkey: 'a59ba9fafb323c6fcc49a5cbf48d369a' } };
-
-
-
-
-ENVIRONMENT_CONFIG = configMap[envir];
-
-//是否开启私有化部署
-ENVIRONMENT_CONFIG.openPrivateConf = false;
-
-module.exports = ENVIRONMENT_CONFIG;
 
 /***/ }),
 
@@ -2968,6 +2968,7 @@ var index_esm = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 
 
@@ -3032,7 +3033,7 @@ function formatTimeStamp(timeStamp, fmt) {Date.prototype.Format = function (fmt)
       "q+": Math.floor((this.getMonth() + 3) / 3), // 季度
       "S": this.getMilliseconds() // 毫秒
     };if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, this.getFullYear() + "");for (var k in o) {if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));}return fmt;};return new Date(timeStamp).Format(fmt);} //中国标准时间转时间戳
-function formatToTimeStamp(DateTime) {console.log('收到的中国标准时间:', DateTime);var timeStamp = new Date(DateTime).getTime();console.log('中国标准时间转时间戳为:', timeStamp);return Number(timeStamp);} //判断首字母:中文英文或其他特殊符号,并获取首字母
+function formatToTimeStamp(DateTime) {console.log('收到的中国标准时间:', DateTime);var timeStamp = new Date(DateTime).getTime();console.log(typeof timeStamp);console.log('中国标准时间转时间戳为:', timeStamp);return timeStamp;} //判断首字母:中文英文或其他特殊符号,并获取首字母
 function isChinese(str) {//中文
   var reg1 = /[\u4E00-\u9FCC\u3400-\u4DB5\uFA0E\uFA0F\uFA11\uFA13\uFA14\uFA1F\uFA21\uFA23\uFA24\uFA27-\uFA29]|[\ud840-\ud868][\udc00-\udfff]|\ud869[\udc00-\uded6\udf00-\udfff]|[\ud86a-\ud86c][\udc00-\udfff]|\ud86d[\udc00-\udf34\udf40-\udfff]|\ud86e[\udc00-\udc1d]/; //英文
   var reg2 = /[a-zA-Z]/;if (str) {if (reg1.test(str)) {for (var key in _pinyin_dict_notone.pinyin_dict_notone) {var value = _pinyin_dict_notone.pinyin_dict_notone[key];if (value.indexOf(str) !== -1) {//中文
@@ -3130,6 +3131,15 @@ function formatList(data) {var firstWorld = arguments.length > 1 && arguments[1]
 }
 
 
+//将获取的所有的朋友信息更新到朋友名片friendCard
+function setNewestFriendCard(state, data) {
+  var tempState = Object.assign({}, state);
+  var newObj = {};
+  data.forEach(function (item) {
+    newObj[item.friendAccount] = item;
+  });
+  return Object.assign({}, newObj, tempState.friendCard);
+}
 
 
 
@@ -3173,6 +3183,39 @@ function deepClone(target) {
   return result;
 }
 
+//选择图片
+function chooseImg() {var count = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 9;
+  return new Promise(function (resolve, reject) {
+    uni.chooseImage({
+      count: count,
+      success: function success(res) {
+        console.log('选择的图片:', res);
+        resolve(res.tempFilePaths);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+//上传文件
+function uploadFile(obj, filePath) {var formData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  return new Promise(function (resolve, reject) {
+    uni.uploadFile({
+      url: obj.url,
+      filePath: filePath,
+      formData: formData,
+      name: obj.name,
+      success: function success(res) {
+        resolve(res);
+      },
+      fail: function fail(err) {
+        reject(err);
+      } });
+
+  });
+}
+
 
 
 module.exports = {
@@ -3185,8 +3228,12 @@ module.exports = {
   formatToTimeStamp: formatToTimeStamp,
   isChinese: isChinese,
   formatList: formatList,
+  setNewestFriendCard: setNewestFriendCard,
   deepClone: deepClone,
-  debounce: debounce };
+  debounce: debounce,
+  chooseImg: chooseImg,
+  uploadFile: uploadFile };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -3202,43 +3249,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.pinyin_dic
                                                                                                                  * 收录常用汉字6763个，不支持声调，支持多音字，并按照汉字使用频率由低到高排序
                                                                                                                  */
 var pinyin_dict_notone = { "a": "阿啊呵腌嗄吖锕", "e": "额阿俄恶鹅遏鄂厄饿峨扼娥鳄哦蛾噩愕讹锷垩婀鹗萼谔莪腭锇颚呃阏屙苊轭", "ai": "爱埃艾碍癌哀挨矮隘蔼唉皑哎霭捱暧嫒嗳瑷嗌锿砹", "ei": "诶", "xi": "系西席息希习吸喜细析戏洗悉锡溪惜稀袭夕洒晰昔牺腊烯熙媳栖膝隙犀蹊硒兮熄曦禧嬉玺奚汐徙羲铣淅嘻歙熹矽蟋郗唏皙隰樨浠忾蜥檄郄翕阋鳃舾屣葸螅咭粞觋欷僖醯鼷裼穸饩舄禊诶菥蓰", "yi": "一以已意议义益亿易医艺食依移衣异伊仪宜射遗疑毅谊亦疫役忆抑尾乙译翼蛇溢椅沂泄逸蚁夷邑怡绎彝裔姨熠贻矣屹颐倚诣胰奕翌疙弈轶蛾驿壹猗臆弋铱旖漪迤佚翊诒怿痍懿饴峄揖眙镒仡黟肄咿翳挹缢呓刈咦嶷羿钇殪荑薏蜴镱噫癔苡悒嗌瘗衤佾埸圯舣酏劓", "an": "安案按岸暗鞍氨俺胺铵谙庵黯鹌桉埯犴揞厂广", "han": "厂汉韩含旱寒汗涵函喊憾罕焊翰邯撼瀚憨捍酣悍鼾邗颔蚶晗菡旰顸犴焓撖", "ang": "昂仰盎肮", "ao": "奥澳傲熬凹鳌敖遨鏖袄坳翱嗷拗懊岙螯骜獒鏊艹媪廒聱", "wa": "瓦挖娃洼袜蛙凹哇佤娲呙腽", "yu": "于与育余预域予遇奥语誉玉鱼雨渔裕愈娱欲吁舆宇羽逾豫郁寓吾狱喻御浴愉禹俞邪榆愚渝尉淤虞屿峪粥驭瑜禺毓钰隅芋熨瘀迂煜昱汩於臾盂聿竽萸妪腴圄谕觎揄龉谀俣馀庾妤瘐鬻欤鹬阈嵛雩鹆圉蜮伛纡窬窳饫蓣狳肀舁蝓燠", "niu": "牛纽扭钮拗妞忸狃", "o": "哦噢喔", "ba": "把八巴拔伯吧坝爸霸罢芭跋扒叭靶疤笆耙鲅粑岜灞钯捌菝魃茇", "pa": "怕帕爬扒趴琶啪葩耙杷钯筢", "pi": "被批副否皮坏辟啤匹披疲罢僻毗坯脾譬劈媲屁琵邳裨痞癖陂丕枇噼霹吡纰砒铍淠郫埤濞睥芘蚍圮鼙罴蜱疋貔仳庀擗甓陴", "bi": "比必币笔毕秘避闭佛辟壁弊彼逼碧鼻臂蔽拂泌璧庇痹毙弼匕鄙陛裨贲敝蓖吡篦纰俾铋毖筚荸薜婢哔跸濞秕荜愎睥妣芘箅髀畀滗狴萆嬖襞舭", "bai": "百白败摆伯拜柏佰掰呗擘捭稗", "bo": "波博播勃拨薄佛伯玻搏柏泊舶剥渤卜驳簿脖膊簸菠礴箔铂亳钵帛擘饽跛钹趵檗啵鹁擗踣", "bei": "北被备倍背杯勃贝辈悲碑臂卑悖惫蓓陂钡狈呗焙碚褙庳鞴孛鹎邶鐾", "ban": "办版半班般板颁伴搬斑扮拌扳瓣坂阪绊钣瘢舨癍", "pan": "判盘番潘攀盼拚畔胖叛拌蹒磐爿蟠泮袢襻丬", "bin": "份宾频滨斌彬濒殡缤鬓槟摈膑玢镔豳髌傧", "bang": "帮邦彭旁榜棒膀镑绑傍磅蚌谤梆浜蒡", "pang": "旁庞乓磅螃彷滂逄耪", "beng": "泵崩蚌蹦迸绷甭嘣甏堋", "bao": "报保包宝暴胞薄爆炮饱抱堡剥鲍曝葆瀑豹刨褒雹孢苞煲褓趵鸨龅勹", "bu": "不部步布补捕堡埔卜埠簿哺怖钚卟瓿逋晡醭钸", "pu": "普暴铺浦朴堡葡谱埔扑仆蒲曝瀑溥莆圃璞濮菩蹼匍噗氆攵镨攴镤", "mian": "面棉免绵缅勉眠冕娩腼渑湎沔黾宀眄", "po": "破繁坡迫颇朴泊婆泼魄粕鄱珀陂叵笸泺皤钋钷", "fan": "反范犯繁饭泛翻凡返番贩烦拚帆樊藩矾梵蕃钒幡畈蘩蹯燔", "fu": "府服副负富复福夫妇幅付扶父符附腐赴佛浮覆辅傅伏抚赋辐腹弗肤阜袱缚甫氟斧孚敷俯拂俘咐腑孵芙涪釜脯茯馥宓绂讣呋罘麸蝠匐芾蜉跗凫滏蝮驸绋蚨砩桴赙菔呒趺苻拊阝鲋怫稃郛莩幞祓艴黻黼鳆", "ben": "本体奔苯笨夯贲锛畚坌", "feng": "风丰封峰奉凤锋冯逢缝蜂枫疯讽烽俸沣酆砜葑唪", "bian": "变便边编遍辩鞭辨贬匾扁卞汴辫砭苄蝙鳊弁窆笾煸褊碥忭缏", "pian": "便片篇偏骗翩扁骈胼蹁谝犏缏", "zhen": "镇真针圳振震珍阵诊填侦臻贞枕桢赈祯帧甄斟缜箴疹砧榛鸩轸稹溱蓁胗椹朕畛浈", "biao": "表标彪镖裱飚膘飙镳婊骠飑杓髟鳔灬瘭", "piao": "票朴漂飘嫖瓢剽缥殍瞟骠嘌莩螵", "huo": "和活或货获火伙惑霍祸豁嚯藿锪蠖钬耠镬夥灬劐攉", "bie": "别鳖憋瘪蹩", "min": "民敏闽闵皿泯岷悯珉抿黾缗玟愍苠鳘", "fen": "分份纷奋粉氛芬愤粪坟汾焚酚吩忿棼玢鼢瀵偾鲼", "bing": "并病兵冰屏饼炳秉丙摒柄槟禀枋邴冫", "geng": "更耕颈庚耿梗埂羹哽赓绠鲠", "fang": "方放房防访纺芳仿坊妨肪邡舫彷枋鲂匚钫", "xian": "现先县见线限显险献鲜洗宪纤陷闲贤仙衔掀咸嫌掺羡弦腺痫娴舷馅酰铣冼涎暹籼锨苋蚬跹岘藓燹鹇氙莶霰跣猃彡祆筅", "fou": "不否缶", "ca": "拆擦嚓礤", "cha": "查察差茶插叉刹茬楂岔诧碴嚓喳姹杈汊衩搽槎镲苴檫馇锸猹", "cai": "才采财材菜彩裁蔡猜踩睬", "can": "参残餐灿惨蚕掺璨惭粲孱骖黪", "shen": "信深参身神什审申甚沈伸慎渗肾绅莘呻婶娠砷蜃哂椹葚吲糁渖诜谂矧胂", "cen": "参岑涔", "san": "三参散伞叁糁馓毵", "cang": "藏仓苍沧舱臧伧", "zang": "藏脏葬赃臧奘驵", "chen": "称陈沈沉晨琛臣尘辰衬趁忱郴宸谌碜嗔抻榇伧谶龀肜", "cao": "草操曹槽糙嘈漕螬艚屮", "ce": "策测册侧厕栅恻", "ze": "责则泽择侧咋啧仄箦赜笮舴昃迮帻", "zhai": "债择齐宅寨侧摘窄斋祭翟砦瘵哜", "dao": "到道导岛倒刀盗稻蹈悼捣叨祷焘氘纛刂帱忉", "ceng": "层曾蹭噌", "zha": "查扎炸诈闸渣咋乍榨楂札栅眨咤柞喳喋铡蚱吒怍砟揸痄哳齄", "chai": "差拆柴钗豺侪虿瘥", "ci": "次此差词辞刺瓷磁兹慈茨赐祠伺雌疵鹚糍呲粢", "zi": "资自子字齐咨滋仔姿紫兹孜淄籽梓鲻渍姊吱秭恣甾孳訾滓锱辎趑龇赀眦缁呲笫谘嵫髭茈粢觜耔", "cuo": "措错磋挫搓撮蹉锉厝嵯痤矬瘥脞鹾", "chan": "产单阐崭缠掺禅颤铲蝉搀潺蟾馋忏婵孱觇廛谄谗澶骣羼躔蒇冁", "shan": "山单善陕闪衫擅汕扇掺珊禅删膳缮赡鄯栅煽姗跚鳝嬗潸讪舢苫疝掸膻钐剡蟮芟埏彡骟", "zhan": "展战占站崭粘湛沾瞻颤詹斩盏辗绽毡栈蘸旃谵搌", "xin": "新心信辛欣薪馨鑫芯锌忻莘昕衅歆囟忄镡", "lian": "联连练廉炼脸莲恋链帘怜涟敛琏镰濂楝鲢殓潋裢裣臁奁莶蠊蔹", "chang": "场长厂常偿昌唱畅倡尝肠敞倘猖娼淌裳徜昶怅嫦菖鲳阊伥苌氅惝鬯", "zhang": "长张章障涨掌帐胀彰丈仗漳樟账杖璋嶂仉瘴蟑獐幛鄣嫜", "chao": "超朝潮炒钞抄巢吵剿绰嘲晁焯耖怊", "zhao": "着照招找召朝赵兆昭肇罩钊沼嘲爪诏濯啁棹笊", "zhou": "调州周洲舟骤轴昼宙粥皱肘咒帚胄绉纣妯啁诌繇碡籀酎荮", "che": "车彻撤尺扯澈掣坼砗屮", "ju": "车局据具举且居剧巨聚渠距句拒俱柜菊拘炬桔惧矩鞠驹锯踞咀瞿枸掬沮莒橘飓疽钜趄踽遽琚龃椐苣裾榘狙倨榉苴讵雎锔窭鞫犋屦醵", "cheng": "成程城承称盛抢乘诚呈净惩撑澄秤橙骋逞瞠丞晟铛埕塍蛏柽铖酲裎枨", "rong": "容荣融绒溶蓉熔戎榕茸冗嵘肜狨蝾", "sheng": "生声升胜盛乘圣剩牲甸省绳笙甥嵊晟渑眚", "deng": "等登邓灯澄凳瞪蹬噔磴嶝镫簦戥", "zhi": "制之治质职只志至指织支值知识直致执置止植纸拓智殖秩旨址滞氏枝芝脂帜汁肢挚稚酯掷峙炙栉侄芷窒咫吱趾痔蜘郅桎雉祉郦陟痣蛭帙枳踯徵胝栀贽祗豸鸷摭轵卮轾彘觯絷跖埴夂黹忮骘膣踬", "zheng": "政正证争整征郑丁症挣蒸睁铮筝拯峥怔诤狰徵钲", "tang": "堂唐糖汤塘躺趟倘棠烫淌膛搪镗傥螳溏帑羰樘醣螗耥铴瑭", "chi": "持吃池迟赤驰尺斥齿翅匙痴耻炽侈弛叱啻坻眙嗤墀哧茌豉敕笞饬踟蚩柢媸魑篪褫彳鸱螭瘛眵傺", "shi": "是时实事市十使世施式势视识师史示石食始士失适试什泽室似诗饰殖释驶氏硕逝湿蚀狮誓拾尸匙仕柿矢峙侍噬嗜栅拭嘘屎恃轼虱耆舐莳铈谥炻豕鲥饣螫酾筮埘弑礻蓍鲺贳", "qi": "企其起期气七器汽奇齐启旗棋妻弃揭枝歧欺骑契迄亟漆戚岂稽岐琦栖缉琪泣乞砌祁崎绮祺祈凄淇杞脐麒圻憩芪伎俟畦耆葺沏萋骐鳍綦讫蕲屺颀亓碛柒啐汔綮萁嘁蛴槭欹芑桤丌蜞", "chuai": "揣踹啜搋膪", "tuo": "托脱拓拖妥驼陀沱鸵驮唾椭坨佗砣跎庹柁橐乇铊沲酡鼍箨柝", "duo": "多度夺朵躲铎隋咄堕舵垛惰哆踱跺掇剁柁缍沲裰哚隳", "xue": "学血雪削薛穴靴谑噱鳕踅泶彐", "chong": "重种充冲涌崇虫宠忡憧舂茺铳艟", "chou": "筹抽绸酬愁丑臭仇畴稠瞅踌惆俦瘳雠帱", "qiu": "求球秋丘邱仇酋裘龟囚遒鳅虬蚯泅楸湫犰逑巯艽俅蝤赇鼽糗", "xiu": "修秀休宿袖绣臭朽锈羞嗅岫溴庥馐咻髹鸺貅", "chu": "出处础初助除储畜触楚厨雏矗橱锄滁躇怵绌搐刍蜍黜杵蹰亍樗憷楮", "tuan": "团揣湍疃抟彖", "zhui": "追坠缀揣椎锥赘惴隹骓缒", "chuan": "传川船穿串喘椽舛钏遄氚巛舡", "zhuan": "专转传赚砖撰篆馔啭颛", "yuan": "元员院原源远愿园援圆缘袁怨渊苑宛冤媛猿垣沅塬垸鸳辕鸢瑗圜爰芫鼋橼螈眢箢掾", "cuan": "窜攒篡蹿撺爨汆镩", "chuang": "创床窗闯幢疮怆", "zhuang": "装状庄壮撞妆幢桩奘僮戆", "chui": "吹垂锤炊椎陲槌捶棰", "chun": "春纯醇淳唇椿蠢鹑朐莼肫蝽", "zhun": "准屯淳谆肫窀", "cu": "促趋趣粗簇醋卒蹴猝蹙蔟殂徂", "dun": "吨顿盾敦蹲墩囤沌钝炖盹遁趸砘礅", "qu": "区去取曲趋渠趣驱屈躯衢娶祛瞿岖龋觑朐蛐癯蛆苣阒诎劬蕖蘧氍黢蠼璩麴鸲磲", "xu": "需许续须序徐休蓄畜虚吁绪叙旭邪恤墟栩絮圩婿戌胥嘘浒煦酗诩朐盱蓿溆洫顼勖糈砉醑", "chuo": "辍绰戳淖啜龊踔辶", "zu": "组族足祖租阻卒俎诅镞菹", "ji": "济机其技基记计系期际及集级几给积极己纪即继击既激绩急奇吉季齐疾迹鸡剂辑籍寄挤圾冀亟寂暨脊跻肌稽忌饥祭缉棘矶汲畸姬藉瘠骥羁妓讥稷蓟悸嫉岌叽伎鲫诘楫荠戟箕霁嵇觊麂畿玑笈犄芨唧屐髻戢佶偈笄跽蒺乩咭赍嵴虮掎齑殛鲚剞洎丌墼蕺彐芰哜", "cong": "从丛匆聪葱囱琮淙枞骢苁璁", "zong": "总从综宗纵踪棕粽鬃偬枞腙", "cou": "凑辏腠楱", "cui": "衰催崔脆翠萃粹摧璀瘁悴淬啐隹毳榱", "wei": "为位委未维卫围违威伟危味微唯谓伪慰尾魏韦胃畏帷喂巍萎蔚纬潍尉渭惟薇苇炜圩娓诿玮崴桅偎逶倭猥囗葳隗痿猬涠嵬韪煨艉隹帏闱洧沩隈鲔軎", "cun": "村存寸忖皴", "zuo": "作做座左坐昨佐琢撮祚柞唑嘬酢怍笮阼胙", "zuan": "钻纂攥缵躜", "da": "大达打答搭沓瘩惮嗒哒耷鞑靼褡笪怛妲", "dai": "大代带待贷毒戴袋歹呆隶逮岱傣棣怠殆黛甙埭诒绐玳呔迨", "tai": "大台太态泰抬胎汰钛苔薹肽跆邰鲐酞骀炱", "ta": "他它她拓塔踏塌榻沓漯獭嗒挞蹋趿遢铊鳎溻闼", "dan": "但单石担丹胆旦弹蛋淡诞氮郸耽殚惮儋眈疸澹掸膻啖箪聃萏瘅赕", "lu": "路六陆录绿露鲁卢炉鹿禄赂芦庐碌麓颅泸卤潞鹭辘虏璐漉噜戮鲈掳橹轳逯渌蓼撸鸬栌氇胪镥簏舻辂垆", "tan": "谈探坦摊弹炭坛滩贪叹谭潭碳毯瘫檀痰袒坍覃忐昙郯澹钽锬", "ren": "人任认仁忍韧刃纫饪妊荏稔壬仞轫亻衽", "jie": "家结解价界接节她届介阶街借杰洁截姐揭捷劫戒皆竭桔诫楷秸睫藉拮芥诘碣嗟颉蚧孑婕疖桀讦疥偈羯袷哜喈卩鲒骱", "yan": "研严验演言眼烟沿延盐炎燕岩宴艳颜殷彦掩淹阎衍铅雁咽厌焰堰砚唁焉晏檐蜒奄俨腌妍谚兖筵焱偃闫嫣鄢湮赝胭琰滟阉魇酽郾恹崦芫剡鼹菸餍埏谳讠厣罨", "dang": "当党档荡挡宕砀铛裆凼菪谠", "tao": "套讨跳陶涛逃桃萄淘掏滔韬叨洮啕绦饕鼗", "tiao": "条调挑跳迢眺苕窕笤佻啁粜髫铫祧龆蜩鲦", "te": "特忑忒铽慝", "de": "的地得德底锝", "dei": "得", "di": "的地第提低底抵弟迪递帝敌堤蒂缔滴涤翟娣笛棣荻谛狄邸嘀砥坻诋嫡镝碲骶氐柢籴羝睇觌", "ti": "体提题弟替梯踢惕剔蹄棣啼屉剃涕锑倜悌逖嚏荑醍绨鹈缇裼", "tui": "推退弟腿褪颓蜕忒煺", "you": "有由又优游油友右邮尤忧幼犹诱悠幽佑釉柚铀鱿囿酉攸黝莠猷蝣疣呦蚴莸莜铕宥繇卣牖鼬尢蚰侑", "dian": "电点店典奠甸碘淀殿垫颠滇癫巅惦掂癜玷佃踮靛钿簟坫阽", "tian": "天田添填甜甸恬腆佃舔钿阗忝殄畋栝掭", "zhu": "主术住注助属逐宁著筑驻朱珠祝猪诸柱竹铸株瞩嘱贮煮烛苎褚蛛拄铢洙竺蛀渚伫杼侏澍诛茱箸炷躅翥潴邾槠舳橥丶瘃麈疰", "nian": "年念酿辗碾廿捻撵拈蔫鲶埝鲇辇黏", "diao": "调掉雕吊钓刁貂凋碉鲷叼铫铞", "yao": "要么约药邀摇耀腰遥姚窑瑶咬尧钥谣肴夭侥吆疟妖幺杳舀窕窈曜鹞爻繇徭轺铫鳐崾珧", "die": "跌叠蝶迭碟爹谍牒耋佚喋堞瓞鲽垤揲蹀", "she": "设社摄涉射折舍蛇拾舌奢慑赦赊佘麝歙畲厍猞揲滠", "ye": "业也夜叶射野液冶喝页爷耶邪咽椰烨掖拽曳晔谒腋噎揶靥邺铘揲", "xie": "些解协写血叶谢械鞋胁斜携懈契卸谐泄蟹邪歇泻屑挟燮榭蝎撷偕亵楔颉缬邂鲑瀣勰榍薤绁渫廨獬躞", "zhe": "这者着著浙折哲蔗遮辙辄柘锗褶蜇蛰鹧谪赭摺乇磔螫", "ding": "定订顶丁鼎盯钉锭叮仃铤町酊啶碇腚疔玎耵", "diu": "丢铥", "ting": "听庭停厅廷挺亭艇婷汀铤烃霆町蜓葶梃莛", "dong": "动东董冬洞懂冻栋侗咚峒氡恫胴硐垌鸫岽胨", "tong": "同通统童痛铜桶桐筒彤侗佟潼捅酮砼瞳恸峒仝嗵僮垌茼", "zhong": "中重种众终钟忠仲衷肿踵冢盅蚣忪锺舯螽夂", "dou": "都斗读豆抖兜陡逗窦渎蚪痘蔸钭篼", "du": "度都独督读毒渡杜堵赌睹肚镀渎笃竺嘟犊妒牍蠹椟黩芏髑", "duan": "断段短端锻缎煅椴簖", "dui": "对队追敦兑堆碓镦怼憝", "rui": "瑞兑锐睿芮蕊蕤蚋枘", "yue": "月说约越乐跃兑阅岳粤悦曰钥栎钺樾瀹龠哕刖", "tun": "吞屯囤褪豚臀饨暾氽", "hui": "会回挥汇惠辉恢徽绘毁慧灰贿卉悔秽溃荟晖彗讳诲珲堕诙蕙晦睢麾烩茴喙桧蛔洄浍虺恚蟪咴隳缋哕", "wu": "务物无五武午吴舞伍污乌误亡恶屋晤悟吾雾芜梧勿巫侮坞毋诬呜钨邬捂鹜兀婺妩於戊鹉浯蜈唔骛仵焐芴鋈庑鼯牾怃圬忤痦迕杌寤阢", "ya": "亚压雅牙押鸭呀轧涯崖邪芽哑讶鸦娅衙丫蚜碣垭伢氩桠琊揠吖睚痖疋迓岈砑", "he": "和合河何核盖贺喝赫荷盒鹤吓呵苛禾菏壑褐涸阂阖劾诃颌嗬貉曷翮纥盍", "wo": "我握窝沃卧挝涡斡渥幄蜗喔倭莴龌肟硪", "en": "恩摁蒽", "n": "嗯唔", "er": "而二尔儿耳迩饵洱贰铒珥佴鸸鲕", "fa": "发法罚乏伐阀筏砝垡珐", "quan": "全权券泉圈拳劝犬铨痊诠荃醛蜷颧绻犭筌鬈悛辁畎", "fei": "费非飞肥废菲肺啡沸匪斐蜚妃诽扉翡霏吠绯腓痱芾淝悱狒榧砩鲱篚镄", "pei": "配培坏赔佩陪沛裴胚妃霈淠旆帔呸醅辔锫", "ping": "平评凭瓶冯屏萍苹乒坪枰娉俜鲆", "fo": "佛", "hu": "和护许户核湖互乎呼胡戏忽虎沪糊壶葫狐蝴弧瑚浒鹄琥扈唬滹惚祜囫斛笏芴醐猢怙唿戽槲觳煳鹕冱瓠虍岵鹱烀轷", "ga": "夹咖嘎尬噶旮伽尕钆尜", "ge": "个合各革格歌哥盖隔割阁戈葛鸽搁胳舸疙铬骼蛤咯圪镉颌仡硌嗝鬲膈纥袼搿塥哿虼", "ha": "哈蛤铪", "xia": "下夏峡厦辖霞夹虾狭吓侠暇遐瞎匣瑕唬呷黠硖罅狎瘕柙", "gai": "改该盖概溉钙丐芥赅垓陔戤", "hai": "海还害孩亥咳骸骇氦嗨胲醢", "gan": "干感赶敢甘肝杆赣乾柑尴竿秆橄矸淦苷擀酐绀泔坩旰疳澉", "gang": "港钢刚岗纲冈杠缸扛肛罡戆筻", "jiang": "将强江港奖讲降疆蒋姜浆匠酱僵桨绛缰犟豇礓洚茳糨耩", "hang": "行航杭巷夯吭桁沆绗颃", "gong": "工公共供功红贡攻宫巩龚恭拱躬弓汞蚣珙觥肱廾", "hong": "红宏洪轰虹鸿弘哄烘泓訇蕻闳讧荭黉薨", "guang": "广光逛潢犷胱咣桄", "qiong": "穷琼穹邛茕筇跫蛩銎", "gao": "高告搞稿膏糕镐皋羔锆杲郜睾诰藁篙缟槁槔", "hao": "好号毫豪耗浩郝皓昊皋蒿壕灏嚎濠蚝貉颢嗥薅嚆", "li": "理力利立里李历例离励礼丽黎璃厉厘粒莉梨隶栗荔沥犁漓哩狸藜罹篱鲤砺吏澧俐骊溧砾莅锂笠蠡蛎痢雳俪傈醴栎郦俚枥喱逦娌鹂戾砬唳坜疠蜊黧猁鬲粝蓠呖跞疬缡鲡鳢嫠詈悝苈篥轹", "jia": "家加价假佳架甲嘉贾驾嫁夹稼钾挟拮迦伽颊浃枷戛荚痂颉镓笳珈岬胛袈郏葭袷瘕铗跏蛱恝哿", "luo": "落罗络洛逻螺锣骆萝裸漯烙摞骡咯箩珞捋荦硌雒椤镙跞瘰泺脶猡倮蠃", "ke": "可科克客刻课颗渴壳柯棵呵坷恪苛咳磕珂稞瞌溘轲窠嗑疴蝌岢铪颏髁蚵缂氪骒钶锞", "qia": "卡恰洽掐髂袷咭葜", "gei": "给", "gen": "根跟亘艮哏茛", "hen": "很狠恨痕哏", "gou": "构购够句沟狗钩拘勾苟垢枸篝佝媾诟岣彀缑笱鞲觏遘", "kou": "口扣寇叩抠佝蔻芤眍筘", "gu": "股古顾故固鼓骨估谷贾姑孤雇辜菇沽咕呱锢钴箍汩梏痼崮轱鸪牯蛊诂毂鹘菰罟嘏臌觚瞽蛄酤牿鲴", "pai": "牌排派拍迫徘湃俳哌蒎", "gua": "括挂瓜刮寡卦呱褂剐胍诖鸹栝呙", "tou": "投头透偷愉骰亠", "guai": "怪拐乖", "kuai": "会快块筷脍蒯侩浍郐蒉狯哙", "guan": "关管观馆官贯冠惯灌罐莞纶棺斡矜倌鹳鳏盥掼涫", "wan": "万完晚湾玩碗顽挽弯蔓丸莞皖宛婉腕蜿惋烷琬畹豌剜纨绾脘菀芄箢", "ne": "呢哪呐讷疒", "gui": "规贵归轨桂柜圭鬼硅瑰跪龟匮闺诡癸鳜桧皈鲑刽晷傀眭妫炅庋簋刿宄匦", "jun": "军均俊君峻菌竣钧骏龟浚隽郡筠皲麇捃", "jiong": "窘炯迥炅冂扃", "jue": "决绝角觉掘崛诀獗抉爵嚼倔厥蕨攫珏矍蹶谲镢鳜噱桷噘撅橛孓觖劂爝", "gun": "滚棍辊衮磙鲧绲丨", "hun": "婚混魂浑昏棍珲荤馄诨溷阍", "guo": "国过果郭锅裹帼涡椁囗蝈虢聒埚掴猓崞蜾呙馘", "hei": "黑嘿嗨", "kan": "看刊勘堪坎砍侃嵌槛瞰阚龛戡凵莰", "heng": "衡横恒亨哼珩桁蘅", "mo": "万没么模末冒莫摩墨默磨摸漠脉膜魔沫陌抹寞蘑摹蓦馍茉嘿谟秣蟆貉嫫镆殁耱嬷麽瘼貊貘", "peng": "鹏朋彭膨蓬碰苹棚捧亨烹篷澎抨硼怦砰嘭蟛堋", "hou": "后候厚侯猴喉吼逅篌糇骺後鲎瘊堠", "hua": "化华划话花画滑哗豁骅桦猾铧砉", "huai": "怀坏淮徊槐踝", "huan": "还环换欢患缓唤焕幻痪桓寰涣宦垸洹浣豢奂郇圜獾鲩鬟萑逭漶锾缳擐", "xun": "讯训迅孙寻询循旬巡汛勋逊熏徇浚殉驯鲟薰荀浔洵峋埙巽郇醺恂荨窨蕈曛獯", "huang": "黄荒煌皇凰慌晃潢谎惶簧璜恍幌湟蝗磺隍徨遑肓篁鳇蟥癀", "nai": "能乃奶耐奈鼐萘氖柰佴艿", "luan": "乱卵滦峦鸾栾銮挛孪脔娈", "qie": "切且契窃茄砌锲怯伽惬妾趄挈郄箧慊", "jian": "建间件见坚检健监减简艰践兼鉴键渐柬剑尖肩舰荐箭浅剪俭碱茧奸歼拣捡煎贱溅槛涧堑笺谏饯锏缄睑謇蹇腱菅翦戬毽笕犍硷鞯牮枧湔鲣囝裥踺搛缣鹣蒹谫僭戋趼楗", "nan": "南难男楠喃囡赧腩囝蝻", "qian": "前千钱签潜迁欠纤牵浅遣谦乾铅歉黔谴嵌倩钳茜虔堑钎骞阡掮钤扦芊犍荨仟芡悭缱佥愆褰凵肷岍搴箝慊椠", "qiang": "强抢疆墙枪腔锵呛羌蔷襁羟跄樯戕嫱戗炝镪锖蜣", "xiang": "向项相想乡象响香降像享箱羊祥湘详橡巷翔襄厢镶飨饷缃骧芗庠鲞葙蟓", "jiao": "教交较校角觉叫脚缴胶轿郊焦骄浇椒礁佼蕉娇矫搅绞酵剿嚼饺窖跤蛟侥狡姣皎茭峤铰醮鲛湫徼鹪僬噍艽挢敫", "zhuo": "着著缴桌卓捉琢灼浊酌拙茁涿镯淖啄濯焯倬擢斫棹诼浞禚", "qiao": "桥乔侨巧悄敲俏壳雀瞧翘窍峭锹撬荞跷樵憔鞘橇峤诮谯愀鞒硗劁缲", "xiao": "小效销消校晓笑肖削孝萧俏潇硝宵啸嚣霄淆哮筱逍姣箫骁枭哓绡蛸崤枵魈", "si": "司四思斯食私死似丝饲寺肆撕泗伺嗣祀厮驷嘶锶俟巳蛳咝耜笥纟糸鸶缌澌姒汜厶兕", "kai": "开凯慨岂楷恺揩锴铠忾垲剀锎蒈", "jin": "进金今近仅紧尽津斤禁锦劲晋谨筋巾浸襟靳瑾烬缙钅矜觐堇馑荩噤廑妗槿赆衿卺", "qin": "亲勤侵秦钦琴禽芹沁寝擒覃噙矜嗪揿溱芩衾廑锓吣檎螓", "jing": "经京精境竞景警竟井惊径静劲敬净镜睛晶颈荆兢靖泾憬鲸茎腈菁胫阱旌粳靓痉箐儆迳婧肼刭弪獍", "ying": "应营影英景迎映硬盈赢颖婴鹰荧莹樱瑛蝇萦莺颍膺缨瀛楹罂荥萤鹦滢蓥郢茔嘤璎嬴瘿媵撄潆", "jiu": "就究九酒久救旧纠舅灸疚揪咎韭玖臼柩赳鸠鹫厩啾阄桕僦鬏", "zui": "最罪嘴醉咀蕞觜", "juan": "卷捐圈眷娟倦绢隽镌涓鹃鄄蠲狷锩桊", "suan": "算酸蒜狻", "yun": "员运云允孕蕴韵酝耘晕匀芸陨纭郧筠恽韫郓氲殒愠昀菀狁", "qun": "群裙逡麇", "ka": "卡喀咖咔咯佧胩", "kang": "康抗扛慷炕亢糠伉钪闶", "keng": "坑铿吭", "kao": "考靠烤拷铐栲尻犒", "ken": "肯垦恳啃龈裉", "yin": "因引银印音饮阴隐姻殷淫尹荫吟瘾寅茵圻垠鄞湮蚓氤胤龈窨喑铟洇狺夤廴吲霪茚堙", "kong": "空控孔恐倥崆箜", "ku": "苦库哭酷裤枯窟挎骷堀绔刳喾", "kua": "跨夸垮挎胯侉", "kui": "亏奎愧魁馈溃匮葵窥盔逵睽馗聩喟夔篑岿喹揆隗傀暌跬蒉愦悝蝰", "kuan": "款宽髋", "kuang": "况矿框狂旷眶匡筐邝圹哐贶夼诳诓纩", "que": "确却缺雀鹊阙瘸榷炔阕悫", "kun": "困昆坤捆琨锟鲲醌髡悃阃", "kuo": "扩括阔廓蛞", "la": "拉落垃腊啦辣蜡喇剌旯砬邋瘌", "lai": "来莱赖睐徕籁涞赉濑癞崃疠铼", "lan": "兰览蓝篮栏岚烂滥缆揽澜拦懒榄斓婪阑褴罱啉谰镧漤", "lin": "林临邻赁琳磷淋麟霖鳞凛拎遴蔺吝粼嶙躏廪檩啉辚膦瞵懔", "lang": "浪朗郎廊狼琅榔螂阆锒莨啷蒗稂", "liang": "量两粮良辆亮梁凉谅粱晾靓踉莨椋魉墚", "lao": "老劳落络牢捞涝烙姥佬崂唠酪潦痨醪铑铹栳耢", "mu": "目模木亩幕母牧莫穆姆墓慕牟牡募睦缪沐暮拇姥钼苜仫毪坶", "le": "了乐勒肋叻鳓嘞仂泐", "lei": "类累雷勒泪蕾垒磊擂镭肋羸耒儡嫘缧酹嘞诔檑", "sui": "随岁虽碎尿隧遂髓穗绥隋邃睢祟濉燧谇眭荽", "lie": "列烈劣裂猎冽咧趔洌鬣埒捩躐", "leng": "冷愣棱楞塄", "ling": "领令另零灵龄陵岭凌玲铃菱棱伶羚苓聆翎泠瓴囹绫呤棂蛉酃鲮柃", "lia": "俩", "liao": "了料疗辽廖聊寥缪僚燎缭撂撩嘹潦镣寮蓼獠钌尥鹩", "liu": "流刘六留柳瘤硫溜碌浏榴琉馏遛鎏骝绺镏旒熘鹨锍", "lun": "论轮伦仑纶沦抡囵", "lv": "率律旅绿虑履吕铝屡氯缕滤侣驴榈闾偻褛捋膂稆", "lou": "楼露漏陋娄搂篓喽镂偻瘘髅耧蝼嵝蒌", "mao": "贸毛矛冒貌茂茅帽猫髦锚懋袤牦卯铆耄峁瑁蟊茆蝥旄泖昴瞀", "long": "龙隆弄垄笼拢聋陇胧珑窿茏咙砻垅泷栊癃", "nong": "农浓弄脓侬哝", "shuang": "双爽霜孀泷", "shu": "术书数属树输束述署朱熟殊蔬舒疏鼠淑叔暑枢墅俞曙抒竖蜀薯梳戍恕孰沭赎庶漱塾倏澍纾姝菽黍腧秫毹殳疋摅", "shuai": "率衰帅摔甩蟀", "lve": "略掠锊", "ma": "么马吗摩麻码妈玛嘛骂抹蚂唛蟆犸杩", "me": "么麽", "mai": "买卖麦迈脉埋霾荬劢", "man": "满慢曼漫埋蔓瞒蛮鳗馒幔谩螨熳缦镘颟墁鞔", "mi": "米密秘迷弥蜜谜觅靡泌眯麋猕谧咪糜宓汨醚嘧弭脒冖幂祢縻蘼芈糸敉", "men": "们门闷瞒汶扪焖懑鞔钔", "mang": "忙盲茫芒氓莽蟒邙硭漭", "meng": "蒙盟梦猛孟萌氓朦锰檬勐懵蟒蜢虻黾蠓艨甍艋瞢礞", "miao": "苗秒妙描庙瞄缪渺淼藐缈邈鹋杪眇喵", "mou": "某谋牟缪眸哞鍪蛑侔厶", "miu": "缪谬", "mei": "美没每煤梅媒枚妹眉魅霉昧媚玫酶镁湄寐莓袂楣糜嵋镅浼猸鹛", "wen": "文问闻稳温纹吻蚊雯紊瘟汶韫刎璺玟阌", "mie": "灭蔑篾乜咩蠛", "ming": "明名命鸣铭冥茗溟酩瞑螟暝", "na": "内南那纳拿哪娜钠呐捺衲镎肭", "nei": "内那哪馁", "nuo": "难诺挪娜糯懦傩喏搦锘", "ruo": "若弱偌箬", "nang": "囊馕囔曩攮", "nao": "脑闹恼挠瑙淖孬垴铙桡呶硇猱蛲", "ni": "你尼呢泥疑拟逆倪妮腻匿霓溺旎昵坭铌鲵伲怩睨猊", "nen": "嫩恁", "neng": "能", "nin": "您恁", "niao": "鸟尿溺袅脲茑嬲", "nie": "摄聂捏涅镍孽捻蘖啮蹑嗫臬镊颞乜陧", "niang": "娘酿", "ning": "宁凝拧泞柠咛狞佞聍甯", "nu": "努怒奴弩驽帑孥胬", "nv": "女钕衄恧", "ru": "入如女乳儒辱汝茹褥孺濡蠕嚅缛溽铷洳薷襦颥蓐", "nuan": "暖", "nve": "虐疟", "re": "热若惹喏", "ou": "区欧偶殴呕禺藕讴鸥瓯沤耦怄", "pao": "跑炮泡抛刨袍咆疱庖狍匏脬", "pou": "剖掊裒", "pen": "喷盆湓", "pie": "瞥撇苤氕丿", "pin": "品贫聘频拼拚颦姘嫔榀牝", "se": "色塞瑟涩啬穑铯槭", "qing": "情青清请亲轻庆倾顷卿晴氢擎氰罄磬蜻箐鲭綮苘黥圊檠謦", "zan": "赞暂攒堑昝簪糌瓒錾趱拶", "shao": "少绍召烧稍邵哨韶捎勺梢鞘芍苕劭艄筲杓潲", "sao": "扫骚嫂梢缫搔瘙臊埽缲鳋", "sha": "沙厦杀纱砂啥莎刹杉傻煞鲨霎嗄痧裟挲铩唼歃", "xuan": "县选宣券旋悬轩喧玄绚渲璇炫萱癣漩眩暄煊铉楦泫谖痃碹揎镟儇", "ran": "然染燃冉苒髯蚺", "rang": "让壤攘嚷瓤穰禳", "rao": "绕扰饶娆桡荛", "reng": "仍扔", "ri": "日", "rou": "肉柔揉糅鞣蹂", "ruan": "软阮朊", "run": "润闰", "sa": "萨洒撒飒卅仨脎", "suo": "所些索缩锁莎梭琐嗦唆唢娑蓑羧挲桫嗍睃", "sai": "思赛塞腮噻鳃", "shui": "说水税谁睡氵", "sang": "桑丧嗓搡颡磉", "sen": "森", "seng": "僧", "shai": "筛晒", "shang": "上商尚伤赏汤裳墒晌垧觞殇熵绱", "xing": "行省星腥猩惺兴刑型形邢饧醒幸杏性姓陉荇荥擤悻硎", "shou": "收手受首售授守寿瘦兽狩绶艏扌", "shuo": "说数硕烁朔铄妁槊蒴搠", "su": "速素苏诉缩塑肃俗宿粟溯酥夙愫簌稣僳谡涑蔌嗉觫", "shua": "刷耍唰", "shuan": "栓拴涮闩", "shun": "顺瞬舜吮", "song": "送松宋讼颂耸诵嵩淞怂悚崧凇忪竦菘", "sou": "艘搜擞嗽嗖叟馊薮飕嗾溲锼螋瞍", "sun": "损孙笋荪榫隼狲飧", "teng": "腾疼藤滕誊", "tie": "铁贴帖餮萜", "tu": "土突图途徒涂吐屠兔秃凸荼钍菟堍酴", "wai": "外歪崴", "wang": "王望往网忘亡旺汪枉妄惘罔辋魍", "weng": "翁嗡瓮蓊蕹", "zhua": "抓挝爪", "yang": "样养央阳洋扬杨羊详氧仰秧痒漾疡泱殃恙鸯徉佯怏炀烊鞅蛘", "xiong": "雄兄熊胸凶匈汹芎", "yo": "哟唷", "yong": "用永拥勇涌泳庸俑踊佣咏雍甬镛臃邕蛹恿慵壅痈鳙墉饔喁", "za": "杂扎咱砸咋匝咂拶", "zai": "在再灾载栽仔宰哉崽甾", "zao": "造早遭枣噪灶燥糟凿躁藻皂澡蚤唣", "zei": "贼", "zen": "怎谮", "zeng": "增曾综赠憎锃甑罾缯", "zhei": "这", "zou": "走邹奏揍诹驺陬楱鄹鲰", "zhuai": "转拽", "zun": "尊遵鳟樽撙", "dia": "嗲", "nou": "耨" };exports.pinyin_dict_notone = pinyin_dict_notone;
-
-/***/ }),
-
-/***/ 176:
-/*!***************************************************!*\
-  !*** E:/learning/kadingapp/network/collection.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.browseMyCollectRequest = browseMyCollectRequest;exports.addMyCollectRequest = addMyCollectRequest;exports.delMyCollectRequest = delMyCollectRequest;exports.queryCollectByTypeRequest = queryCollectByTypeRequest;exports.queryCollectByLabelRequest = queryCollectByLabelRequest;var _http = __webpack_require__(/*! @/network/http.js */ 22);
-
-//获取所有收藏
-function browseMyCollectRequest(params) {
-  return _http.http.get('/myCollect/browseMyCollect' + params);
-}
-
-//添加收藏
-function addMyCollectRequest(params) {
-  return _http.http.post('/myCollect/AddMyCollect', params);
-}
-
-//删除收藏
-function delMyCollectRequest(params) {
-  return _http.http.delete('/myCollect/deleteCollect' + params);
-}
-
-//根据文件类型搜索收藏
-function queryCollectByTypeRequest(params) {
-  return _http.http.get('/myCollect/queryCollectByType' + params);
-}
-
-//根据标签搜索收藏
-function queryCollectByLabelRequest(params) {
-  return _http.http.get('/myCollect/queryCollectByLabel' + params);
-}
 
 /***/ }),
 
@@ -3371,6 +3381,43 @@ function normalizeComponent (
 
 /***/ }),
 
+/***/ 185:
+/*!***************************************************!*\
+  !*** E:/learning/kadingapp/network/collection.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.browseMyCollectRequest = browseMyCollectRequest;exports.addMyCollectRequest = addMyCollectRequest;exports.delMyCollectRequest = delMyCollectRequest;exports.queryCollectByTypeRequest = queryCollectByTypeRequest;exports.queryCollectByLabelRequest = queryCollectByLabelRequest;var _http = __webpack_require__(/*! @/network/http.js */ 22);
+
+//获取所有收藏
+function browseMyCollectRequest(params) {
+  return _http.http.get('/myCollect/browseMyCollect' + params);
+}
+
+//添加收藏
+function addMyCollectRequest(params) {
+  return _http.http.post('/myCollect/AddMyCollect', params);
+}
+
+//删除收藏
+function delMyCollectRequest(params) {
+  return _http.http.delete('/myCollect/deleteCollect' + params);
+}
+
+//根据文件类型搜索收藏
+function queryCollectByTypeRequest(params) {
+  return _http.http.get('/myCollect/queryCollectByType' + params);
+}
+
+//根据标签搜索收藏
+function queryCollectByLabelRequest(params) {
+  return _http.http.get('/myCollect/queryCollectByLabel' + params);
+}
+
+/***/ }),
+
 /***/ 19:
 /*!*******************************************!*\
   !*** E:/learning/kadingapp/vuex/store.js ***!
@@ -3387,9 +3434,10 @@ var _addfriend = __webpack_require__(/*! @/network/addfriend.js */ 21);
 var _myUserInfo = __webpack_require__(/*! @/network/myUserInfo.js */ 64);
 var _dynamic = __webpack_require__(/*! @/network/dynamic.js */ 65);
 var _index = __webpack_require__(/*! @/common/index.js */ 14);
+var _socketHelper = __webpack_require__(/*! @/common/socketHelper.js */ 66);
 
-var _session = __webpack_require__(/*! @/network/session/session.js */ 66);
-var _utils = __webpack_require__(/*! @/utils/utils.js */ 67);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
+var _session = __webpack_require__(/*! @/network/session/session.js */ 67);
+var _utils = __webpack_require__(/*! @/utils/utils.js */ 68);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
 
 
 
@@ -3413,9 +3461,9 @@ var state = {
   //个人动态的数据
   personDynamicList: [],
 
+  friendCard: {}, //好友列表，含名片信息，额外添加在线信息
 
   /*即时通讯篇*/
-  friendCard: {}, //好友列表，含名片信息，额外添加在线信息
   currentChatTo: '', // 正在聊天 sessionId
   currentChatList: [], //正在聊天的会话列表
   rawMessageList: {}, //所有的聊天列表
@@ -3433,6 +3481,12 @@ var state = {
 
   historyMsgList: [], //当前帐户的所有聊天记录
 
+  /* 收到的socket服务器回调消息  用于更新 */
+  //data: "{'pushType': '定时推送', 'object': {'id': 75, 'remindTitle': 'title'.....}}"
+  newPushMsg: null, //定时推送
+  newFriendRequest: [], //朋友请求添加好友
+  newFriendDynamic: null, //好友动态更新
+  newAppVersion: null, //APP版本更新
 
   /* 本地数据库存储的信息 */
   localUserInfo: {} //本地所有人的信息
@@ -3521,6 +3575,21 @@ var mutations = {
     uni.setStorageSync('userInfo', userInfo);
   },
 
+  //清空数据更新
+  clearNewData: function clearNewData(state, payload) {
+    switch (payload) {
+      case 'clearnewPushMsg':{//清除新定时提醒标志
+          state.newPushMsg = null;
+        }
+      case 'clearnewFriendRequest':{//清除添加好友新请求标志
+          state.newFriendRequest = null;
+        }
+      case 'clearnewFriendDynamic':{//清除朋友圈新动态标志
+          state.newFriendDynamic = null;
+        }}
+
+
+  },
 
   //退出登录,未登录状态,删除用户信息
   logout: function logout(state) {
@@ -3552,11 +3621,18 @@ var mutations = {
     var newList = data.list.sort(function (a, b) {
       return b.time - a.time;
     });
-    if (data.index === 1) {
-      state.friendDynamicList = newList;
+    if (data.index === 1) {var _state$friendDynamicL;
+      (_state$friendDynamicL = state.friendDynamicList).push.apply(_state$friendDynamicL, _toConsumableArray(newList));
     } else if (data.index === 2) {
       state.personDynamicList = newList;
     }
+  },
+
+  //自己发表动态后更新朋友圈数据
+  updateFriendDynamicList: function updateFriendDynamicList(state, data) {
+    state.friendDynamicList.splice(0, 0, data);
+    console.log('我发表了新动态:', data);
+    console.log('最新动态', state.friendDynamicList);
   },
   /***
      	1,打开应用
@@ -3630,6 +3706,9 @@ var actions = {
         } else if (res.data.code === 2000) {
           if (res.data.data.length > 0) {
             state.friendList = (0, _index.formatList)(res.data.data);
+
+            state.friendCard = (0, _index.setNewestFriendCard)(state, res.data.data);
+            console.log('state.friendCard:', state.friendCard);
           }
         }
       }
@@ -3645,9 +3724,8 @@ var actions = {
 
 
   //获取所有朋友的动态
-  getNewestDynamic: function getNewestDynamic(context) {
-    (0, _dynamic.getNewestDynamicRequest)("?account=".concat(store.state.userInfo.user.userAccount)).then(function (res) {
-      console.log(res);
+  getNewestDynamic: function getNewestDynamic(context, payload) {
+    (0, _dynamic.getNewestDynamicRequest)(payload).then(function (res) {
       if (res.status === 200) {
         if (res.data.code === 2000) {
           //传多个参数方式
@@ -3656,6 +3734,11 @@ var actions = {
             list: res.data.data,
             index: 1 });
 
+          context.commit({
+            type: 'clearNewData',
+            payload: 'clearnewFriendDynamic' });
+
+          return true;
         } else {
           uni.showToast({
             title: '程序走丢了,请稍后重试',
@@ -3679,6 +3762,7 @@ var actions = {
         icon: 'none' });
 
     });
+    return false;
   },
 
   //获取自己的动态
@@ -3723,7 +3807,7 @@ var actions = {
 
   //获取某个朋友的动态
   doGetPersonDynamicRequest: function doGetPersonDynamicRequest(context, payload) {
-    (0, _dynamic.getPersonDynamicRequest)("?account=".concat(store.getters.getUserAccount, "&friendAccount=").concat(payload.friendAccount)).then(function (res) {
+    (0, _dynamic.getPersonDynamicRequest)(payload).then(function (res) {
       console.log(res);
       if (res.status === 200) {
         if (res.data.code === 2000) {
@@ -3758,8 +3842,40 @@ var actions = {
     });
   },
 
+  /*  接收socket服务器的消息并更新本地一些数据  */
+  updateNewest: function updateNewest(context, payload) {
+    switch (payload) {
+      case "定时推送":{
+          var globalData = getApp().globalData;
+          (0, _socketHelper.handlePushMsg)(payload.object, globalData);
+          state.newPushMsg = payload.object;
+          break;
+        }
+      case "好友请求":{
+          state.newFriendDynamic = payload.object;
+          break;
+        }
+      case "朋友圈更新":{
+          console.log('朋友圈更新');
+          uni.showTabBarRedDot({
+            index: 1 });
 
+          break;
+        }
+      case "点赞评论更新":{
+          console.log('点赞评论更新');
+          state.newFriendRequest += 1;
+          uni.setTabBarBadge({
+            index: 1,
+            text: state.newFriendRequest });
 
+          break;
+        }
+      case "APP版本更新":{
+          state.newAppVersion = payload.object;
+        }}
+
+  },
 
   /*即时通讯篇*/
 
@@ -4218,58 +4334,6 @@ var store = new _vuex.default.Store({
 
 store;exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 193:
-/*!***********************************************!*\
-  !*** E:/learning/kadingapp/network/remind.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var _http = __webpack_require__(/*! @/network/http.js */ 22);
-
-//添加定时任务
-function saveMindRequest(data) {
-  return (0, _http.http)({
-    url: '/remind/saveMindThing',
-    method: 'post',
-    data: data,
-    headers: {
-      'Content-Type': 'application/json' } });
-
-
-
-}
-
-//删除定时任务
-function delRemindRequest(data) {
-  return _http.http.post('/remind/deleteScheduledTasks', data);
-}
-
-//修改定时任务
-function modifyRemindRequest(data) {
-  return (0, _http.http)({
-    headers: {
-      "Content-Type": 'application/json' },
-
-    url: '/remind/modifyScheduledTasks',
-    method: 'post',
-    data: data });
-
-}
-
-//查询用户所有的定时任务
-function queryRemindRequest(account, pageNum) {var pageSize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 20;
-  return _http.http.get("/remind/queryScheduledTasks?account=".concat(account, "&pageNum=").concat(pageNum, "&pageSize=").concat(pageSize));
-}
-module.exports = {
-  saveMindRequest: saveMindRequest,
-  delRemindRequest: delRemindRequest,
-  modifyRemindRequest: modifyRemindRequest,
-  queryRemindRequest: queryRemindRequest };
 
 /***/ }),
 
@@ -10599,6 +10663,58 @@ module.exports = {
 
 /***/ }),
 
+/***/ 202:
+/*!***********************************************!*\
+  !*** E:/learning/kadingapp/network/remind.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var _http = __webpack_require__(/*! @/network/http.js */ 22);
+
+//添加定时任务
+function saveMindRequest(data) {
+  return (0, _http.http)({
+    url: '/remind/saveMindThing',
+    method: 'post',
+    data: data,
+    headers: {
+      'Content-Type': 'application/json' } });
+
+
+
+}
+
+//删除定时任务
+function delRemindRequest(data) {
+  return _http.http.post('/remind/deleteScheduledTasks', data);
+}
+
+//修改定时任务
+function modifyRemindRequest(data) {
+  return (0, _http.http)({
+    headers: {
+      "Content-Type": 'application/json' },
+
+    url: '/remind/modifyScheduledTasks',
+    method: 'post',
+    data: data });
+
+}
+
+//查询用户所有的定时任务
+function queryRemindRequest(account, pageNum) {var pageSize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 20;
+  return _http.http.get("/remind/queryScheduledTasks?account=".concat(account, "&pageNum=").concat(pageNum, "&pageSize=").concat(pageSize));
+}
+module.exports = {
+  saveMindRequest: saveMindRequest,
+  delRemindRequest: delRemindRequest,
+  modifyRemindRequest: modifyRemindRequest,
+  queryRemindRequest: queryRemindRequest };
+
+/***/ }),
+
 /***/ 21:
 /*!**************************************************!*\
   !*** E:/learning/kadingapp/network/addfriend.js ***!
@@ -10651,7 +10767,7 @@ function getFriendInfo(params) {
 
 /***/ }),
 
-/***/ 210:
+/***/ 219:
 /*!*********************************************************!*\
   !*** E:/learning/kadingapp/network/changefriendinfo.js ***!
   \*********************************************************/
@@ -10766,6 +10882,7 @@ http.interceptors.response.use(function (response) {
   // })
   // }
   // showRes(response)
+  console.log(response);
   return response;
 }, function (error) {
   // showErr(error)
@@ -10839,9 +10956,12 @@ Object.defineProperty(exports, "__esModule", { value: true });var _exportNames =
 
 
 
-Object.keys(_axios).forEach(function (key) {if (key === "default" || key === "__esModule") return;if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;Object.defineProperty(exports, key, { enumerable: true, get: function get() {return _axios[key];} });});var _utils = _interopRequireDefault(__webpack_require__(/*! axios/lib/utils */ 27));var _adapter = __webpack_require__(/*! ./adapter */ 53);var _normalizeHeaderName = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/normalizeHeaderName */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}function setContentTypeIfUnset(headers, value) {if (!_utils.default.isUndefined(headers) && _utils.default.isUndefined(headers['Content-Type'])) {headers['Content-Type'] = value;}}_axios.default.defaults.transformRequest = [function transformRequest(data, headers) {(0, _normalizeHeaderName.default)(headers, 'Accept');(0, _normalizeHeaderName.default)(headers, 'Content-Type');if (_utils.default.isFormData(data) || _utils.default.isArrayBuffer(data) || _utils.default.isBuffer(data) || _utils.default.isStream(data) || _utils.default.isFile(data) || _utils.default.isBlob(data)) {return data; // return JSON.stringify(data)
-  }if (_utils.default.isArrayBufferView(data)) {return data.buffer;}if (_utils.default.isURLSearchParams(data)) {setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');return data.toString();}if (_utils.default.isObject(data)) {setContentTypeIfUnset(headers, 'application/json;charset=utf-8'); // return JSON.stringify(data)
-    return data;}return data;}];_axios.default.defaults.adapter = _adapter.adapter;
+
+
+
+
+Object.keys(_axios).forEach(function (key) {if (key === "default" || key === "__esModule") return;if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;Object.defineProperty(exports, key, { enumerable: true, get: function get() {return _axios[key];} });});var _utils = _interopRequireDefault(__webpack_require__(/*! axios/lib/utils */ 27));var _adapter = __webpack_require__(/*! ./adapter */ 53);var _normalizeHeaderName = _interopRequireDefault(__webpack_require__(/*! axios/lib/helpers/normalizeHeaderName */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _getRequireWildcardCache() {if (typeof WeakMap !== "function") return null;var cache = new WeakMap();_getRequireWildcardCache = function _getRequireWildcardCache() {return cache;};return cache;}function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;}if (obj === null || typeof obj !== "object" && typeof obj !== "function") {return { default: obj };}var cache = _getRequireWildcardCache();if (cache && cache.has(obj)) {return cache.get(obj);}var newObj = {};var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;if (desc && (desc.get || desc.set)) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}newObj.default = obj;if (cache) {cache.set(obj, newObj);}return newObj;}function setContentTypeIfUnset(headers, value) {if (!_utils.default.isUndefined(headers) && _utils.default.isUndefined(headers['Content-Type'])) {headers['Content-Type'] = value;}}_axios.default.defaults.transformRequest = [function transformRequest(data, headers) {(0, _normalizeHeaderName.default)(headers, 'Accept');(0, _normalizeHeaderName.default)(headers, 'Content-Type');if (_utils.default.isFormData(data) || _utils.default.isArrayBuffer(data) || _utils.default.isBuffer(data) || _utils.default.isStream(data) || _utils.default.isFile(data) || _utils.default.isBlob(data)) {console.log('111');return data;}if (_utils.default.isArrayBufferView(data)) {console.log('222');return data.buffer;}if (_utils.default.isURLSearchParams(data)) {console.log('333');setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');return data.toString();}if (_utils.default.isObject(data)) {console.log('444');setContentTypeIfUnset(headers, 'application/json;charset=utf-8'); // return JSON.stringify(data)
+    return data;}console.log('555');return data;}];_axios.default.defaults.adapter = _adapter.adapter;
 
 /***/ }),
 
@@ -10917,6 +11037,797 @@ module.exports = axios;
 
 // Allow use of default import syntax in TypeScript
 module.exports.default = axios;
+
+/***/ }),
+
+/***/ 260:
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/@vue/babel-preset-app/node_modules/@babel/runtime/regenerator/index.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ 261);
+
+/***/ }),
+
+/***/ 261:
+/*!************************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() {
+  return this || (typeof self === "object" && self);
+})() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = __webpack_require__(/*! ./runtime */ 262);
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+
+/***/ }),
+
+/***/ 262:
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+!(function(global) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  var inModule = typeof module === "object";
+  var runtime = global.regeneratorRuntime;
+  if (runtime) {
+    if (inModule) {
+      // If regeneratorRuntime is defined globally and we're in a module,
+      // make the exports object identical to regeneratorRuntime.
+      module.exports = runtime;
+    }
+    // Don't bother evaluating the rest of this file if the runtime was
+    // already defined globally.
+    return;
+  }
+
+  // Define the runtime globally (as expected by generated code) as either
+  // module.exports (if we're in a module) or a new, empty object.
+  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  runtime.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  runtime.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  runtime.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  runtime.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  runtime.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return runtime.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  runtime.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  runtime.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+})(
+  // In sloppy mode, unbound `this` refers to the global object, fallback to
+  // Function constructor if we're in global strict mode. That is sadly a form
+  // of indirect eval which violates Content Security Policy.
+  (function() {
+    return this || (typeof self === "object" && self);
+  })() || Function("return this")()
+);
+
 
 /***/ }),
 
@@ -11446,22 +12357,6 @@ module.exports = Axios;
 
 /***/ }),
 
-/***/ 307:
-/*!*********************************************************!*\
-  !*** E:/learning/kadingapp/network/changePersonInfo.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.modifyUserInfo = modifyUserInfo;var _http = __webpack_require__(/*! @/network/http.js */ 22);
-
-function modifyUserInfo(params) {
-  return _http.http.put('/user/modifyUserInfo', params);
-}
-
-/***/ }),
-
 /***/ 31:
 /*!************************************************************************!*\
   !*** E:/learning/kadingapp/node_modules/axios/lib/helpers/buildURL.js ***!
@@ -11544,7 +12439,86 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 /***/ }),
 
-/***/ 316:
+/***/ 319:
+/*!*********************************************************!*\
+  !*** E:/learning/kadingapp/network/changePersonInfo.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.modifyUserInfo = modifyUserInfo;var _http = __webpack_require__(/*! @/network/http.js */ 22);
+
+function modifyUserInfo(params) {
+  return _http.http.put('/user/modifyUserInfo', params);
+}
+
+/***/ }),
+
+/***/ 32:
+/*!*******************************************************************************!*\
+  !*** E:/learning/kadingapp/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(/*! ./../utils */ 27);
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+   * Add a new interceptor to the stack
+   *
+   * @param {Function} fulfilled The function to handle `then` for a `Promise`
+   * @param {Function} rejected The function to handle `reject` for a `Promise`
+   *
+   * @return {Number} An ID used to remove interceptor later
+   */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected });
+
+  return this.handlers.length - 1;
+};
+
+/**
+    * Remove an interceptor from the stack
+    *
+    * @param {Number} id The ID that was returned by `use`
+    */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+    * Iterate over all the registered interceptors
+    *
+    * This method is particularly useful for skipping over any
+    * interceptors that may have become `null` calling `eject`.
+    *
+    * @param {Function} fn The function to call for each interceptor
+    */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+/***/ }),
+
+/***/ 328:
 /*!************************************************!*\
   !*** E:/learning/kadingapp/common/cityList.js ***!
   \************************************************/
@@ -12739,69 +13713,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.provinceLi
 
 /***/ }),
 
-/***/ 32:
-/*!*******************************************************************************!*\
-  !*** E:/learning/kadingapp/node_modules/axios/lib/core/InterceptorManager.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(/*! ./../utils */ 27);
-
-function InterceptorManager() {
-  this.handlers = [];
-}
-
-/**
-   * Add a new interceptor to the stack
-   *
-   * @param {Function} fulfilled The function to handle `then` for a `Promise`
-   * @param {Function} rejected The function to handle `reject` for a `Promise`
-   *
-   * @return {Number} An ID used to remove interceptor later
-   */
-InterceptorManager.prototype.use = function use(fulfilled, rejected) {
-  this.handlers.push({
-    fulfilled: fulfilled,
-    rejected: rejected });
-
-  return this.handlers.length - 1;
-};
-
-/**
-    * Remove an interceptor from the stack
-    *
-    * @param {Number} id The ID that was returned by `use`
-    */
-InterceptorManager.prototype.eject = function eject(id) {
-  if (this.handlers[id]) {
-    this.handlers[id] = null;
-  }
-};
-
-/**
-    * Iterate over all the registered interceptors
-    *
-    * This method is particularly useful for skipping over any
-    * interceptors that may have become `null` calling `eject`.
-    *
-    * @param {Function} fn The function to call for each interceptor
-    */
-InterceptorManager.prototype.forEach = function forEach(fn) {
-  utils.forEach(this.handlers, function forEachHandler(h) {
-    if (h !== null) {
-      fn(h);
-    }
-  });
-};
-
-module.exports = InterceptorManager;
-
-/***/ }),
-
 /***/ 33:
 /*!****************************************************************************!*\
   !*** E:/learning/kadingapp/node_modules/axios/lib/core/dispatchRequest.js ***!
@@ -13894,22 +14805,6 @@ function nonStandardBrowserEnv() {
 
 /***/ }),
 
-/***/ 455:
-/*!**************************************************!*\
-  !*** E:/learning/kadingapp/network/changepwd.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.changepwdRequest = changepwdRequest;var _http = __webpack_require__(/*! @/network/http.js */ 22);
-
-function changepwdRequest(params) {
-  return _http.http.put('/user/forgetPassword', params);
-}
-
-/***/ }),
-
 /***/ 46:
 /*!***********************************************************************!*\
   !*** E:/learning/kadingapp/node_modules/axios/lib/helpers/cookies.js ***!
@@ -13970,6 +14865,22 @@ function nonStandardBrowserEnv() {
     remove: function remove() {} };
 
 }();
+
+/***/ }),
+
+/***/ 467:
+/*!**************************************************!*\
+  !*** E:/learning/kadingapp/network/changepwd.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.changepwdRequest = changepwdRequest;var _http = __webpack_require__(/*! @/network/http.js */ 22);
+
+function changepwdRequest(params) {
+  return _http.http.put('/user/forgetPassword', params);
+}
 
 /***/ }),
 
@@ -15273,18 +16184,22 @@ function _classCallCheck(instance, Constructor) {if (!(instance instanceof Const
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.http_config = exports.imgBaseUrl = exports.baseUrl = void 0; //请求BASEURL
-var baseUrl = 'http://192.168.1.138:9090';
+Object.defineProperty(exports, "__esModule", { value: true });exports.http_config = exports.publish_upload = exports.imgBaseUrl = exports.baseUrl = void 0; //请求BASEURL
+var baseUrl = 'http://192.168.1.137:9090';
 
 //图片URL
-exports.baseUrl = baseUrl;var imgBaseUrl = "http://192.168.1.176/";exports.imgBaseUrl = imgBaseUrl;
+exports.baseUrl = baseUrl;var imgBaseUrl = "http://39.108.212.170/";exports.imgBaseUrl = imgBaseUrl;
 
 var headers = {
   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' };
 
+var publish_upload = {
+  name: 'multipartFile',
+  url: baseUrl + '/fastDFS/uploadImage' };
+
 
 //请求默认参数config
-var http_config = {
+exports.publish_upload = publish_upload;var http_config = {
   baseURL: baseUrl,
   timeout: 5000,
 
@@ -15517,112 +16432,6 @@ MyRequest;exports.default = _default;
 
 /***/ }),
 
-/***/ 582:
-/*!***********************************************************!*\
-  !*** E:/learning/kadingapp/components/uni-icons/icons.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'contact': "\uE100",
-  'person': "\uE101",
-  'personadd': "\uE102",
-  'contact-filled': "\uE130",
-  'person-filled': "\uE131",
-  'personadd-filled': "\uE132",
-  'phone': "\uE200",
-  'email': "\uE201",
-  'chatbubble': "\uE202",
-  'chatboxes': "\uE203",
-  'phone-filled': "\uE230",
-  'email-filled': "\uE231",
-  'chatbubble-filled': "\uE232",
-  'chatboxes-filled': "\uE233",
-  'weibo': "\uE260",
-  'weixin': "\uE261",
-  'pengyouquan': "\uE262",
-  'chat': "\uE263",
-  'qq': "\uE264",
-  'videocam': "\uE300",
-  'camera': "\uE301",
-  'mic': "\uE302",
-  'location': "\uE303",
-  'mic-filled': "\uE332",
-  'speech': "\uE332",
-  'location-filled': "\uE333",
-  'micoff': "\uE360",
-  'image': "\uE363",
-  'map': "\uE364",
-  'compose': "\uE400",
-  'trash': "\uE401",
-  'upload': "\uE402",
-  'download': "\uE403",
-  'close': "\uE404",
-  'redo': "\uE405",
-  'undo': "\uE406",
-  'refresh': "\uE407",
-  'star': "\uE408",
-  'plus': "\uE409",
-  'minus': "\uE410",
-  'circle': "\uE411",
-  'checkbox': "\uE411",
-  'close-filled': "\uE434",
-  'clear': "\uE434",
-  'refresh-filled': "\uE437",
-  'star-filled': "\uE438",
-  'plus-filled': "\uE439",
-  'minus-filled': "\uE440",
-  'circle-filled': "\uE441",
-  'checkbox-filled': "\uE442",
-  'closeempty': "\uE460",
-  'refreshempty': "\uE461",
-  'reload': "\uE462",
-  'starhalf': "\uE463",
-  'spinner': "\uE464",
-  'spinner-cycle': "\uE465",
-  'search': "\uE466",
-  'plusempty': "\uE468",
-  'forward': "\uE470",
-  'back': "\uE471",
-  'left-nav': "\uE471",
-  'checkmarkempty': "\uE472",
-  'home': "\uE500",
-  'navigate': "\uE501",
-  'gear': "\uE502",
-  'paperplane': "\uE503",
-  'info': "\uE504",
-  'help': "\uE505",
-  'locked': "\uE506",
-  'more': "\uE507",
-  'flag': "\uE508",
-  'home-filled': "\uE530",
-  'gear-filled': "\uE532",
-  'info-filled': "\uE534",
-  'help-filled': "\uE535",
-  'more-filled': "\uE537",
-  'settings': "\uE560",
-  'list': "\uE562",
-  'bars': "\uE563",
-  'loop': "\uE565",
-  'paperclip': "\uE567",
-  'eye': "\uE568",
-  'arrowup': "\uE580",
-  'arrowdown': "\uE581",
-  'arrowleft': "\uE582",
-  'arrowright': "\uE583",
-  'arrowthinup': "\uE584",
-  'arrowthindown': "\uE585",
-  'arrowthinleft': "\uE586",
-  'arrowthinright': "\uE587",
-  'pulldown': "\uE588",
-  'closefill': "\uE589",
-  'sound': "\uE590",
-  'scan': "\uE612" };exports.default = _default;
-
-/***/ }),
-
 /***/ 59:
 /*!**********************************************************************!*\
   !*** E:/learning/kadingapp/js_sdk/pocky-request/core/interceptor.js ***!
@@ -15771,6 +16580,112 @@ function mergeConfig(defaultConfig) {var instanceConfig = arguments.length > 1 &
 }var _default =
 
 mergeConfig;exports.default = _default;
+
+/***/ }),
+
+/***/ 601:
+/*!***********************************************************!*\
+  !*** E:/learning/kadingapp/components/uni-icons/icons.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'contact': "\uE100",
+  'person': "\uE101",
+  'personadd': "\uE102",
+  'contact-filled': "\uE130",
+  'person-filled': "\uE131",
+  'personadd-filled': "\uE132",
+  'phone': "\uE200",
+  'email': "\uE201",
+  'chatbubble': "\uE202",
+  'chatboxes': "\uE203",
+  'phone-filled': "\uE230",
+  'email-filled': "\uE231",
+  'chatbubble-filled': "\uE232",
+  'chatboxes-filled': "\uE233",
+  'weibo': "\uE260",
+  'weixin': "\uE261",
+  'pengyouquan': "\uE262",
+  'chat': "\uE263",
+  'qq': "\uE264",
+  'videocam': "\uE300",
+  'camera': "\uE301",
+  'mic': "\uE302",
+  'location': "\uE303",
+  'mic-filled': "\uE332",
+  'speech': "\uE332",
+  'location-filled': "\uE333",
+  'micoff': "\uE360",
+  'image': "\uE363",
+  'map': "\uE364",
+  'compose': "\uE400",
+  'trash': "\uE401",
+  'upload': "\uE402",
+  'download': "\uE403",
+  'close': "\uE404",
+  'redo': "\uE405",
+  'undo': "\uE406",
+  'refresh': "\uE407",
+  'star': "\uE408",
+  'plus': "\uE409",
+  'minus': "\uE410",
+  'circle': "\uE411",
+  'checkbox': "\uE411",
+  'close-filled': "\uE434",
+  'clear': "\uE434",
+  'refresh-filled': "\uE437",
+  'star-filled': "\uE438",
+  'plus-filled': "\uE439",
+  'minus-filled': "\uE440",
+  'circle-filled': "\uE441",
+  'checkbox-filled': "\uE442",
+  'closeempty': "\uE460",
+  'refreshempty': "\uE461",
+  'reload': "\uE462",
+  'starhalf': "\uE463",
+  'spinner': "\uE464",
+  'spinner-cycle': "\uE465",
+  'search': "\uE466",
+  'plusempty': "\uE468",
+  'forward': "\uE470",
+  'back': "\uE471",
+  'left-nav': "\uE471",
+  'checkmarkempty': "\uE472",
+  'home': "\uE500",
+  'navigate': "\uE501",
+  'gear': "\uE502",
+  'paperplane': "\uE503",
+  'info': "\uE504",
+  'help': "\uE505",
+  'locked': "\uE506",
+  'more': "\uE507",
+  'flag': "\uE508",
+  'home-filled': "\uE530",
+  'gear-filled': "\uE532",
+  'info-filled': "\uE534",
+  'help-filled': "\uE535",
+  'more-filled': "\uE537",
+  'settings': "\uE560",
+  'list': "\uE562",
+  'bars': "\uE563",
+  'loop': "\uE565",
+  'paperclip': "\uE567",
+  'eye': "\uE568",
+  'arrowup': "\uE580",
+  'arrowdown': "\uE581",
+  'arrowleft': "\uE582",
+  'arrowright': "\uE583",
+  'arrowthinup': "\uE584",
+  'arrowthindown': "\uE585",
+  'arrowthinleft': "\uE586",
+  'arrowthinright': "\uE587",
+  'pulldown': "\uE588",
+  'closefill': "\uE589",
+  'sound': "\uE590",
+  'scan': "\uE612" };exports.default = _default;
 
 /***/ }),
 
@@ -16152,15 +17067,15 @@ function getMyUserInfo(params) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getNewestDynamicRequest = getNewestDynamicRequest;exports.getMyDynamicRequest = getMyDynamicRequest;exports.getPersonDynamicRequest = getPersonDynamicRequest;exports.doPublishDynamic = doPublishDynamic;exports.doCommentRequest = doCommentRequest;exports.doDynamicLikeRequest = doDynamicLikeRequest;var _http = __webpack_require__(/*! @/network/http.js */ 22);
-
-
+var _http = __webpack_require__(/*! @/network/http.js */ 22);
+var _helper = __webpack_require__(/*! @/common/helper.js */ 55);
+var _index = __webpack_require__(/*! @/common/index.js */ 14);var _module$exports;function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 //获取朋友动态列表
-function getNewestDynamicRequest(params) {
+function getNewestDynamicRequest(data) {
   return (0, _http.http)({
     method: 'get',
-    url: '/circle/browseFriendCircle' + params,
+    url: "/circle/browseFriendCircle?account=".concat(data.account, "&pageNum=").concat(data.pageNum, "&pageSize=").concat(data.pageSize),
     timeout: 20000 });
 
 }
@@ -16171,30 +17086,134 @@ function getMyDynamicRequest(params) {
 }
 
 //获取某个朋友动态的列表
-function getPersonDynamicRequest(params) {
-  return _http.http.get('/circle/browseOtherFriendCircle' + params);
+function getPersonDynamicRequest(data) {
+  return _http.http.get("/circle/browseOtherFriendCircle?account=".concat(data.account, "&pageNum=").concat(data.pageNum, "&pageSize=").concat(pageSize) + params);
 }
 
-//发动态
-function doPublishDynamic(params) {
-  return _http.http.post('/circle/postMoments', params);
+//发表仅文字的朋友圈
+function doPublishDynamicRequest(data) {
+  return (0, _http.http)({
+    headers: {
+      "Content-Type": "application/json" },
+
+    method: 'post',
+    url: '/circle/postMoments',
+    data: data });
+
 }
 
+//上传图片(可多张)
+function dynamicUploadImage(imgList) {
+  var promises = imgList.map(function (item) {
+    return (0, _index.uploadFile)(_helper.publish_upload, item);
+  });
+  // Promise.all(promises).then(res => {
+  // 	console.log('批量上传图片:', res)
+  // 	let newImgList = []
+  // 	res.forEach(item => {
+  // 		let data = JSON.parse(item.data)
+  // 		if(item.statusCode === 200 && data.code === 2000) {
+  // 			console.log('上传成功:', data.data)
+  // 			newImgList.push(data.data)
+  // 		}
+  // 	})
+  // 	return newImgList
+  // })
+
+  return Promise.all(promises);
+}
 
 //评论
-function doCommentRequest(params) {
-  return _http.http.post('/circle/comment', params);
+function doCommentRequest(data) {
+  return (0, _http.http)({
+    headers: {
+      "Content-Type": "application/json" },
+
+    method: 'post',
+    url: '/circle/comment',
+    data: data });
+
 }
 
 
 //点赞
-function doDynamicLikeRequest(params) {
-  return _http.http.post('/circle/friendCircleLike', params);
+function doDynamicLikeRequest(data) {
+  return (0, _http.http)({
+    headers: {
+      "Content-Type": "application/json" },
+
+    method: 'post',
+    url: '/circle/friendCircleLike',
+    data: data });
+
 }
+
+////获取与我相关的点赞与评论信息
+function getLikeCommentInfoRequest(data) {
+  return _http.http.get('/circle/getLikeCommentInfo?account=' + data);
+}
+
+//浏览单个动态
+function browseFriendCircleOneRequest(data) {
+  return _http.http.get("/circle/browseFriendCircleOne?account=".concat(data.account, "&friendCircleId=").concat(data.friendCircleId));
+}
+
+module.exports = (_module$exports = {
+  doDynamicLikeRequest: doDynamicLikeRequest,
+  getNewestDynamicRequest: getNewestDynamicRequest,
+  getMyDynamicRequest: getMyDynamicRequest,
+  getPersonDynamicRequest: getPersonDynamicRequest,
+  doPublishDynamicRequest: doPublishDynamicRequest,
+  dynamicUploadImage: dynamicUploadImage,
+  doCommentRequest: doCommentRequest }, _defineProperty(_module$exports, "doDynamicLikeRequest",
+doDynamicLikeRequest), _defineProperty(_module$exports, "getLikeCommentInfoRequest",
+getLikeCommentInfoRequest), _defineProperty(_module$exports, "browseFriendCircleOneRequest",
+browseFriendCircleOneRequest), _module$exports);
 
 /***/ }),
 
 /***/ 66:
+/*!****************************************************!*\
+  !*** E:/learning/kadingapp/common/socketHelper.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {function handlePushMsg(newPushMsg, globalData) {
+  console.log('收到定时提醒object:', newPushMsg);
+
+  uni.switchTab({
+    url: '/pages/index/index',
+    success: function success(res) {
+      uni.navigateTo({
+        url: '/components/content/remind/Reminded',
+        success: function success(res) {
+
+
+
+
+
+
+
+
+
+
+
+
+        } });
+
+    } });
+
+}
+
+
+module.exports = {
+  handlePushMsg: handlePushMsg };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 67:
 /*!********************************************************!*\
   !*** E:/learning/kadingapp/network/session/session.js ***!
   \********************************************************/
@@ -16306,7 +17325,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 67:
+/***/ 68:
 /*!********************************************!*\
   !*** E:/learning/kadingapp/utils/utils.js ***!
   \********************************************/
@@ -16549,7 +17568,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "components/content/startup/Startup": {}, "components/content/login/login": { "navigationBarTitleText": "" }, "pages/index/index": { "navigationBarTitleText": "卡丁" }, "components/content/session/Session": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/content/HistoryMsg": { "navigationBarBackgroundColor": "#F7F7F7", "titleNView": { "autoBackButton": false, "buttons": [{ "text": "取消", "width": "auto", "float": "right", "fontSize": "14px", "color": "#0077AA" }], "searchInput": { "backgroundColor": "#fff", "align": "left", "autoFocus": true, "placeholder": "搜索", "placeholderColor": "#999", "borderRadius": "6px" } } }, "components/content/session/sessionSon/addGroupMember": { "navigationBarTitleText": "邀请好友进群", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/chooseFriend/ChooseFriend": { "navigationBarTitleText": "选择好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/GroupMembers": { "navigationBarTitleText": "群成员", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/defmodify/DefModify": { "navigationBarTitleText": "修改信息", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/ChatFriendSetting": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/GroupInfo": { "navigationBarTitleText": "讨论组", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/changefriendinfo/ChangeLabel": { "navigationBarTitleText": "添加标签" }, "components/content/collection/collectionCpns/CollectSearch": { "navigationBarTitleText": "我的收藏" }, "pages/profile/profile": { "navigationBarTitleText": "我的" }, "components/content/remind/Reminded": { "navigationBarTitleText": "事项提醒" }, "components/content/remind/Remind": { "navigationBarTitleText": "添加提醒" }, "components/content/changefriendinfo/ChangeRemark": { "navigationBarTitleText": "设置备注和标签" }, "components/content/collection/collection": { "navigationBarTitleText": "收藏" }, "components/content/collection/collectionCpns/CollectChain": { "navigationBarTitleText": "外链" }, "pages/contacts/contacts": { "navigationBarTitleText": "通讯录" }, "components/content/myLocation/SearchLocation": {}, "components/content/publish/Publish": { "navigationBarTitleText": "发表动态" }, "components/content/dynamic/Dynamic": { "navigationBarTitleText": "朋友动态" }, "components/content/dynamic/MyDynamic": { "navigationBarTitleText": "我的动态" }, "components/content/myLocation/LocationInfo": { "navigationBarTitleText": "所在位置" }, "components/content/register/register2": { "navigationBarTitleText": "" }, "components/content/register/register1": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F7F7F7" }, "components/content/personalinfo/PersonalInfo": { "navigationBarTitleText": "个人信息" }, "components/content/chooseLocation/ChooseLocation": { "navigationBarTitleText": "选择地区" }, "components/content/chooseLocation/ChooseProvince": { "navigationBarTitleText": "选择省份" }, "components/content/chooseLocation/ChooseCity": { "navigationBarTitleText": "选择区县" }, "components/content/personalinfo/changeinfo/ChangeAddress1": { "navigationBarTitleText": "我的地址" }, "components/content/personalinfo/changeinfo/ChangeAddress2": { "navigationBarTitleText": "新增地址" }, "components/content/personalinfo/changeinfo/Card": { "navigationBarTitleText": "二维码名片" }, "components/content/personalinfo/changeinfo/moreCpns/Signature": { "navigationBarTitleText": "个性签名" }, "components/content/personalinfo/changeinfo/moreCpns/GenderInfo": { "navigationBarTitleText": "设置性别" }, "components/content/personalinfo/changeinfo/ChangeMoreInfo": { "navigationBarTitleText": "更多信息" }, "components/content/personalinfo/changeinfo/ChangeName": { "navigationBarTitleText": "更改名字" }, "components/content/changepwd/changepwd1": { "navigationBarTitleText": "" }, "components/content/addfriend/AddFriend": { "navigationBarTitleText": "添加朋友" }, "components/content/consentfriend/ConsentFriend": { "navigationBarTitleText": "新的朋友" }, "components/content/addfriend/AddfriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/applyfriend/ApplyFriend": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/friend/FriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "pages/message/message": { "navigationBarTitleText": "消息" }, "components/content/payment/PayMent": { "navigationBarTitleText": "支付" }, "components/content/setting/Setting": { "navigationBarTitleText": "设置" }, "components/content/changepwd/changepwd2": { "navigationBarTitleText": "" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F7F7F7", "backgroundColor": "#F7F7F7" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "components/content/startup/Startup": {}, "components/content/login/login": { "navigationBarTitleText": "" }, "pages/index/index": { "navigationBarTitleText": "卡丁" }, "components/content/interaction/Interaction": { "navigationBarTitleText": "消息" }, "components/content/session/Session": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/content/HistoryMsg": { "navigationBarBackgroundColor": "#F7F7F7", "titleNView": { "autoBackButton": false, "buttons": [{ "text": "取消", "width": "auto", "float": "right", "fontSize": "14px", "color": "#0077AA" }], "searchInput": { "backgroundColor": "#fff", "align": "left", "autoFocus": true, "placeholder": "搜索", "placeholderColor": "#999", "borderRadius": "6px" } } }, "components/content/session/sessionSon/addGroupMember": { "navigationBarTitleText": "邀请好友进群", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/chooseFriend/ChooseFriend": { "navigationBarTitleText": "选择好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/GroupMembers": { "navigationBarTitleText": "群成员", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/defmodify/DefModify": { "navigationBarTitleText": "修改信息", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/ChatFriendSetting": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/GroupInfo": { "navigationBarTitleText": "讨论组", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/changefriendinfo/ChangeLabel": { "navigationBarTitleText": "添加标签" }, "components/content/collection/collectionCpns/CollectSearch": { "navigationBarTitleText": "我的收藏" }, "pages/profile/profile": { "navigationBarTitleText": "我的" }, "components/content/remind/Reminded": { "navigationBarTitleText": "事项提醒" }, "components/content/remind/Remind": { "navigationBarTitleText": "添加提醒" }, "components/content/changefriendinfo/ChangeRemark": { "navigationBarTitleText": "设置备注和标签" }, "components/content/collection/collection": { "navigationBarTitleText": "收藏" }, "components/content/collection/collectionCpns/CollectChain": { "navigationBarTitleText": "外链" }, "pages/contacts/contacts": { "navigationBarTitleText": "通讯录" }, "components/content/myLocation/SearchLocation": {}, "components/content/publish/Publish": { "navigationBarTitleText": "发表动态" }, "components/content/dynamic/Dynamic": { "navigationBarTitleText": "朋友动态", "enablePullDownRefresh": true }, "components/content/dynamic/MyDynamic": { "navigationBarTitleText": "我的动态" }, "components/content/myLocation/LocationInfo": { "navigationBarTitleText": "所在位置" }, "components/content/register/register2": { "navigationBarTitleText": "" }, "components/content/register/register1": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F7F7F7" }, "components/content/personalinfo/PersonalInfo": { "navigationBarTitleText": "个人信息" }, "components/content/chooseLocation/ChooseLocation": { "navigationBarTitleText": "选择地区" }, "components/content/chooseLocation/ChooseProvince": { "navigationBarTitleText": "选择省份" }, "components/content/chooseLocation/ChooseCity": { "navigationBarTitleText": "选择区县" }, "components/content/personalinfo/changeinfo/ChangeAddress1": { "navigationBarTitleText": "我的地址" }, "components/content/personalinfo/changeinfo/ChangeAddress2": { "navigationBarTitleText": "新增地址" }, "components/content/personalinfo/changeinfo/Card": { "navigationBarTitleText": "二维码名片" }, "components/content/personalinfo/changeinfo/moreCpns/Signature": { "navigationBarTitleText": "个性签名" }, "components/content/personalinfo/changeinfo/moreCpns/GenderInfo": { "navigationBarTitleText": "设置性别" }, "components/content/personalinfo/changeinfo/ChangeMoreInfo": { "navigationBarTitleText": "更多信息" }, "components/content/personalinfo/changeinfo/ChangeName": { "navigationBarTitleText": "更改名字" }, "components/content/changepwd/changepwd1": { "navigationBarTitleText": "" }, "components/content/addfriend/AddFriend": { "navigationBarTitleText": "添加朋友" }, "components/content/consentfriend/ConsentFriend": { "navigationBarTitleText": "新的朋友" }, "components/content/addfriend/AddfriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/applyfriend/ApplyFriend": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/friend/FriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "pages/message/message": { "navigationBarTitleText": "消息" }, "components/content/payment/PayMent": { "navigationBarTitleText": "支付" }, "components/content/setting/Setting": { "navigationBarTitleText": "设置" }, "components/content/changepwd/changepwd2": { "navigationBarTitleText": "" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F7F7F7", "backgroundColor": "#F7F7F7" } };exports.default = _default;
 
 /***/ }),
 
@@ -16565,7 +17584,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 82:
+/***/ 83:
 /*!**********************************************!*\
   !*** E:/learning/kadingapp/network/login.js ***!
   \**********************************************/
@@ -16588,7 +17607,7 @@ function getAccountImTokenRequest(params) {
 
 /***/ }),
 
-/***/ 91:
+/***/ 92:
 /*!**********************************************!*\
   !*** E:/learning/kadingapp/controller/im.js ***!
   \**********************************************/
@@ -16596,7 +17615,7 @@ function getAccountImTokenRequest(params) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _NIM_Web_SDK_weixin_v = _interopRequireDefault(__webpack_require__(/*! @/js_sdk/NIM_Weixin_SDK_v7.3.0/NIM_Web_SDK_weixin_v7.3.0.js */ 92));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _NIM_Web_SDK_weixin_v = _interopRequireDefault(__webpack_require__(/*! @/js_sdk/NIM_Weixin_SDK_v7.3.0/NIM_Web_SDK_weixin_v7.3.0.js */ 93));
 var _imConfig = _interopRequireDefault(__webpack_require__(/*! @/common/imConfig.js */ 12));
 var _store = _interopRequireDefault(__webpack_require__(/*! @/vuex/store.js */ 19));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
 
@@ -16903,7 +17922,7 @@ IMController = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ 92:
+/***/ 93:
 /*!***************************************************************************************!*\
   !*** E:/learning/kadingapp/js_sdk/NIM_Weixin_SDK_v7.3.0/NIM_Web_SDK_weixin_v7.3.0.js ***!
   \***************************************************************************************/
@@ -16925,7 +17944,7 @@ module.exports = function (e) {var t = {};function n(r) {if (t[r]) return t[r].e
 
 /***/ }),
 
-/***/ 93:
+/***/ 94:
 /*!****************************************************!*\
   !*** E:/learning/kadingapp/common/socketConfig.js ***!
   \****************************************************/
@@ -16934,7 +17953,7 @@ module.exports = function (e) {var t = {};function n(r) {if (t[r]) return t[r].e
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.socketURL = void 0; //websocket URL
-var socketURL = 'ws://192.168.1.138:9090/socketServer/';exports.socketURL = socketURL;
+var socketURL = 'ws://192.168.1.137:9090/socketServer/';exports.socketURL = socketURL;
 
 var socketConfig = {
   socketURL: socketURL };

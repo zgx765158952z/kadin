@@ -105,7 +105,6 @@
 							filePath: res1.tempFilePaths[0],
 							formData: {
 								'account': this.userInfo.user.userAccount,
-								'_method': 'PUT'
 							},
 							name: "multipartFile",
 							success:res2 => {

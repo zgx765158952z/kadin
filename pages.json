@@ -38,13 +38,6 @@
 						"buttons": [
 							{
 								"fontSrc": "/static/iconfont/iconfont.ttf",
-								"text":"   \ue63a",
-								"width": "auto",
-								"float":"left",
-								"fontSize":"20px"
-							},
-							{
-								"fontSrc": "/static/iconfont/iconfont.ttf",
 								"text":"\ue691   ",
 								"width": "auto",
 								"float":"right",
@@ -59,7 +52,26 @@
 		},
 		
 		
-		
+		{
+			"path": "components/content/interaction/Interaction",
+			"style": {
+				"navigationBarTitleText": "消息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text":"清空 ",
+								"width": "auto",
+								"float":"right",
+								"fontSize":"14px"
+							}
+						]
+					},
+					//隐藏滚动条
+					"scrollIndicator":"none"
+				}
+			}
+		},
 		
 		
 		
@@ -451,6 +463,7 @@
 			"path": "components/content/dynamic/Dynamic",
 			"style": {
 				"navigationBarTitleText": "朋友动态",
+				"enablePullDownRefresh": true, //下拉刷新
 				"app-plus": {
 					"titleNView": {
 						"buttons": [
@@ -839,22 +852,28 @@
 	    "selectedColor": "#3399FF",
 	    "borderStyle": "black",
 	    "backgroundColor": "#ffffff",
+		"midButton": {
+			"iconPath":"static/image/global/add.png",
+			"height": "60px",
+			"iconWidth":"45px"
+		},
 	    "list": [{
 	        "pagePath": "pages/index/index",
 	        "text": "首页",
 			"iconPath": "static/image/tabBar/home.png",
 			"selectedIconPath": "static/image/tabBar/home_active.png"
-	    }, {
-	        "pagePath": "pages/contacts/contacts",
-	        "text": "通讯录",
-			"iconPath": "static/image/tabBar/contacts.png",
-			"selectedIconPath": "static/image/tabBar/contacts_active.png"
-	    },
+	    }, 
 		{
-		    "pagePath": "pages/message/message",
-		    "text": "消息",
+		    "pagePath": "components/content/dynamic/Dynamic",
+		    "text": "动态",
 			"iconPath": "static/image/tabBar/message.png",
 			"selectedIconPath": "static/image/tabBar/message_active.png"
+		},
+		{
+		    "pagePath": "pages/contacts/contacts",
+		    "text": "通讯录",
+			"iconPath": "static/image/tabBar/contacts.png",
+			"selectedIconPath": "static/image/tabBar/contacts_active.png"
 		},
 		{
 		    "pagePath": "pages/profile/profile",

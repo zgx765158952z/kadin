@@ -42,8 +42,9 @@ function formatTimeStamp(timeStamp, fmt) {
 function formatToTimeStamp(DateTime) {
 	console.log('收到的中国标准时间:', DateTime)
 	let timeStamp = new Date(DateTime).getTime()
+	console.log(typeof timeStamp)
 	console.log('中国标准时间转时间戳为:', timeStamp)
-	return Number(timeStamp)
+	return timeStamp
 }
 
 
@@ -160,6 +161,15 @@ function formatList(data, firstWorld='friendRemarkName') {
 }
 
 
+//将获取的所有的朋友信息更新到朋友名片friendCard
+function setNewestFriendCard(state, data) {
+	let tempState = Object.assign({}, state)
+	let newObj = {}
+	data.forEach(item => {
+		newObj[item.friendAccount] = item
+	})
+	return Object.assign({}, newObj, tempState.friendCard)
+}
 
 //#ifdef APP-PLUS
 //获取cid
@@ -203,6 +213,39 @@ function deepClone(target) {
     return result;
 }
 
+//选择图片
+function chooseImg(count=9) {
+	return new Promise((resolve, reject) => {
+		uni.chooseImage({
+			count,
+			success: res => {
+				console.log('选择的图片:', res)
+				resolve(res.tempFilePaths)
+			},
+			fail: err => {
+				reject(err)
+			}
+		})
+	})
+}
+//上传文件
+function uploadFile(obj, filePath, formData=null) {
+	return new Promise((resolve, reject) => {
+		uni.uploadFile({
+			url: obj.url,
+			filePath: filePath,
+			formData,
+			name: obj.name,
+			success: res => {
+				resolve(res)
+			},
+			fail: err => {
+				reject(err)
+			}
+		})
+	})
+}
+
 
 
 module.exports = {
@@ -215,6 +258,9 @@ module.exports = {
 	formatToTimeStamp,
 	isChinese,
 	formatList,
+	setNewestFriendCard,
 	deepClone,
-	debounce
+	debounce,
+	chooseImg,
+	uploadFile
 }

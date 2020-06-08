@@ -1,9 +1,10 @@
 <template>
 	<view class="messagelist set-bgc">
 		
-		<default-list @click.native="toDynamic" :noBorderBtm="true">
+		<default-list @click.native="toDynamic" :hasContent="true" :noBorderBtm="true">
 			<text class="messagelist-img my-iconfont item-img1" slot="def-list-left">&#xe604;</text>
-			<text class="messagelist-title" slot="def-list-center">朋友动态</text>
+			<text class="messagelist-title" :class="{'newfriend-dynamic': newFriendDynamic}" slot="def-list-center">朋友动态</text>
+			<text class="messagelist-content" :clas="{'messagelist-content-mutinumber': false}" slot="def-list-content">3</text>
 		</default-list>
 		
 		<default-list :marTop="true">
@@ -30,10 +31,14 @@
 
 <script>
 	import DefaultList from "@/components/content/defaultlist/DefaultList.vue"
+	import { mapState } from 'vuex'
 	
 	export default {
 		components: {
 			DefaultList
+		},
+		computed: {
+			...mapState(['newFriendDynamic'])
 		},
 		methods: {
 			toSetting() {
@@ -76,6 +81,38 @@
 		.messagelist-title {
 			color: $uni-text-color;
 			font-size: $uni-font-size-lg;
+		}
+		.messagelist-content {
+			padding: 0 15rpx;
+			line-height: 36rpx;
+			font-size: $uni-font-size-lg;
+			margin-left: 20rpx;
+			text-align: center;
+			color: #fff;
+			background-color: #DD524D;
+			border-radius: 50%;
+		}
+		.messagelist-content-new {
+			width: 20rpx;
+			height: 20rpx;
+			background-color: $def-text-red-color;
+			border-radius: 50%;
+		}
+		.messagelist-content-mutinumber {
+			padding: 0 5rpx !important;
+		}
+		.newfriend-dynamic {
+			position: relative;
+			&::after {
+				content: '';
+				position: absolute;
+				right: -40rpx;
+				top: 14rpx;
+				width: 20rpx;
+				height: 20rpx;
+				background-color: $def-text-red-color;
+				border-radius: 50%;
+			}
 		}
 		
 	}

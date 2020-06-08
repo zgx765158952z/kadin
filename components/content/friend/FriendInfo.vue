@@ -2,7 +2,7 @@
 	<view class="friendinfo">
 		<block v-if="isMe">
 			<view class="friendinfo-top">
-				<view class="top-left">
+				<view class="top-left" @tap="previewFriendHeadImg">
 					<image :src=" imgUrl + userInfo.user.faceImage" mode="aspectFill"></image>
 				</view>
 				
@@ -22,7 +22,7 @@
 			</view>
 			
 			<view class="myborderlist">
-				<default-list @click.native="toMyDynamic('myself')">
+				<default-list @click.native="toMyDynamic('myself')" :noBorderBtm="true">
 					<view slot="def-list-left">
 						我的动态
 					</view>
@@ -41,7 +41,7 @@
 		<block v-else>
 			<block v-if="friendCard[friendAccount]">
 				<view class="friendinfo-top">
-					<view class="top-left" @tap="previewFriendHeadImg()">
+					<view class="top-left" @tap="previewFriendHeadImg">
 						<image :src=" imgUrl + friendCard[friendAccount].friendFaceImage" mode="aspectFill"></image>
 					</view>
 					
@@ -69,7 +69,7 @@
 				
 				
 				<view class="myborderlist">
-					<default-list @click.native="toChangeRemark" class="myborderlist">
+					<default-list @click.native="toChangeRemark" :noBorderBtm="true" class="myborderlist">
 						<view slot="def-list-left">
 							设置备注和标签
 						</view>
@@ -131,7 +131,7 @@
 	import DefaultList from '@/components/content/defaultlist/DefaultList.vue'
 	import { getFriendInfo } from "@/network/addfriend.js"
 	import { imgBaseUrl } from '@/common/helper.js'
-	import { mapState, mapActions } from 'vuex'
+	import { mapState, mapMutations, mapActions } from 'vuex'
 	
 	export default {
 		components: {
@@ -148,6 +148,7 @@
 			...mapState(['userInfo', 'rawMessageList', 'friendCard'])
 		},
 		methods: {
+			...mapMutations(['setFriendCard']),
 			...mapActions(['imAction']),
 			//跳转到修改备注和标签页
 			toChangeRemark() {
@@ -157,7 +158,7 @@
 			},
 			//预览图片、保存图片
 			previewFriendHeadImg() {
-				const imgPath = `${imgBaseUrl}${this.friendCard[this.friendAccount].friendFaceImage}`
+				const imgPath = this.isMe? `${imgBaseUrl}${this.userInfo.user.faceImage}` :`${imgBaseUrl}${this.friendCard[this.friendAccount].friendFaceImage}`
 				uni.previewImage({
 					urls: [imgPath],
 					longPressActions: {
@@ -169,13 +170,12 @@
 									filePath: imgPath,
 									success: res2 => {
 										uni.showToast({
-											title: '已保存到系统相册',
-											icon: 'none'
+											title: '已保存到系统相册'
 										})
 									},
 									fail: err2 => {
 										uni.showToast({
-											title: '保存失败，请稍后重试',
+											title: '保存失败,请稍后重试',
 											icon: 'none'
 										})
 									}
@@ -193,7 +193,7 @@
 					//初始化朋友名片
 					let tempFriendCard = Object.assign({}, this.friendCard)
 					tempFriendCard[this.friendAccount] = res.data.data
-					Object.assign({}, this.friendCard, tempFriendCard)
+					this.setFriendCard(tempFriendCard)
 					console.log('this.friendCard', this.friendCard)
 				}).catch(err => {
 					uni.showToast({
@@ -204,14 +204,14 @@
 				})
 			},
 			toMyDynamic(params) {
-				let account = ''
+				let url = '/components/content/dynamic/MyDynamic?account='
 				if(params === 'myself') {
-					account = this.userInfo.user.userAccount
+					url = url + this.userInfo.user.userAccount
 				}else if(params === 'other') {
-					account = this.friendAccount
+					url = url + this.friendAccount + `&friendRemarkName=${this.friendCard[this.friendAccount].friendRemarkName}`
 				}
 				uni.navigateTo({
-					url: `/components/content/dynamic/MyDynamic?account=${account}&friendRemarkName=${this.friendCard[this.friendAccount].friendRemarkName}`
+					url
 				})
 			},
 			toSession() {
@@ -245,12 +245,13 @@
 				//获取朋友资料
 				this.friendAccount = option.friendAccount
 				this.isMe = false
+				console.log('this.friendCard:', this.friendCard)
 				if(this.friendCard[option.friendAccount]) {
 					console.log('已经有名片了')
 				}else {
 					console.log('没有该好友名片')
-					this.doGetFriendInfo()
 				}
+				this.doGetFriendInfo()
 				
 			}
 		},

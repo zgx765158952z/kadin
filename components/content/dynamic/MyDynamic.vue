@@ -55,13 +55,13 @@
 									<view class="praise-list-leftImg">
 										<text class="my-iconfont praise-list-loveImg">&#xe617;</text>
 									</view>
-									<block v-for="(item2, index2) in item.likePerson" :key="index2">
+									<text v-for="(item2, index2) in item.likePerson" :key="index2">
 										<text v-for="(value, key, ind1) in item2" @tap.stop="toFriendInfo(key)" :key="ind1" class="praise-list-name">
 											<text class="praise-name">{{ value }}</text>
 											<text class="praise-list-comma" v-if="(item.likePerson.length-1) === index2"></text>
 											<text class="praise-list-comma" v-else>,</text>
 										</text>
-									</block>
+									</text>
 									
 									<!-- <text class="praise-list-name">
 										<text class="praise-name">淘宝</text>
@@ -90,12 +90,9 @@
 		
 		
 		
-		<block v-else>
-			<view class="dynamic-loading">
-				<view class="dynamic-loading-title">无动态</view>
-			</view>
-		</block>
-		
+		<view v-else class="dynamic-loading">
+			<view class="dynamic-loading-title">无动态</view>
+		</view>
 		
 		<block v-if="isShowPraise">
 			<view @tap.stop="hidePraiseCommentMask" class="praise-and-comment-mask">
@@ -240,7 +237,7 @@
 				const newObj = this.personDynamicList[this.currentIndex]
 				const obj = {
 					account: newObj.account,
-					LikeAccount: this.userInfo.user.userAccount,
+					likeAccount: this.userInfo.user.userAccount,
 					friendCircleDynamicId: newObj.id
 				}
 				doDynamicLikeRequest(obj).then(res => {
@@ -425,26 +422,24 @@
 			},
 		},
 		onLoad(option) {
-			if(option.account) {
+			console.log('option:', option)
+			let title = "我的动态"
+			if(option.account != this.userInfo.user.userAccount) {
 				//获取某个朋友的动态列表
 				this.doGetPersonDynamicRequest({
 					friendAccount: option.account
 				})
-				uni.setNavigationBarTitle({
-				    title: `${option.friendRemarkName}的动态`
-				});
+				title = `${option.friendRemarkName}的动态`
 			}else {
 				//获取自己的动态列表
 				this.doGetMyDynamicRequest({
 					account: this.userInfo.user.userAccount
 				})
 			}
-			
+			uni.setNavigationBarTitle({
+			    title
+			});
 			this.imgUrl = imgBaseUrl
-			
-		},
-		created() {
-			console.log('created')
 			
 		},
 		//监听页面滚动
