@@ -29,63 +29,63 @@
   height: 100vh;
 }
 .friendinfo .friendinfo-top {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    background-color: #FFFFFF;
-    padding: 25rpx 0 55rpx 0;
-    border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  background-color: #FFFFFF;
+  padding: 25rpx 0 55rpx 0;
+  border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
 }
 .friendinfo .friendinfo-top .top-left {
-      padding: 0 30rpx;
+  padding: 0 30rpx;
 }
 .friendinfo .friendinfo-top .top-left image {
-        border-radius: 12rpx;
-        width: 120rpx;
-        height: 120rpx;
+  border-radius: 12rpx;
+  width: 120rpx;
+  height: 120rpx;
 }
 .friendinfo .friendinfo-top .top-right {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1;
-              flex: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
 }
 .friendinfo .friendinfo-top .top-right .memo-name {
-        font-size: 40rpx;
-        font-weight: bold;
+  font-size: 40rpx;
+  font-weight: bold;
 }
 .friendinfo .friendinfo-top .top-right .little-font {
-        margin: 3rpx 0;
-        font-size: 30rpx;
-        color: #989898;
+  margin: 3rpx 0;
+  font-size: 30rpx;
+  color: #989898;
 }
 .friendinfo .myborderlist {
-    margin-bottom: 25rpx;
+  margin-bottom: 25rpx;
 }
 .friendinfo .list3, .friendinfo .list4 {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    padding: 20rpx 0;
-    background-color: #FFFFFF;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 20rpx 0;
+  background-color: #FFFFFF;
 }
 .friendinfo .list3 .img, .friendinfo .list4 .img {
-      margin-right: 15rpx;
+  margin-right: 15rpx;
 }
 .friendinfo .list3 .img .send-msg-img, .friendinfo .list3 .img .send-voice-img, .friendinfo .list4 .img .send-msg-img, .friendinfo .list4 .img .send-voice-img {
-        font-size: 50rpx;
-        color: #576A92;
+  font-size: 50rpx;
+  color: #576A92;
 }
 .friendinfo .list3 .send-msg, .friendinfo .list3 .send-voice, .friendinfo .list4 .send-msg, .friendinfo .list4 .send-voice {
-      font-size: 36rpx;
-      color: #576A92;
+  font-size: 36rpx;
+  color: #576A92;
 }
 .friendinfo .list3 {
-    border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
+  border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
 }
 

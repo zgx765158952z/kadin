@@ -28,26 +28,26 @@
   height: 100vh;
 }
 .messagelist default-list .messagelist-img.data-v-9d0f6d92 {
-    font-family: 'iconfont';
-    font-size: 56rpx;
+  font-family: 'iconfont';
+  font-size: 56rpx;
 }
 .messagelist default-list .item-img1.data-v-9d0f6d92 {
-    color: #7C32C9;
+  color: #7C32C9;
 }
 .messagelist default-list .item-img2.data-v-9d0f6d92 {
-    color: #2E77ED;
+  color: #2E77ED;
 }
 .messagelist default-list .item-img3.data-v-9d0f6d92 {
-    color: #6B400D;
+  color: #6B400D;
 }
 .messagelist default-list .item-img4.data-v-9d0f6d92 {
-    color: #D7CAFF;
+  color: #D7CAFF;
 }
 .messagelist default-list .item-img5.data-v-9d0f6d92 {
-    color: #4E30DC;
+  color: #4E30DC;
 }
 .messagelist default-list .messagelist-title.data-v-9d0f6d92 {
-    color: #333;
-    font-size: 32rpx;
+  color: #333;
+  font-size: 32rpx;
 }
 
