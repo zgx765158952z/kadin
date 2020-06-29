@@ -3,7 +3,7 @@
 		<default-list class="consentfriend-def-list" :noBorderBtm="true">
 			<view class="my-iconfont" slot="def-list-left" >&#xe620;</view>
 			<view class="consentfriend-def-list-center" slot="def-list-center">添加手机联系人</view>
-			<view class="def-list-right" slot="def-list-right"></view>
+			<view slot="def-list-right"></view>
 		</default-list>
 		
 		<view class="consent-list">
@@ -12,7 +12,6 @@
 				<view v-for="(item, index) in consentFriendList" :key="index" class="consent-item">
 					<head-img-item :noBorderBtm="(index+1)===consentFriendList.length">
 						<image v-if="item.faceImage" slot="start-img" :src="imgUrl+item.faceImage"></image>
-						<image v-else slot="start-img" src="/static/image/global/boyHeadImg.png"></image>
 						<text v-if="item.nickname" slot="title">
 							{{ item.nickname }} 
 						</text>
@@ -70,7 +69,10 @@
 									item.isFriend = false
 								})
 								if(this.newFriendRequest) {
-									this.clearNewData('clearnewPushMsg')
+									this.clearNewData('clearnewFriendRequest')
+									uni.removeTabBarBadge({
+										index: 2
+									})
 								}
 							}else {
 								this.consentFriendList = null
@@ -160,7 +162,7 @@
 <style lang="scss">
 	
 	.consentfriend {
-		height: 100vh;
+		min-height: 100vh;
 		.consentfriend-def-list {
 			.my-iconfont {
 				color: #55A532;

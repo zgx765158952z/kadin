@@ -53,6 +53,7 @@
 	import SDK from '@/js_sdk/NIM_Weixin_SDK_v7.3.0/NIM_Web_SDK_weixin_v7.3.0.js'
 	import store from '@/vuex/store.js'
 	
+	
 	let globalData = getApp().globalData
 	export default {
 		components: {
@@ -106,31 +107,57 @@
 					}
 				})
 				
+				// globalData.socketTask = socket.connectSocket({
+				// 	url,
+				// 	success: res => {
+				// 		console.log('socket成功连接', res)
+				// 	},
+				// 	fail: err => {
+				// 		console.log('socket连接失败', err)
+				// 	},
+				// 	complete: res => {
+				// 		console.log('socket连接回调', res)
+				// 	}
+				// })
+				
 			},
 			
 			onSocketOpen() {
 				globalData.socketTask.onOpen(res => {
 					console.log('监听socket打开', res)
+					this.handleSendSocket('ping') 
 				})
 			},
 			onSocketMessage() {
 				globalData.socketTask.onMessage(res => {
 					console.log('接收到服务器的socket消息:', res)
-					let str = res.data
-					this.updateNewest(str)
-				})
-			},
-			handleSendSocket() {
-				globalData.socketTask.send({
-					data: `我是${this.userInfo.user.userAccount}`,
-					success: res => {
-						console.log('socket发送消息成功:', res)
+					if(res.data !== "点赞评论更新") {
+						this.updateNewest(JSON.parse(res.data))
 					}
 				})
+			},
+			handleSendSocket(data) {
+				let startHeartTime = false
+				setInterval(() => { //3000毫秒心跳
+					globalData.socketTask.send({
+						data,
+						success: res => {
+							if(!startHeartTime) {
+								startHeartTime = true
+								console.log('socket开始心跳:', res)
+							}
+						}
+					})
+				}, 3000)
 			},
 			onSocketError() {
 				globalData.socketTask.onError(err => {
 					console.log('监听socket错误:', err)
+				})
+			},
+			onSocketClose() { //监听socket关闭
+				globalData.socketTask.onClose(err => {
+					console.log('socket关闭了:', err)
 				})
 			},
 			//显示与隐藏遮罩层

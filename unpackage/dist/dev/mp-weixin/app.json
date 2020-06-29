@@ -1,6 +1,7 @@
 {
   "pages": [
     "components/content/startup/Startup",
+    "components/content/dynamic/SingleDynamic",
     "components/content/login/login",
     "pages/index/index",
     "components/content/interaction/Interaction",

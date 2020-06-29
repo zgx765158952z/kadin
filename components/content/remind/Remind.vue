@@ -1,39 +1,13 @@
 <template>
 	<view class="remind">
-		<view class="remind-head">
-			<input @focus="isFocus1" focus @blur="isBlur1" v-model="remindInfo.remindTitle" class="remind-head-son" type="text" placeholder="提醒标题..." />
-			<text @tap.stop="resetInput1" v-if="showDel1" class="my-iconfont del-icon">&#xe61a;</text>
+		<view v-if="remindInfo.remindTitle.length>0" class="remind-head">
+			<input @focus="isFocus1" focus @blur="isBlur1" v-model="remindInfo.remindTitle" class="remind-head-son" type="text" placeholder="主题" />
+			<!-- <text @tap.stop="resetInput1" v-if="showDel1" class="my-iconfont del-icon">&#xe61a;</text> -->
 		</view>
 		<view class="remind-msg">
-			<!-- <input @focus="isFocus2" @blur="isBlur2" v-model="remindInfo.remindContent" class="remind-msg-son" type="text" value="" placeholder="提醒内容..."/> -->
 			<textarea @focus="isFocus2" @blur="isBlur2" auto-height v-model="remindInfo.remindContent" class="remind-msg-son" type="text" placeholder="提醒内容..."/>
 			<text @tap.stop="resetInput2" v-if="showDel2" class="my-iconfont del-icon">&#xe61a;</text>
 		</view>
-		
-		
-		
-		<!-- 设置人/群 -->
-		<view class="all-list">
-			<view class="switch-list remind-list first-remind-list">
-				<view class="switch-list-title remind-list-left">
-					提醒指定的人或群
-				</view>
-				<switch @change="changePersonSwitch" style="transform: scale(.9);" class="right-switch remind-list-right" :checked="personChecked" />
-			</view>
-			
-			<view v-if="personChecked" @tap="toChooseFriend" class="remind-list remind-list2" hover-class="tap-hover-color">
-				<view class="remind-list-left">
-					选择好友或群组
-				</view>
-				<view class="remind-list-right">
-					<text>{{ selectedPerson }}</text>
-					<text class="my-iconfont remind-list-right-icon">&#xe683;</text>
-				</view>
-			</view>
-			
-		</view>
-		
-		
 		
 		<!-- 设置时间 -->
 		<view class="time-list all-list">
@@ -65,7 +39,26 @@
 			
 		</view>
 		
-		
+		<!-- 设置人/群 -->
+		<view class="all-list">
+			<view class="switch-list remind-list first-remind-list">
+				<view class="switch-list-title remind-list-left">
+					提醒指定的人或群
+				</view>
+				<switch @change="changePersonSwitch" style="transform: scale(.9);" class="right-switch remind-list-right" :checked="personChecked" />
+			</view>
+			
+			<view v-if="personChecked" @tap="toChooseFriend" class="remind-list remind-list2" hover-class="tap-hover-color">
+				<view class="remind-list-left">
+					选择好友或群组
+				</view>
+				<view class="remind-list-right">
+					<text>{{ selectedPerson }}</text>
+					<text class="my-iconfont remind-list-right-icon">&#xe683;</text>
+				</view>
+			</view>
+			
+		</view>
 		
 		
 		
@@ -87,6 +80,35 @@
 				</view>
 			</view>
 		</view>
+		
+		<uni-popup ref="popup" type="dialog">
+		    <uni-popup-dialog mode="input" title="填写主题" :duration="0" @close="closeTitlePopup" @confirm="confirmTitle"></uni-popup-dialog>
+		</uni-popup>
+		
+		<button @tap="openTitlePopup" type="default">提示</button>
+		
+		<view class="all-list">
+			<view @tap="chooseTag" class="remind-list" hover-class="tap-hover-color">
+				<view class="remind-list-left">
+					{{ remindInfo.remindTag }}
+				</view>
+				<view class="remind-list-right">
+					<text class="my-iconfont remind-list-right-icon">&#xe6b2;</text>
+				</view>
+			</view>
+		</view>
+		
+		<view class="remind-footer">
+			<view @tap="handlePrev" class="remind-footer-left my-iconfont">
+				&#xe621;
+			</view>
+			<view class="remind-footer-center">
+				第{{ currentSublistIndex+1 }}页
+			</view>
+			<view @tap="handleNext" class="remind-footer-right my-iconfont">
+				&#xe683;
+			</view>
+		</view>
 		<!-- #ifdef MP-WEIXIN -->
 		<button type="default" @tap="finishRemind">完成</button>
 		<!-- #endif -->
@@ -99,17 +121,28 @@
 	
 	import MxDatePicker from "@/components/mx-datepicker/mx-datepicker.vue";
 	
-	import { mapState } from 'vuex';
+	import uniPopup from '@/components/uni-popup/uni-popup.vue'
+	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue'
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue'
 	
+	import { mapState } from 'vuex';
 	import { saveMindRequest, modifyRemindRequest } from '@/network/remind.js';
 	
-	import { formatToTimeStamp, formatTimeStamp } from '@/common/index.js'
+	import { formatToTimeStamp, formatTimeStamp, deepClone } from '@/common/index.js'
 	
-	
+	//#ifdef APP-PLUS
+	import {
+		insertRemindInfo,
+		insertManyRemindInfo
+	} from '@/common/sqlRemind.js'
+	//#endif
 	
 	export default {
 		components: {
-			MxDatePicker
+			MxDatePicker,
+			uniPopup,
+			uniPopupMessage,
+			uniPopupDialog
 		},
 		data() {
 			//初始化当前时间，仅创建组件时一次
@@ -134,7 +167,6 @@
 				timeFreqIndex: 0,
 				type: '', //当前模式: new为添加提醒; modify修改提醒 edit为编辑草稿
 				
-				currentIndex: null, //当前提醒列表下标
 				
 				//提醒请求参数
 				remindInfo: {
@@ -142,10 +174,18 @@
 					remindTitle: '',
 					remindContent: '',
 					remindTime: '',
-					remindType: 1,
+					remindTimeType: 1,
 					remindLocation: '',
-					remindPerson: ''
+					remindPerson: [],
+					remindTag: '个人',
+					isMasterTask: 0
 				},
+				
+				currentIndex: null, //当前提醒列表下标
+				//事项提醒列表
+				remindInfos: [],
+				remindTagList: ['个人', '团队', '组织', '公司', '自定义'],
+				
 				//控制删除按钮的显示
 				showDel1: false,
 				showDel2: false,
@@ -172,6 +212,23 @@
 			}
 		},
 		methods: {
+			openTitlePopup() { //打开弹出层
+				this.$refs.popup.open() 
+			},
+			
+			confirmTitle(done, value) {
+				console.log(value)
+				if(value.length > 0) {
+					this.remindInfo.remindTitle = value
+					//关闭弹出层
+					done() 
+				}
+			},
+			
+			closeTitlePopup(done) {
+				console.log(done)
+			},
+			
 			finishRemind() {
 				if(this.type === 'new' || this.type === 'edit') {
 					this.addRemind()
@@ -182,12 +239,41 @@
 			
 			//完成添加提醒
 			addRemind() {
+				//#ifdef APP-PLUS
+				let _this = this
+				_this.remindInfos.push(_this.remindInfo)
+				console.log('_this.remindInfos[0]:', _this.remindInfos[0])
+				insertRemindInfo(_this.userInfo.user.userAccount, _this.remindInfos[0]).then(res => {
+					console.log('存储父任务成功:', res)
+					if(_this.remindInfos.length > 1) {
+						insertManyRemindInfo(_this.userInfo.user.userAccount, _this.remindInfos, res[0].fatherId).then(res2 => {
+							console.log('存储子任务成功')
+							uni.$emit('addNewRemindInfo', _this.remindInfos.length)
+							_this.remindInfos = []
+							uni.navigateBack()
+						})
+					}else {
+						uni.$emit('addNewRemindInfo', _this.remindInfos.length)
+						uni.navigateBack()
+					}
+				}).catch(err => {
+					console.log('存储父任务失败:', err)
+				})
+				
+				
+				
+				
+				
+				//#endif
+				
+				
+				return
 				let obj = {}
 				obj.account = this.userInfo.user.userAccount
 				obj.title = this.remindInfo.remindTitle
 				obj.content = this.remindInfo.remindContent
 				obj.time = this.remindInfo.remindTime
-				obj.timeType = this.remindInfo.remindType
+				obj.timeType = this.remindInfo.remindTimeType
 				obj.location = this.remindInfo.remindLocation
 				
 				if(this.remindInfo.remindPerson) {
@@ -241,7 +327,7 @@
 				obj.title = this.remindInfo.remindTitle
 				obj.content = this.remindInfo.remindContent
 				obj.time = this.remindInfo.remindTime
-				obj.timeType = this.remindInfo.remindType
+				obj.timeType = this.remindInfo.remindTimeType
 				obj.location = this.remindInfo.remindLocation
 				obj.person = this.remindInfo.remindPerson
 				console.log('obj:', obj)
@@ -293,16 +379,15 @@
 								title: '请选择未来的时间段',
 								icon: 'none'
 							})
-							return
+						}else {
+							this.remindInfo.remindTime = selectTimeStamp
+							this.selectDateTime = selectDateTime
+							// this.remindTimeStamp = selectTimeStamp
+							console.log('选择的时间戳为:', selectTimeStamp)
+							console.log('选择的时间为:', this.selectDateTime)
+							
 						}
 					}
-					this.$nextTick(() => {
-						this.remindInfo.remindTime = selectTimeStamp
-						this.selectDateTime = selectDateTime
-						// this.remindTimeStamp = selectTimeStamp
-						console.log('选择的时间戳为:', selectTimeStamp)
-						console.log('选择的时间为:', this.selectDateTime)
-					})
 				}
 			},
 			//判断选择的时间是否有效
@@ -385,16 +470,16 @@
 					success: res => {
 						switch (res.tapIndex){
 							case 0:
-								this.remindInfo.remindType = 1
+								this.remindInfo.remindTimeType = 1
 								break
 							case 1:
-								this.remindInfo.remindType = 2
+								this.remindInfo.remindTimeType = 2
 								break
 							case 2:
-								this.remindInfo.remindType = 3
+								this.remindInfo.remindTimeType = 3
 								break
 							case 3:
-								this.remindInfo.remindType = 4
+								this.remindInfo.remindTimeType = 4
 								break
 						}
 					},
@@ -434,6 +519,87 @@
 				})
 			},
 			
+			handlePrev() { //上一页
+				let _this = this
+				if(_this.currentSublistIndex > 0) {
+					
+					let cloneObj = deepClone(_this.remindInfos[_this.currentSublistIndex-1])
+					_this.remindInfo = cloneObj
+					
+					_this.remindInfos.splice(_this.currentSublistIndex, 1)
+					
+					_this.currentSublistIndex -= 1
+					console.log('上一页', _this.currentSublistIndex, _this.remindInfo, _this.remindInfos)
+				}
+				
+			},
+			handleNext() { //下一页
+				let _this = this
+				if(_this.invalidRemindInfo(_this.remindInfo)) {
+					if(_this.currentSublistIndex < 9) {
+						let cloneObj = deepClone(_this.remindInfo)
+						//先保存本页
+						_this.remindInfos.splice(_this.currentSublistIndex, 0, cloneObj)
+						
+						//再初始化下页内容
+						_this.currentSublistIndex += 1
+						
+						_this.remindInfo['remindAccount'] = ''
+						_this.remindInfo['remindContent'] = ''
+						_this.remindInfo['remindTime'] = ''
+						_this.remindInfo['remindTimeType'] = 1
+						_this.remindInfo['remindLocation'] = ''
+						_this.remindInfo['remindPerson'] = ''
+						_this.remindInfo['remindTag'] = '个人'
+						_this.remindInfo['isMasterTask'] = _this.currentSublistIndex == 1 ? 1 : 0
+						console.log('下一页', _this.currentSublistIndex, _this.remindInfo, _this.remindInfos)
+					}
+				}else {
+					uni.showToast({
+						title: '缺少必填内容',
+						icon: 'none'
+					})
+				}
+				
+			},
+			
+			invalidRemindInfo(remindInfo) { //验证当前信息是否有效
+				console.log('验证remindInfo:', remindInfo)
+				return (
+				remindInfo.remindTitle &&
+				remindInfo.remindContent &&
+				remindInfo.remindTime &&
+				this.timeChecked
+				) 
+			},
+			chooseTag() { //选择标签
+				let _this = this
+				uni.showActionSheet({
+					itemList: _this.remindTagList,
+					success: res => {
+						switch (res.tapIndex){
+							case 0:
+								this.remindInfo.remindTag = '个人'
+								break
+							case 1:
+								this.remindInfo.remindTag = '团队'
+								break
+							case 2:
+								this.remindInfo.remindTag = '组织'
+								break
+							case 3:
+								this.remindInfo.remindTag = '公司'
+								break
+							case 4:
+								this.remindInfo.remindTag = '自定义'
+								break
+						}
+					},
+					fail: err => {
+						console.log(err)
+					}
+				})
+			},
 			toChooseFriend() {
 				console.log(this.remindInfo.remindPerson.length)
 				if(this.remindInfo.remindPerson) {
@@ -474,11 +640,15 @@
 				this.$nextTick(() => {
 					this.remindInfo.remindContent = ''
 				})
-			}
+			},
+			
+			
 		},
 		onLoad(option) {
 			console.log('option:', option)
 			let title = '添加提醒' //导航栏标题
+			this.remindInfo.remindPerson = [`${this.userInfo.user.userAccount}`]
+			this.remindInfo.remindAccount = this.userInfo.user.userAccount
 			if(option.type === 'new') { //添加提醒
 				this.type = 'new'
 			}else { //修改提醒、修改草稿
@@ -508,11 +678,10 @@
 			uni.setNavigationBarTitle({
 				title
 			})
-			
 		},
 		//返回触发modal
 		onBackPress(e) {
-			
+			return
 			if(e.from === 'navigateBack') {
 				//返回
 				return false
@@ -576,24 +745,27 @@
 	
 	.remind {
 		color: #666666;
-		height: 100vh;
+		min-height: 100vh;
+		box-sizing: border-box;
+		padding-bottom: 100rpx;
 		background-color: #F8F8F8;
-		font-size: $uni-font-size-lg;
-		.remind-head, .remind-msg {
+		.remind-head {
+			.remind-head-son {
+				text-align: center;
+				font-size: 36rpx;
+			}
+		}
+		.remind-msg {
 			position: relative;
 			color: $uni-text-color;
 			background-color: #FFFFFF;
-			.remind-head-son, .remind-msg-son {
-				padding: 20rpx 30rpx;
-				
-				max-height: 150rpx;
-			}
-			
-			
-		}
-		.remind-msg {
 			
 			margin-top: 60rpx;
+			.remind-msg-son {
+				padding: 20rpx 30rpx;
+				max-height: 150rpx;
+				font-size: $uni-font-size-lg;
+			}
 		}
 		.all-list {
 			margin: 60rpx 0;
@@ -614,6 +786,10 @@
 						color: $uni-text-color-grey;
 					}
 				}
+				
+				.right-switch {
+					margin-left: 10rpx;
+				}
 			}
 			
 			.remind-list2 {
@@ -627,6 +803,39 @@
 			//下边框
 			.switch-list, .time-val-list {
 				border-bottom: 1rpx solid rgba(144, 144, 144, .1);
+			}
+		}
+		
+		
+		//底部分页
+		.remind-footer {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 100rpx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background-color: #fff;
+			box-shadow: 0 -3rpx 3rpx #999;
+			.remind-footer-left {
+				min-width: 36rpx;
+				font-size: 36rpx;
+				margin-left: 30rpx;
+			}
+			.remind-footer-right {
+				min-width: 36rpx;
+				font-size: 36rpx;
+				margin-right: 30rpx;
+			}
+			.remind-footer-left, .remind-footer-right {
+				&::active {
+					color: $uni-bg-color-hover;
+				}
+			}
+			.remind-footer-center {
+				font-size: 32rpx;
 			}
 		}
 	}

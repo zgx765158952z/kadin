@@ -124,7 +124,6 @@
   background-color: #4CD964;
 }
 .reminded {
-  position: relative;
   min-height: 100vh;
 }
 .reminded .reminded-list {

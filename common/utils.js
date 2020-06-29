@@ -96,7 +96,7 @@ const sendCodeMixin = {
 					this.sendCodeBtnVal = this.counter +'s后重新获取';
 					this.sendCodeBtn = true;
 				}else if(this.counter === 0) {
-					this.sendCodeBtnVal = '重新发送验证码';
+					this.sendCodeBtnVal = '重新获取';
 					this.sendCodeBtn = false;
 					this.counter=60;
 					clearInterval(this.interval)

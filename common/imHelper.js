@@ -12,7 +12,8 @@ import {
 import { 
 	name,
 	path,
-	rawMsg_tablename
+	rawMsg_tablename,
+	remind_tablename
 } from '@/common/sqlConfig.js' 
 
 import store from '@/vuex/store.js'
@@ -22,13 +23,22 @@ import store from '@/vuex/store.js'
 function initiLocalDB(account) {
 	openDB().then(res => {
 		//原始消息数据表名
-		const tablename = rawMsg_tablename + '_' + account
-		deleteData(`drop table ${tablename}`).then(res => {
-			console.log('删除数据表成功:', res)
+		const tablename1 = rawMsg_tablename + '_' + account
+		//事项提醒表名
+		const tablename2 = remind_tablename + '_' + account
+		
+		deleteData(`drop table ${tablename1}`).then(res => {
+			console.log(`删除数据表${tablename1}成功:`, res)
 		}).catch(err => {
-			console.log('删除数据表失败:', err)
+			console.log(`删除数据表${tablename1}失败:`, err)
 		})
-		let create_sql = `CREATE TABLE ${tablename} (
+		
+		deleteData(`drop table ${tablename2}`).then(res => {
+			console.log(`删除数据表${tablename2}成功:`, res)
+		}).catch(err => {
+			console.log(`删除数据表${tablename2}失败:`, err)
+		})
+		let create_sql1 = `CREATE TABLE ${tablename1} (
 			id INTEGER PRIMARY KEY AUTOINCREMENT, 
 			time CHAR,
 			userUpdateTime CHAR, 
@@ -58,8 +68,34 @@ function initiLocalDB(account) {
 			needMsgReceipt INTEGER, 
 			needPushNick INTEGER
 		)`
-		createTable(tablename, create_sql).then(res2 => { //没有数据表则创建
-			
+		
+		/*
+		id: 自增id; create_time: 创建时间; remindTag: 提醒的分类; remindStatus:提醒完成度; isMasterTask: 主任务还是子任务; fatherId: 父id是谁,空即代表为主任务
+		*/
+		let create_sql2 = `CREATE TABLE ${tablename2} (
+			id INTEGER PRIMARY KEY AUTOINCREMENT, 
+			create_time CHAR,
+			remindAccount CHAR,
+			remindTitle CHAR,
+			remindContent CHAR,
+			remindTime CHAR,
+			remindTimeType CHAR,
+			remindLocation CHAR,
+			remindPerson CHAR,
+			remindTag CHAR,
+			remindStatus CHAR,
+			fatherId INTEGER,
+			isMasterTask INTEGER,
+			sortId INTEGER
+		)`
+	   
+	   
+		createTable(tablename1, create_sql1).then(res2 => { //没有原始消息数据表则创建
+		}).catch(err2 => {
+			console.log(err2)
+		})
+		createTable(tablename2, create_sql2).then(res2 => { //没有事项提醒数据表则创建
+			console.log('res2', res2)
 		}).catch(err2 => {
 			console.log(err2)
 		})
@@ -98,7 +134,7 @@ function insertOneRawMsg(account, msg) {
 		console.log('这是数组')
 		transactionDB('begin').then(res => {
 			try {
-				msg.map(item => {
+				msg.forEach(item => {
 					insert_sql_arr = `insert into ${tablename} values (
 						null,
 						${item.time},

@@ -1,5 +1,5 @@
 import { http } from '@/network/http.js'
 
-export function modifyUserInfo(params) {
-	return http.put('/user/modifyUserInfo', params)
+export function modifyUserInfo(data) {
+	return http.post('/user/modifyUserInfo', data)
 }

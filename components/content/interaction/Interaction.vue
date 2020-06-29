@@ -2,60 +2,60 @@
 	<view class="interaction">
 		<view class="interaction-list">
 			
-			<view class="interaction-item" v-for="(item, index) in likeAndCommentList" :key="index">
-				<view class="interaction-item-headimg">
-					<image @tap.stop="toFriendInfo" :src="friendCard[item.fromUser].friendFaceImage" mode="aspectFill"></image>
-				</view>
-				
-				<view class="interaction-item-info def-bottom-border">
-					
-					<view class="info-left">
-						<view class="info-username def-username">
-							{{ friendCard[item.fromUser].friendRemarkName }}
-						</view>
-						<view v-if="item.tag === 2" class="info-comment">
-							<text>回复</text>
-							<text class="info-comment-reply-toUser def-username">{{ item.toUser }}: </text>
-							{{ item.content }}
-						</view>
-						<view v-if="item.tag === 1" class="info-praise def-username my-iconfont">&#xe617;</view>
-						<view class="info-time">
-							{{ item.time }}
-						</view>
+			<block v-for="(item, index) in newFriendDynamic" :key="index" >
+				<view @tap="toSingleDynamic(item.friendCircleId)" class="interaction-item">
+					<view class="interaction-item-headimg">
+						<image @tap.stop="toFriendInfo(item.fromUser)" :src=" imgUrl + friendCard[item.fromUser].friendFaceImage" mode="aspectFill"></image>
 					</view>
 					
-					<view class="info-right">
-						<!-- <image src="../../../static/image/test/test.jpg" mode="aspectFill"></image> -->
-						<view class="info-right-content def-center-box">此处显示文字</view>
+					<view class="interaction-item-info def-bottom-border">
+						<view class="info-left">
+							<view @tap.stop="toFriendInfo(item.fromUser)" class="info-username def-username">
+								{{ friendCard[item.fromUser].friendRemarkName }}
+							</view>
+							<view v-if="item.type === 2" class="info-comment">
+								<text>回复</text>
+								<text @tap.stop="toFriendInfo(item.toUser)" class="info-comment-reply-toUser def-username">{{ friendCard[item.toUser].friendRemarkName }}: </text>
+								{{ item.content }}
+							</view>
+							<view v-if="item.type === 1" class="info-praise def-username my-iconfont">&#xe617;</view>
+							<view class="info-time">
+								{{ item.time | calcTime }}
+							</view>
+						</view>
+						
+						<view v-if="false" class="info-right">
+							<!-- <image src="../../../static/image/test/test.jpg" mode="aspectFill"></image> -->
+							<view class="info-right-content def-center-box">{{ item.content }}</view>
+						</view>
+						
 					</view>
-					
 				</view>
-			</view>
-			
+			</block>
 		</view>
 	</view>
 </template>
 
 <script>
 	import { mapState } from 'vuex'
-	import { showRes, showErr } from '@/common/toast.js'
-	import { getLikeCommentInfoRequest } from '@/network/dynamic.js'
 	import { formatToTimeStamp } from '@/common/index.js'
 	import { calcTimeHeader } from '@/utils/utils.js'
+	import { imgBaseUrl } from '@/common/helper.js'
 	
 	export default {
 		data() {
 			return {
+				imgUrl: '',
 				likeAndCommentList: [], //与我相关的点赞与评论的数据
 			}
 		},
 		computed: {
-			...mapState(['userInfo', 'friendCard']),
-			//将中国标准时间转化为正常时间
-			calcTime() {
-				return function(time) {
-					return calcTimeHeader(formatToTimeStamp(time))
-				}
+			...mapState(['userInfo', 'friendCard', 'newFriendDynamic']),
+			
+		},
+		filters: {
+			calcTime(time) {
+				return calcTimeHeader(formatToTimeStamp(time))
 			}
 		},
 		methods: {
@@ -64,20 +64,15 @@
 					url: `/components/content/friend/FriendInfo?friendAccount=${account}`
 				})
 			},
-			//获取与我相关的点赞与评论信息
-			getLikeCommentInfo() {
-				getLikeCommentInfoRequest(this.userInfo.user.userAccount).then(res => {
-					showRes(res)
-					if(res.data.code === 2000) {
-						this.likeAndCommentList = res.data.data
-					}
-				}).catch(err => {
-					showErr(err)
+			toSingleDynamic(friendCircleId) {
+				uni.navigateTo({
+					url: '/components/content/dynamic/SingleDynamic?friendCircleId=' + friendCircleId
 				})
 			}
 		},
 		onLoad() {
-			this.getLikeCommentInfo()
+			this.imgUrl = imgBaseUrl
+			console.log('friendCard', this.friendCard)
 		}
 	}
 </script>

@@ -5,7 +5,7 @@ import dealGroupMsg from '@/utils/dealGroupMsg.js'
 import { queryFriendRequest } from '@/network/addfriend.js'
 import { getMyUserInfo } from "@/network/myUserInfo.js"
 import { getNewestDynamicRequest, getMyDynamicRequest, getPersonDynamicRequest } from '@/network/dynamic.js'
-import { formatList, setNewestFriendCard } from '@/common/index.js'
+import { formatList, setNewestFriendCard, deepClone } from '@/common/index.js'
 import { handlePushMsg } from '@/common/socketHelper.js'
 
 import { queryGroupInfoRequest } from '@/network/session/session.js'
@@ -34,6 +34,7 @@ var state = {
 	personDynamicList: [],
 	
 	friendCard: {}, //好友列表，含名片信息，额外添加在线信息
+	remindInfos: [], //事项提醒列表
 	
 	/*即时通讯篇*/
 	currentChatTo: '', // 正在聊天 sessionId
@@ -56,8 +57,9 @@ var state = {
 	/* 收到的socket服务器回调消息  用于更新 */
 	//data: "{'pushType': '定时推送', 'object': {'id': 75, 'remindTitle': 'title'.....}}"
 	newPushMsg: null, //定时推送
-	newFriendRequest: [], //朋友请求添加好友
-	newFriendDynamic: null, //好友动态更新
+	newFriendRequest: 0, //朋友请求添加好友
+	newFriendDynamic: [], //好友与我互动的数据
+	newCommentCount: 0, //新评论和点赞数
 	newAppVersion: null, //APP版本更新
 	
 	/* 本地数据库存储的信息 */
@@ -118,6 +120,11 @@ var mutations = {
 		state.rawMessageList = data
 	},
 	
+	setRemindInfos(state, list) {
+		this.remindInfos = deepClone(list)
+		console.log('this.remindInfos', this.remindInfos)
+	},
+	
 	setFriendCard(state, data) {
 		state.friendCard = data
 	},
@@ -151,13 +158,14 @@ var mutations = {
 	clearNewData(state, payload) {
 		switch(payload) {
 			case 'clearnewPushMsg': { //清除新定时提醒标志
-				state.newPushMsg = null
+				break
 			}
 			case 'clearnewFriendRequest': { //清除添加好友新请求标志
-				state.newFriendRequest = null
+				break
 			}
-			case 'clearnewFriendDynamic': { //清除朋友圈新动态标志
-				state.newFriendDynamic = null
+			case 'clearnewCommentCount': { //清除朋友圈新动态标志
+				state.newCommentCount = 0
+				break
 			}
 			
 		}
@@ -203,8 +211,10 @@ var mutations = {
 	//自己发表动态后更新朋友圈数据
 	updateFriendDynamicList(state, data) {
 		state.friendDynamicList.splice(0, 0, data)
-		console.log('我发表了新动态:', data)
-		console.log('最新动态', state.friendDynamicList)
+	},
+	//清空所有动态
+	clearFriendDynamicList(state) {
+		state.friendDynamicList = []
 	},
 	/***
 		1,打开应用
@@ -298,43 +308,25 @@ var actions = {
 	//获取所有朋友的动态
 	getNewestDynamic(context, payload) {
 		getNewestDynamicRequest(payload).then((res) => {
-			if(res.status === 200) {
-				if(res.data.code === 2000) {
+			if(res.status === 200 && res.data.code === 2000) {
+				let data = res.data.data
+				if(state.friendDynamicList.length > 0 && data[data.length-1].id === state.friendDynamicList[state.friendDynamicList.length-1].id) {
+					let globalData = getApp().globalData
+					globalData.moreFriendDynamicList = false
+					console.log('后面没有更多数据', globalData.moreFriendDynamicList)
+				}else {
+					console.log('后面还有数据')
 					//传多个参数方式
 					context.commit({
 						type: 'sortFriendDynamicList',
 						list: res.data.data,
 						index:1
 					})
-					context.commit({
-						type: 'clearNewData',
-						payload: 'clearnewFriendDynamic'
-					})
-					return true
-				}else {
-					uni.showToast({
-						title: '程序走丢了,请稍后重试',
-						icon: 'none'
-					})
 				}
-			}else if(res.status === 404) {
-				uni.showToast({
-					title: '网络程走丢了,请稍后重试',
-					icon: 'none'
-				})
-			}else {
-				uni.showToast({
-					title: '程序走丢了,请稍后重试',
-					icon: 'none'
-				})
+				
+				console.log('state.friendDynamicList', state.friendDynamicList)
 			}
-		}).catch(err => {
-			uni.showToast({
-				title: '程序走丢了,请稍后重试',
-				icon: 'none'
-			})
 		})
-		return false
 	},
 	
 	//获取自己的动态
@@ -416,15 +408,20 @@ var actions = {
 	
 	/*  接收socket服务器的消息并更新本地一些数据  */
 	updateNewest(context, payload) {
-		switch(payload) {
+		let newData = payload.object
+		switch(payload.pushType) {
 			case "定时推送": {
 				let globalData = getApp().globalData
-				handlePushMsg(payload.object, globalData)
-				state.newPushMsg = payload.object
+				handlePushMsg(newData, globalData)
+				state.newPushMsg = newData
 				break
 			}
 			case "好友请求": {
-				state.newFriendDynamic = payload.object
+				state.newFriendRequest += 1
+				uni.setTabBarBadge({
+					index: 2,
+					text: `${state.newFriendRequest}`
+				})
 				break
 			}
 			case "朋友圈更新": {
@@ -435,14 +432,46 @@ var actions = {
 				break
 			}
 			case "点赞评论更新": {
-				console.log('点赞评论更新')
-				state.newFriendRequest += 1
-				uni.setTabBarBadge({
-					index: 1,
-					text: state.newFriendRequest,
-				})
+				
+				if(state.friendCard[newData.fromUser]) {
+					state.newFriendDynamic.splice(0, 0, newData)
+					console.log('state.newFriendDynamic', state.newFriendDynamic)
+					if(state.friendDynamicList.length > 0) { //更新动态
+						let tempFriendDynamicList = Object.assign([], state.friendDynamicList)
+						for(let i=0; i<tempFriendDynamicList.length; i++) {
+							if(tempFriendDynamicList[i].id === newData.friendCircleId) {
+								let addComment = {}
+								if(newData.type === 2) { //增加评论
+									addComment['commentContent'] = newData.content
+									addComment['commentFatherId'] = newData.commentFatherId
+									addComment['commentId'] = newData.commentId
+									addComment['commentTime'] = newData.time
+									addComment['friendCircleId'] = newData.friendCircleId
+									addComment['user'] = newData.fromUser
+									addComment['toUser'] = newData.toUser
+									addComment['userNickname'] = state.friendCard[newData.fromUser].friendRemarkName
+									addComment['friendName'] = state.friendCard[newData.toUser].friendRemarkName
+									tempFriendDynamicList[i].comment.push(addComment)
+								}else if(newData.type === 1) { //增加点赞数
+									tempFriendDynamicList[i].likePerson[`${newData.fromUser}`] = state.friendCard[newData.fromUser].friendRemarkName
+								}
+								state.friendDynamicList = Object.assign([], tempFriendDynamicList)
+								console.log('state.friendDynamicList:', state.friendDynamicList)
+								break //终止循环
+							}
+						}
+					}
+					console.log('555')
+					state.newCommentCount += 1
+					uni.setTabBarBadge({
+						index: 1,
+						text: `${state.newCommentCount}`,
+					})
+				}
+				
 				break
 			}
+			
 			case "APP版本更新": {
 				state.newAppVersion = payload.object
 			}

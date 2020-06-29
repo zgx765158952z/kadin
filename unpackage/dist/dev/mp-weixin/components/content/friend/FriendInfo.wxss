@@ -85,7 +85,7 @@
   font-size: 36rpx;
   color: #576A92;
 }
-.friendinfo .list3 {
+.friendinfo .list3-border {
   border-bottom: 1rpx solid rgba(100, 100, 100, 0.1);
 }
 

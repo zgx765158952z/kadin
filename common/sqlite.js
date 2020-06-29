@@ -45,20 +45,20 @@ function createTable(table_name, sql) {
 			name,
 			sql: `select * from ${table_name} where id=1`,
 			success: res => {
-				console.log(`${name}-----该数据表第一个数据为:`, res)
+				console.log(`${table_name}-----该数据表第一个数据为:`, res)
 				resolve(true)
 			},
 			fail: err => {
-				console.log(`${name}-----无数据表,开始创建---`)
+				console.log(`${table_name}-----无数据表,开始创建---`)
 				plus.sqlite.executeSql({
 					name,
 					sql,
 					success: res => {
-						console.log(`${name}-----数据表创建成功`, res)
+						console.log(`${table_name}-----数据表创建成功`, res)
 						resolve(true)
 					},
 					fail: err => {
-						console.log(`${name}-----数据表创建失败`, err)
+						console.log(`${table_name}-----数据表创建失败`, err)
 						reject(false)
 					}
 				})

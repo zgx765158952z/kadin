@@ -54,9 +54,6 @@
 		
 		.def-list {
 			display: flex;
-			align-items: center;
-			flex-flow: row nowrap;
-			
 			padding: 30rpx 30rpx 30rpx 0;
 			box-sizing: border-box;
 			margin-left: 30rpx;
@@ -75,10 +72,6 @@
 			}
 			
 			.def-list-right {
-				// display: flex;
-				// justify-content: center;
-				// align-items: center;
-				// margin-left: 6rpx;
 				width: auto;
 				.my-iconfont {
 					font-size: $uni-font-size-lg;

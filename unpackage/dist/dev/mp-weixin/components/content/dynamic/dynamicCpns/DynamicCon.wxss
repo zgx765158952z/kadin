@@ -116,7 +116,7 @@
 .dynamiccon .dyc-list .dyc-list-con .dyc-list-name.data-v-2d16830a {
   display: inline-block;
   font-weight: 800;
-  font-size: 32rpx;
+  font-size: 34rpx;
   color: #556B95;
 }
 .dynamiccon .dyc-list .dyc-list-con .dyc-list-text.data-v-2d16830a {
@@ -192,6 +192,73 @@
 .dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .tap-hover-color5 .comment-item-icon.data-v-2d16830a {
   color: #D4D4D4;
 }
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment.data-v-2d16830a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  position: absolute;
+  top: -19rpx;
+  left: -340rpx;
+  z-index: 101;
+  background-color: #2E2E2E;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  border-radius: 5rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment .praise-item.data-v-2d16830a {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  white-space: nowrap;
+  padding: 20rpx 30rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment .praise-item .praise-item-icon.data-v-2d16830a {
+  min-width: 36rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment .praise-item .praise-item-text.data-v-2d16830a {
+  min-width: 56rpx;
+  margin-left: 10rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment .comment-item.data-v-2d16830a {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  white-space: nowrap;
+  padding: 20rpx 30rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment .comment-item .comment-item-icon.data-v-2d16830a {
+  font-size: 32rpx;
+  font-weight: 700;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment .comment-item .comment-item-text.data-v-2d16830a {
+  margin-left: 10rpx;
+}
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise .praise-and-comment .praise-and-comment-porn.data-v-2d16830a {
+  position: absolute;
+  top: 50%;
+  right: -8rpx;
+  width: 20rpx;
+  height: 20rpx;
+  margin-top: -10rpx;
+  background-color: #2E2E2E;
+  z-index: 1;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
 .dynamiccon .dyc-list .dyc-list-con .praise-comment.data-v-2d16830a {
   background-color: #F7F7F7;
   margin-top: 20rpx;
@@ -209,14 +276,14 @@
 }
 .dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-leftImg .praise-list-loveImg.data-v-2d16830a {
   font-size: 28rpx;
-  font-weight: bold;
+  font-weight: 700;
   color: #586A93;
 }
 .dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name.data-v-2d16830a {
   padding: 0;
   margin: 0;
   color: #586A93;
-  font-weight: 800;
+  font-weight: 700;
   z-index: 1;
 }
 .dynamiccon .dyc-list .dyc-list-con .praise-comment .praise-list .praise-list-name .praise-list-comma.data-v-2d16830a {
@@ -229,7 +296,7 @@
   border-bottom: 1rpx solid rgba(100, 100, 100, 0.05);
 }
 .dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list.data-v-2d16830a {
-  padding: 0 13rpx 13rpx 13rpx;
+  padding: 0 13rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -238,13 +305,16 @@
   z-index: 1;
   font-size: 30rpx;
   line-height: 35rpx;
-  padding-top: 10rpx;
+  padding: 10rpx 0;
 }
 .dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-name.data-v-2d16830a {
   position: relative;
   z-inde: 2;
   color: #586A93;
-  font-weight: 800;
+  font-weight: 700;
+}
+.dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .reply-text.data-v-2d16830a {
+  font-size: 28rpx;
 }
 .dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item .comment-list-item-text.data-v-2d16830a {
   color: #484848;
@@ -257,11 +327,6 @@
 }
 .dynamiccon .dyc-list .dyc-list-con .praise-comment .comment-list .comment-list-item.data-v-2d16830a:active {
   background-color: #D8D8D8;
-}
-.dynamiccon .dynamic-loading.data-v-2d16830a {
-  position: fixed;
-  top: 35%;
-  left: 43%;
 }
 .dynamiccon .comment-frame.data-v-2d16830a {
   display: -webkit-box;
@@ -343,7 +408,7 @@
 .praise-and-comment-mask .praise-and-comment .praise-item .praise-item-icon.data-v-2d16830a {
   min-width: 36rpx;
   font-size: 32rpx;
-  font-weight: bold;
+  font-weight: 700;
 }
 .praise-and-comment-mask .praise-and-comment .praise-item .praise-item-text.data-v-2d16830a {
   min-width: 56rpx;
@@ -364,7 +429,7 @@
 }
 .praise-and-comment-mask .praise-and-comment .comment-item .comment-item-icon.data-v-2d16830a {
   font-size: 32rpx;
-  font-weight: bold;
+  font-weight: 700;
 }
 .praise-and-comment-mask .praise-and-comment .comment-item .comment-item-text.data-v-2d16830a {
   margin-left: 10rpx;

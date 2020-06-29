@@ -21,9 +21,9 @@
 			</view>
 			
 			<!-- 未完成和已完成的事件 -->
-			<view v-if="remindList.length>0" class="will-reminded">
+			<view v-if="remindInfos.length>0" class="will-reminded">
 				<view class="def-type-title">未完成/已完成</view>
-				<view v-for="(item, index) in remindList" :key='index'>
+				<view v-for="(item, index) in remindInfos" :key='index'>
 					<view class="reminded-item def-top-border">
 						<view @tap.stop="changeExpanded(item)" class="reminded-item-left-icon my-iconfont">{{ item.expanded ? '&#xe6b2;' : '&#xe683;' }}</view>
 						<view @tap="toRemind('modify', index)" class="reminded-item-center">
@@ -90,6 +90,8 @@
 	import { formatToTimeStamp, deepClone } from '@/common/index.js'
 	import DefSlide from '@/components/content/defslide/DefSlide.vue'
 	
+	import { getAllRemindInfos } from '@/common/sqlRemind.js'
+	
 	export default {
 		components: {
 			DefSlide
@@ -109,7 +111,7 @@
 			}
 		},
 		computed: {
-			...mapState(['userInfo']),
+			...mapState(['userInfo', 'remindInfos']),
 			calcIsAllElection() { 
 				return this.electionCount && this.electionCount === (this.remindList.length + this.draftRemindList.length) 
 			},
@@ -252,6 +254,20 @@
 			},
 			
 			appendData(data) { //追加数据
+				
+				let list1 = []
+				list1 = deepClone(data)
+				for(let i=0; i<list1.length; i++) {
+					list1[i].remindTime = formatToTimeStamp(Number(list1[i].remindTime))
+					
+					list1[i].expanded = false  //默认未展开
+				}
+				this.$nextTick(() => {
+					this.remindList.push(...list1)
+					console.log('追加后', this.remindList)
+				})
+				
+				return
 				let list = []
 				list = deepClone(data.list)
 				for(let i=0; i<list.length; i++) {
@@ -266,10 +282,6 @@
 						this.hasMoreRemind = false
 					}
 				})
-				
-				
-				
-				
 			},
 			
 			//从存储里获取草稿
@@ -306,6 +318,12 @@
 			}
 		},
 		onLoad() {
+			//获取所有未完成的事项提醒任务
+			getAllRemindInfos(this.userInfo.user.userAccount).then(res => {
+				console.log('所有remindInfos:', res)
+				this.appendData(res)
+			})
+			return
 			this.queryRemind()
 			this.getDraftRemindList()
 		},
@@ -419,7 +437,6 @@
 		background-color: #4CD964;
 	}
 	.reminded {
-		position: relative;
 		min-height: 100vh;
 		.reminded-list {
 			margin-bottom: 100rpx;

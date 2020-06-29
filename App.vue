@@ -6,16 +6,20 @@
 		initiLocalDB,
 		getRawMsg
 	} from '@/common/imHelper.js'
+	
+	import { 
+		getAllRemindInfos,
+		appendData,
+		addNewRemindInfo
+	} from '@/common/sqlRemind.js'
+	
 	// #endif
-	
-	
 	
 	import {
 		mapState,
 		mapMutations,
 		mapActions
 	} from 'vuex'
-	
 	
 	import {
 		formatTimeStamp
@@ -26,10 +30,12 @@
 		globalData: {
 			nim: null,
 			socketTask: null,
-			newRemindVibrate: null, //新提醒震动
+			moreFriendDynamicList: true, //是否有更多所有朋友动态
+			newRemindVibrate: null, //新提醒震动,
+			remindTask: {}
 		},
 		computed: {
-			...mapState(['hasLogin', 'userInfo', 'rawMessageList', 'groupMemberList', 'groupMemberMap'])
+			...mapState(['hasLogin', 'userInfo', 'rawMessageList', 'groupMemberList', 'groupMemberMap', 'friendCard', 'remindInfos'])
 		},
 		watch: {
 			hasLogin(newV, oldV) { //监听登录状态
@@ -55,10 +61,21 @@
 					// })
 					this.logout()
 				}
+			},
+			userInfo(newV) {
+				let tempObj = Object.assign({}, newV.user)
+				let newObj = {
+					friendAccount: tempObj['userAccount'],
+					friendRemarkName: tempObj['nickname'],
+					friendFaceImage: tempObj['faceImage'],
+					friendRegion: tempObj['region'],
+					friendSex: tempObj['userSex']
+				}
+				this.$set(this.friendCard, newObj.friendAccount, newObj)
 			}
 		},
 		methods: {
-			...mapMutations(['setLogin', 'logout', 'setRawMessageList', 'appHideSetData']),
+			...mapMutations(['setLogin', 'logout', 'setRawMessageList', 'appHideSetData', 'setRemindInfos']),
 			...mapActions(['doGetMyUserInfo', 'getFriendList']),
 
 
@@ -89,11 +106,39 @@
 				
 			},
 			
-			myCycleTime(timeStamp) {
-				setInterval(() => {
-					let date = new Date()
-					console.log('getDate()', date.getTime())
-				}, 10000)
+			myCycleTime(timeStamp=1591941896840, frequency='everyDay', id=1) {
+				var _this = this
+				console.log('开始定时', _this.globalData.remindTask)
+				let intervalId = null
+				switch(frequency) {
+					case 'everyDay': 
+						intervalId =  setInterval(() => {
+							let date = new Date()
+							let currentTime = date.getTime()
+							let differenceTime = Math.abs(currentTime-timeStamp)
+							let lastTime = 0
+							lastTime = differenceTime % 86400000 //取余数
+							if(currentTime > timeStamp) {
+								lastTime = 86400000 - lastTime
+							}else {
+								if(differenceTime > 14400000) { //大于4小时就没必要计时了
+									clearInterval(intervalId)
+									console.log('大于4小时不设置')
+									return
+								}
+							}
+							console.log(`lastTime: ${lastTime}; 还有${lastTime/1000}秒>>>${intervalId}`)
+							if(lastTime <= 10000) {
+								setTimeout(() => {
+									clearInterval(intervalId)
+									console.log('时间到了,清除定时器')
+								}, lastTime)
+							}
+						}, 10000)
+						// 86400000为24小时/一天的时间戳
+						break
+				}
+				
 			},
 			
 			
@@ -101,16 +146,20 @@
 			// #ifdef APP-PLUS
 			//初始化本地数据
 			initiLocalData(account) {
-				if(initiLocalDB(account)){
-					//获取的原始消息数据
-					getRawMsg(account, 'p2p-1579139382461')
-				}
-			},
-			toReminded() {
-				uni.navigateTo({
-					url: '/components/content/remind/Reminded'
+				console.log('初始化1')
+				initiLocalDB(account)
+				//获取的原始消息数据
+				getRawMsg(account, 'p2p-1579139382461')
+				//获取所有未完成的事项提醒任务
+				getAllRemindInfos(account).then(res => {
+					console.log('所有remindInfos:', res)
+					let tempRemindInfos = Object.assign([], this.remindInfos)
+					let list = appendData(res)
+					tempRemindInfos.push(...list)
+					this.setRemindInfos(tempRemindInfos)
 				})
 			},
+			
 			
 			//判断当前运行平台
 			judgePlatform(){  
@@ -137,17 +186,22 @@
 								})  
 							}  
 						});
-			        break;  
-			        case "iOS":  
-			        // iOS平台: plus.ios.*  
-			        break;  
+						break;  
+					case "iOS":  
+						// iOS平台: plus.ios.*  
+						break;  
 			        default:  
-			        // 其它平台  
-			        break;  
+						// 其它平台  
+						break;  
 			    }  
-			}
+			},
 			// #endif
 			
+			toReminded() {
+				uni.navigateTo({
+					url: '/components/content/remind/Reminded'
+				})
+			},
 		},
 		onLaunch: function() {
 			console.log('App Launch')
@@ -162,6 +216,7 @@
 			// 	remindTime: '1590980220000',
 			// 	remindPerson: ['1590980220000'],
 			// 	remindLocation: '天河区',
+			// 	fatherId: 1,
 			// 	subtaskList: [
 			// 		{
 			// 			id: 2
@@ -172,7 +227,8 @@
 			// 	]
 			// }
 			
-			
+			this.myCycleTime()
+			this.myCycleTime()
 			
 			//#ifdef APP-PLUS
 			this.judgePlatform()
@@ -207,7 +263,16 @@
 			uni.$on('updateFriendList', data => {
 				this.getFriendList()
 			})
-
+			
+			uni.$on('addNewRemindInfo', count => {
+				console.log('count', count)
+				addNewRemindInfo(this.userInfo.user.userAccount, count).then(res => {
+					
+					let list = appendData(res)
+					console.log('this.remindInfos', this.remindInfos)
+					this.remindInfos.splice(0, 0, ...list)
+				})
+			})
 			setTimeout(() => {
 				console.log('groupMemberList:', this.groupMemberList)
 				console.log('groupMemberMap', this.groupMemberMap)
@@ -270,7 +335,7 @@
 		/*动画持续时间*/
 		-webkit-animation-iteration-count: 1;
 		/*动画次数*/
-		-webkit-animation-delay: -.3s;
+		-webkit-animation-delay: 0s;
 		/*延迟时间*/
 	}
 
@@ -282,8 +347,32 @@
 		/*动画持续时间*/
 		-webkit-animation-iteration-count: 1;
 		/*动画次数*/
-		-webkit-animation-delay: -.3s;
+		-webkit-animation-delay: 0s;
 		/*延迟时间*/
+	}
+	
+	//无限旋转
+	@keyframes turn {
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+		25% {
+			-webkit-transform: rotate(90deg);
+		}
+		50% {
+			-webkit-transform: rotate(180deg);
+		}
+		75% {
+			-webkit-transform: rotate(270deg);
+		}
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+		
+	}
+	
+	.box-turn {
+		animation: turn 3s linear infinite;
 	}
 	
 	@keyframes expandDown {
@@ -327,6 +416,46 @@
 		max-height: 0;
 		overflow: auto;
 	}
+	
+	/*
+	翻页动画
+	*/
+   // 上一页
+   @keyframes prevPage {
+	   0% {
+	   	transform: translateX(-100%);
+	   }
+	   100% {
+	   	transform: translateX(0);
+	   }
+   }
+
+	@keyframes nextPage {
+		0% {
+			transform: translateX(-100%);
+		}
+		100% {
+			transform: translateX(0);
+		}
+	}
+	
+	.prev-page {
+		-webkit-animation-name: prevPage;
+		-webkit-animation-duration: 2s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-delay: 0s;
+	}
+	.next-page {
+		-webkit-animation-name: nextPage;
+		-webkit-animation-duration: 2s;
+		-webkit-animation-iteration-count: 1;
+		-webkit-animation-delay: 0s;
+	}
+	
+	.tap-text-color {
+		
+	}
+	
 	/*  弹性布局   */
 	//水平与垂直居中
 	.def-center-box {
@@ -377,8 +506,11 @@
 		margin-top: 50rpx;
 		font-size: $uni-font-size-lg;
 	}
-	
-
+	//空白占位块
+	.def-blank {
+		width: 100%;
+		height: 60rpx;
+	}
 	//水平垂直居中
 	.center-box {
 		display: flex;
@@ -409,7 +541,7 @@
 	//默认用户名字:颜色、大小
 	.def-username {
 		font-size: $uni-font-size-base;
-		font-weight: bold;
+		font-weight: 700;
 		color: #536C99;
 	}
 	//默认上边框
@@ -444,7 +576,7 @@
 
 	//字体文件设置类名
 	.my-iconfont {
-		font-family: 'iconfont';
+		font-family: 'iconfont'!important;
 	}
 
 
@@ -539,7 +671,6 @@
 		}
 	}
 
-
 	//输入框
 	.my-input {
 		position: relative;
@@ -581,7 +712,7 @@
 	.login-head {
 		text-align: center;
 		font-size: 40rpx;
-		font-weight: bold;
+		font-weight: 700;
 		color: #333366;
 	}
 

@@ -102,7 +102,7 @@
 				
 				
 				
-				<view @tap="toSession" class="list3" hover-class="tap-hover-color">
+				<view @tap="toSession" class="list3 list3-border" hover-class="tap-hover-color">
 					<view class="img">
 						<text class="my-iconfont send-msg-img">&#xe60a;</text>
 					</view>
@@ -343,7 +343,7 @@
 				color: #576A92;
 			}
 		}
-		.list3 {
+		.list3-border {
 			border-bottom: 1rpx solid rgba(100, 100, 100, .1);
 		}
 		

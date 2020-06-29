@@ -113,14 +113,18 @@ var _imConfig = _interopRequireDefault(__webpack_require__(/*! @/common/imConfig
 
 
 
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 13);
 
 
 
 
 
-
-var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(n);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 
 
 
@@ -129,10 +133,12 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
   globalData: {
     nim: null,
     socketTask: null,
-    newRemindVibrate: null //新提醒震动
-  },
+    moreFriendDynamicList: true, //是否有更多所有朋友动态
+    newRemindVibrate: null, //新提醒震动,
+    remindTask: {} },
+
   computed: _objectSpread({},
-  (0, _vuex.mapState)(['hasLogin', 'userInfo', 'rawMessageList', 'groupMemberList', 'groupMemberMap'])),
+  (0, _vuex.mapState)(['hasLogin', 'userInfo', 'rawMessageList', 'groupMemberList', 'groupMemberMap', 'friendCard', 'remindInfos'])),
 
   watch: {
     hasLogin: function hasLogin(newV, oldV) {//监听登录状态
@@ -158,10 +164,21 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
         // })
         this.logout();
       }
+    },
+    userInfo: function userInfo(newV) {
+      var tempObj = Object.assign({}, newV.user);
+      var newObj = {
+        friendAccount: tempObj['userAccount'],
+        friendRemarkName: tempObj['nickname'],
+        friendFaceImage: tempObj['faceImage'],
+        friendRegion: tempObj['region'],
+        friendSex: tempObj['userSex'] };
+
+      this.$set(this.friendCard, newObj.friendAccount, newObj);
     } },
 
   methods: _objectSpread({},
-  (0, _vuex.mapMutations)(['setLogin', 'logout', 'setRawMessageList', 'appHideSetData']), {},
+  (0, _vuex.mapMutations)(['setLogin', 'logout', 'setRawMessageList', 'appHideSetData', 'setRemindInfos']), {},
   (0, _vuex.mapActions)(['doGetMyUserInfo', 'getFriendList']), {
 
 
@@ -192,65 +209,102 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
 
     },
 
-    myCycleTime: function myCycleTime(timeStamp) {
-      setInterval(function () {
-        var date = new Date();
-        console.log('getDate()', date.getTime());
-      }, 10000);
+    myCycleTime: function myCycleTime() {var timeStamp = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1591941896840;var frequency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'everyDay';var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+      var _this = this;
+      console.log('开始定时', _this.globalData.remindTask);
+      var intervalId = null;
+      switch (frequency) {
+        case 'everyDay':
+          intervalId = setInterval(function () {
+            var date = new Date();
+            var currentTime = date.getTime();
+            var differenceTime = Math.abs(currentTime - timeStamp);
+            var lastTime = 0;
+            lastTime = differenceTime % 86400000; //取余数
+            if (currentTime > timeStamp) {
+              lastTime = 86400000 - lastTime;
+            } else {
+              if (differenceTime > 14400000) {//大于4小时就没必要计时了
+                clearInterval(intervalId);
+                console.log('大于4小时不设置');
+                return;
+              }
+            }
+            console.log("lastTime: ".concat(lastTime, "; \u8FD8\u6709").concat(lastTime / 1000, "\u79D2>>>").concat(intervalId));
+            if (lastTime <= 10000) {
+              setTimeout(function () {
+                clearInterval(intervalId);
+                console.log('时间到了,清除定时器');
+              }, lastTime);
+            }
+          }, 10000);
+          // 86400000为24小时/一天的时间戳
+          break;}
+
+
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    toReminded: function toReminded() {
+      uni.navigateTo({
+        url: '/components/content/remind/Reminded' });
+
     } }),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   onLaunch: function onLaunch() {
     console.log('App Launch');
@@ -265,6 +319,7 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
     // 	remindTime: '1590980220000',
     // 	remindPerson: ['1590980220000'],
     // 	remindLocation: '天河区',
+    // 	fatherId: 1,
     // 	subtaskList: [
     // 		{
     // 			id: 2
@@ -275,7 +330,8 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
     // 	]
     // }
 
-
+    this.myCycleTime();
+    this.myCycleTime();
 
 
 
@@ -303,17 +359,26 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function _interopR
 
 
   },
-  onShow: function onShow() {var _this = this;
+  onShow: function onShow() {var _this2 = this;
     console.log('getApp():', getApp());
     console.log('App Show');
     //监听修改好友信息，并更新数据
     uni.$on('updateFriendList', function (data) {
-      _this.getFriendList();
+      _this2.getFriendList();
     });
 
+    uni.$on('addNewRemindInfo', function (count) {
+      console.log('count', count);
+      addNewRemindInfo(_this2.userInfo.user.userAccount, count).then(function (res) {var _this2$remindInfos;
+
+        var list = appendData(res);
+        console.log('this.remindInfos', _this2.remindInfos);
+        (_this2$remindInfos = _this2.remindInfos).splice.apply(_this2$remindInfos, [0, 0].concat(_toConsumableArray(list)));
+      });
+    });
     setTimeout(function () {
-      console.log('groupMemberList:', _this.groupMemberList);
-      console.log('groupMemberMap', _this.groupMemberMap);
+      console.log('groupMemberList:', _this2.groupMemberList);
+      console.log('groupMemberMap', _this2.groupMemberMap);
     }, 2000);
   },
   onHide: function onHide() {

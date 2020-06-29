@@ -248,6 +248,7 @@ function uploadFile(obj, filePath, formData=null) {
 
 
 
+
 module.exports = {
 	//#ifdef APP-PLUS
 	getCid,

@@ -113,7 +113,7 @@
 				let newObj = {
 					'images': ['null']
 				}
-				if(this.imgList) { //是否选择有图片
+				if(this.imgList.length>0) { //是否选择有图片
 					await dynamicUploadImage(this.imgList).then(res => {
 						console.log('批量上传图片:', res)
 						let newImgList = []
@@ -162,6 +162,8 @@
 				}).catch(err => {
 					console.log(err)
 				})
+				
+				
 			},
 			delApicture(index) { //删除图片
 				this.imgList.splice(index, 1)

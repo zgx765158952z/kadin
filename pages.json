@@ -9,6 +9,12 @@
 				}
 			}
 		},
+		{
+			"path": "components/content/dynamic/SingleDynamic",
+			"style": {
+				"navigationBarTitleText":"详情"
+			}
+		},
 		
 		{
 			"path": "components/content/login/login",
