@@ -33,6 +33,24 @@ function doPublishDynamicRequest(data) {
 	})
 }
 
+//删除动态
+function delDynamicRequest(data) {
+	/*
+	account
+	friendCircleId
+	*/
+	return http.post('/circle/deleteFriendCircle', data)
+}
+//删除评论
+function delCommentRequest(data) {
+	/*
+	account
+	commentId
+	friendCircleId
+	*/
+	return http.post('/circle/deleteComment', data)
+}
+
 //上传图片(可多张)
 function dynamicUploadImage(imgList) {
 	const promises = imgList.map(item => {
@@ -95,6 +113,8 @@ module.exports = {
 	getMyDynamicRequest,
 	getPersonDynamicRequest,
 	doPublishDynamicRequest,
+	delDynamicRequest,
+	delCommentRequest,
 	dynamicUploadImage,
 	doCommentRequest,
 	doDynamicLikeRequest,

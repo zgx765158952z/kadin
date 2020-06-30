@@ -122,16 +122,18 @@
 			</block>
 		</block>
 		
-		
-		
+		<!-- #ifdef APP-PLUS -->
+		<button type="default" size="mini">菜单</button>
+		<!-- #endif -->
 	</view>
 </template>
 
 <script>
 	import DefaultList from '@/components/content/defaultlist/DefaultList.vue'
-	import { getFriendInfo } from "@/network/addfriend.js"
+	import { getFriendInfo, delFriendRequest } from "@/network/addfriend.js"
 	import { imgBaseUrl } from '@/common/helper.js'
 	import { mapState, mapMutations, mapActions } from 'vuex'
+	import { delFriendList } from '@/common/index.js'
 	
 	export default {
 		components: {
@@ -145,7 +147,7 @@
 			}
 		},
 		computed: {
-			...mapState(['userInfo', 'rawMessageList', 'friendCard'])
+			...mapState(['userInfo', 'rawMessageList', 'friendCard', 'friendList'])
 		},
 		methods: {
 			...mapMutations(['setFriendCard']),
@@ -203,6 +205,24 @@
 					console.log(err)
 				})
 			},
+			delFriend() {
+				var _this = this
+				const obj = {
+					account: _this.userInfo.user.userAccount,
+					friendAccount: _this.friendAccount
+				}
+				delFriendRequest(obj).then(res => {
+					const tempCard = Object.assign({}, _this.friendCard)
+					delete tempCard[_this.friendAccount]
+					_this.setFriendCard(tempCard)
+					
+					const g = delFriendList(_this.friendList, _this.friendAccount)
+					_this.friendList[g.ind1].list.splice(g.ind2, 1)
+					console.log('_this.friendCard', _this.friendCard, _this.friendList)
+					//还需要删除和这个好友的聊天记录
+				})
+			},
+			
 			toMyDynamic(params) {
 				let url = '/components/content/dynamic/MyDynamic?account='
 				if(params === 'myself') {
@@ -260,8 +280,9 @@
 			uni.$off('changeFriendInfo', () => {})
 		},
 		onNavigationBarButtonTap(option) {
+			var _this = this
 			if(option.index === 0) {
-				if(!this.isMe) {
+				if(!_this.isMe) {
 					uni.showActionSheet({
 						itemList: ['设置备注和标签', '把他推荐给朋友', '加入黑名单', '删除'],
 						success:res => {
@@ -278,7 +299,17 @@
 									console.log('加入黑名单')
 									break
 								case 3:
-									console.log('删除')
+									uni.showModal({
+										title: "提示",
+										content: "删除该好友,将同时删除与其的聊天记录",
+										confirmText: "删除",
+										confirmColor: "#DD524D",
+										success: res => {
+											if(res.confirm) {
+												_this.delFriend()
+											}
+										}
+									})
 									break
 							}
 						},

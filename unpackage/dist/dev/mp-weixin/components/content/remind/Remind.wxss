@@ -31,21 +31,24 @@
           box-sizing: border-box;
   padding-bottom: 100rpx;
   background-color: #F8F8F8;
+  font-size: 32rpx;
+  padding-top: 60rpx;
+}
+.remind .remind-head {
+  margin-bottom: 30rpx;
 }
 .remind .remind-head .remind-head-son {
   text-align: center;
-  font-size: 36rpx;
+  color: #55A532;
 }
 .remind .remind-msg {
   position: relative;
-  color: #333;
+  margin-bottom: 60rpx;
   background-color: #FFFFFF;
-  margin-top: 60rpx;
 }
 .remind .remind-msg .remind-msg-son {
+  color: #333;
   padding: 20rpx 30rpx;
-  max-height: 150rpx;
-  font-size: 32rpx;
 }
 .remind .all-list {
   margin: 60rpx 0;

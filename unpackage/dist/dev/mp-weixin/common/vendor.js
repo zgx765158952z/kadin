@@ -757,7 +757,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -3569,7 +3569,23 @@ function uploadFile(obj, filePath) {var formData = arguments.length > 2 && argum
   });
 }
 
+//获取通讯录中的一个好友的位置
+function delFriendList(friendList, friendAccount) {
+  for (var i = 0; i < friendList.length; i++) {
+    if (friendList[i].list.length > 0) {
+      var listIndex = friendList[i].list.findIndex(function (item) {return item.friendAccount == friendAccount;});
+      if (listIndex != -1) {
+        var lastList = {
+          ind1: i,
+          ind2: listIndex };
 
+        return lastList;
+        break;
+      }
+    }
+  }
+  return false;
+}
 
 
 module.exports = {
@@ -3586,7 +3602,8 @@ module.exports = {
   deepClone: deepClone,
   debounce: debounce,
   chooseImg: chooseImg,
-  uploadFile: uploadFile };
+  uploadFile: uploadFile,
+  delFriendList: delFriendList };
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
@@ -10252,7 +10269,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -10273,14 +10290,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -10356,7 +10373,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -11054,7 +11071,7 @@ module.exports = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.searchFriendRequest = searchFriendRequest;exports.ApplyAddFriendRequest = ApplyAddFriendRequest;exports.queryFriendRequestListRequest = queryFriendRequestListRequest;exports.argeeFriendRequest = argeeFriendRequest;exports.queryFriendRequest = queryFriendRequest;exports.getFriendInfo = getFriendInfo;var _http = __webpack_require__(/*! @/network/http.js */ 22);
+Object.defineProperty(exports, "__esModule", { value: true });exports.searchFriendRequest = searchFriendRequest;exports.ApplyAddFriendRequest = ApplyAddFriendRequest;exports.queryFriendRequestListRequest = queryFriendRequestListRequest;exports.argeeFriendRequest = argeeFriendRequest;exports.queryFriendRequest = queryFriendRequest;exports.getFriendInfo = getFriendInfo;exports.delFriendRequest = delFriendRequest;var _http = __webpack_require__(/*! @/network/http.js */ 22);
 var _index = __webpack_require__(/*! @/js_sdk/pocky-request/index.js */ 57);
 
 //搜索好友
@@ -11094,6 +11111,12 @@ function queryFriendRequest(params) {
 //获取某个好友个人信息
 function getFriendInfo(params) {
   return _http.http.get('/query/queryFriendInfo' + params);
+}
+
+//删除好友
+function delFriendRequest(data) {
+  // account friendAccount
+  return _http.http.post('/myFriend/deleteFriend', data);
 }
 
 /***/ }),
@@ -16570,6 +16593,72 @@ function _classCallCheck(instance, Constructor) {if (!(instance instanceof Const
 
 /***/ }),
 
+/***/ 547:
+/*!***********************************************************!*\
+  !*** E:/learning/kadingapp/components/uni-popup/popup.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 548));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+// 定义 type 类型:弹出类型：top/bottom/center
+var config = {
+  // 顶部弹出
+  top: 'top',
+  // 底部弹出
+  bottom: 'bottom',
+  // 居中弹出
+  center: 'center',
+  // 消息提示
+  message: 'top',
+  // 对话框
+  dialog: 'center',
+  // 分享
+  share: 'bottom' };var _default =
+
+
+{
+  data: function data() {
+    return {
+      config: config };
+
+  },
+  mixins: [_message.default] };exports.default = _default;
+
+/***/ }),
+
+/***/ 548:
+/*!*************************************************************!*\
+  !*** E:/learning/kadingapp/components/uni-popup/message.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  created: function created() {
+    if (this.type === 'message') {
+      // 不显示遮罩
+      this.maskShow = false;
+      // 获取子组件对象
+      this.childrenMsg = null;
+    }
+  },
+  methods: {
+    customOpen: function customOpen() {
+      if (this.childrenMsg) {
+        this.childrenMsg.open();
+      }
+    },
+    customClose: function customClose() {
+      if (this.childrenMsg) {
+        this.childrenMsg.close();
+      }
+    } } };exports.default = _default;
+
+/***/ }),
+
 /***/ 55:
 /*!**********************************************!*\
   !*** E:/learning/kadingapp/common/helper.js ***!
@@ -17165,112 +17254,6 @@ $;exports.default = _default;
 
 /***/ }),
 
-/***/ 610:
-/*!***********************************************************!*\
-  !*** E:/learning/kadingapp/components/uni-icons/icons.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  'contact': "\uE100",
-  'person': "\uE101",
-  'personadd': "\uE102",
-  'contact-filled': "\uE130",
-  'person-filled': "\uE131",
-  'personadd-filled': "\uE132",
-  'phone': "\uE200",
-  'email': "\uE201",
-  'chatbubble': "\uE202",
-  'chatboxes': "\uE203",
-  'phone-filled': "\uE230",
-  'email-filled': "\uE231",
-  'chatbubble-filled': "\uE232",
-  'chatboxes-filled': "\uE233",
-  'weibo': "\uE260",
-  'weixin': "\uE261",
-  'pengyouquan': "\uE262",
-  'chat': "\uE263",
-  'qq': "\uE264",
-  'videocam': "\uE300",
-  'camera': "\uE301",
-  'mic': "\uE302",
-  'location': "\uE303",
-  'mic-filled': "\uE332",
-  'speech': "\uE332",
-  'location-filled': "\uE333",
-  'micoff': "\uE360",
-  'image': "\uE363",
-  'map': "\uE364",
-  'compose': "\uE400",
-  'trash': "\uE401",
-  'upload': "\uE402",
-  'download': "\uE403",
-  'close': "\uE404",
-  'redo': "\uE405",
-  'undo': "\uE406",
-  'refresh': "\uE407",
-  'star': "\uE408",
-  'plus': "\uE409",
-  'minus': "\uE410",
-  'circle': "\uE411",
-  'checkbox': "\uE411",
-  'close-filled': "\uE434",
-  'clear': "\uE434",
-  'refresh-filled': "\uE437",
-  'star-filled': "\uE438",
-  'plus-filled': "\uE439",
-  'minus-filled': "\uE440",
-  'circle-filled': "\uE441",
-  'checkbox-filled': "\uE442",
-  'closeempty': "\uE460",
-  'refreshempty': "\uE461",
-  'reload': "\uE462",
-  'starhalf': "\uE463",
-  'spinner': "\uE464",
-  'spinner-cycle': "\uE465",
-  'search': "\uE466",
-  'plusempty': "\uE468",
-  'forward': "\uE470",
-  'back': "\uE471",
-  'left-nav': "\uE471",
-  'checkmarkempty': "\uE472",
-  'home': "\uE500",
-  'navigate': "\uE501",
-  'gear': "\uE502",
-  'paperplane': "\uE503",
-  'info': "\uE504",
-  'help': "\uE505",
-  'locked': "\uE506",
-  'more': "\uE507",
-  'flag': "\uE508",
-  'home-filled': "\uE530",
-  'gear-filled': "\uE532",
-  'info-filled': "\uE534",
-  'help-filled': "\uE535",
-  'more-filled': "\uE537",
-  'settings': "\uE560",
-  'list': "\uE562",
-  'bars': "\uE563",
-  'loop': "\uE565",
-  'paperclip': "\uE567",
-  'eye': "\uE568",
-  'arrowup': "\uE580",
-  'arrowdown': "\uE581",
-  'arrowleft': "\uE582",
-  'arrowright': "\uE583",
-  'arrowthinup': "\uE584",
-  'arrowthindown': "\uE585",
-  'arrowthinleft': "\uE586",
-  'arrowthinright': "\uE587",
-  'pulldown': "\uE588",
-  'closefill': "\uE589",
-  'sound': "\uE590",
-  'scan': "\uE612" };exports.default = _default;
-
-/***/ }),
-
 /***/ 62:
 /*!******************************************************************!*\
   !*** E:/learning/kadingapp/js_sdk/pocky-request/core/network.js ***!
@@ -17453,6 +17436,112 @@ function getMyUserInfo(params) {
 
 /***/ }),
 
+/***/ 640:
+/*!***********************************************************!*\
+  !*** E:/learning/kadingapp/components/uni-icons/icons.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  'contact': "\uE100",
+  'person': "\uE101",
+  'personadd': "\uE102",
+  'contact-filled': "\uE130",
+  'person-filled': "\uE131",
+  'personadd-filled': "\uE132",
+  'phone': "\uE200",
+  'email': "\uE201",
+  'chatbubble': "\uE202",
+  'chatboxes': "\uE203",
+  'phone-filled': "\uE230",
+  'email-filled': "\uE231",
+  'chatbubble-filled': "\uE232",
+  'chatboxes-filled': "\uE233",
+  'weibo': "\uE260",
+  'weixin': "\uE261",
+  'pengyouquan': "\uE262",
+  'chat': "\uE263",
+  'qq': "\uE264",
+  'videocam': "\uE300",
+  'camera': "\uE301",
+  'mic': "\uE302",
+  'location': "\uE303",
+  'mic-filled': "\uE332",
+  'speech': "\uE332",
+  'location-filled': "\uE333",
+  'micoff': "\uE360",
+  'image': "\uE363",
+  'map': "\uE364",
+  'compose': "\uE400",
+  'trash': "\uE401",
+  'upload': "\uE402",
+  'download': "\uE403",
+  'close': "\uE404",
+  'redo': "\uE405",
+  'undo': "\uE406",
+  'refresh': "\uE407",
+  'star': "\uE408",
+  'plus': "\uE409",
+  'minus': "\uE410",
+  'circle': "\uE411",
+  'checkbox': "\uE411",
+  'close-filled': "\uE434",
+  'clear': "\uE434",
+  'refresh-filled': "\uE437",
+  'star-filled': "\uE438",
+  'plus-filled': "\uE439",
+  'minus-filled': "\uE440",
+  'circle-filled': "\uE441",
+  'checkbox-filled': "\uE442",
+  'closeempty': "\uE460",
+  'refreshempty': "\uE461",
+  'reload': "\uE462",
+  'starhalf': "\uE463",
+  'spinner': "\uE464",
+  'spinner-cycle': "\uE465",
+  'search': "\uE466",
+  'plusempty': "\uE468",
+  'forward': "\uE470",
+  'back': "\uE471",
+  'left-nav': "\uE471",
+  'checkmarkempty': "\uE472",
+  'home': "\uE500",
+  'navigate': "\uE501",
+  'gear': "\uE502",
+  'paperplane': "\uE503",
+  'info': "\uE504",
+  'help': "\uE505",
+  'locked': "\uE506",
+  'more': "\uE507",
+  'flag': "\uE508",
+  'home-filled': "\uE530",
+  'gear-filled': "\uE532",
+  'info-filled': "\uE534",
+  'help-filled': "\uE535",
+  'more-filled': "\uE537",
+  'settings': "\uE560",
+  'list': "\uE562",
+  'bars': "\uE563",
+  'loop': "\uE565",
+  'paperclip': "\uE567",
+  'eye': "\uE568",
+  'arrowup': "\uE580",
+  'arrowdown': "\uE581",
+  'arrowleft': "\uE582",
+  'arrowright': "\uE583",
+  'arrowthinup': "\uE584",
+  'arrowthindown': "\uE585",
+  'arrowthinleft': "\uE586",
+  'arrowthinright': "\uE587",
+  'pulldown': "\uE588",
+  'closefill': "\uE589",
+  'sound': "\uE590",
+  'scan': "\uE612" };exports.default = _default;
+
+/***/ }),
+
 /***/ 65:
 /*!************************************************!*\
   !*** E:/learning/kadingapp/network/dynamic.js ***!
@@ -17494,6 +17583,24 @@ function doPublishDynamicRequest(data) {
     url: '/circle/postMoments',
     data: data });
 
+}
+
+//删除动态
+function delDynamicRequest(data) {
+  /*
+                                  account
+                                  friendCircleId
+                                  */
+  return _http.http.post('/circle/deleteFriendCircle', data);
+}
+//删除评论
+function delCommentRequest(data) {
+  /*
+                                  account
+                                  commentId
+                                  friendCircleId
+                                  */
+  return _http.http.post('/circle/deleteComment', data);
 }
 
 //上传图片(可多张)
@@ -17558,6 +17665,8 @@ module.exports = (_module$exports = {
   getMyDynamicRequest: getMyDynamicRequest,
   getPersonDynamicRequest: getPersonDynamicRequest,
   doPublishDynamicRequest: doPublishDynamicRequest,
+  delDynamicRequest: delDynamicRequest,
+  delCommentRequest: delCommentRequest,
   dynamicUploadImage: dynamicUploadImage,
   doCommentRequest: doCommentRequest }, _defineProperty(_module$exports, "doDynamicLikeRequest",
 doDynamicLikeRequest), _defineProperty(_module$exports, "getLikeCommentInfoRequest",
@@ -17954,72 +18063,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ 693:
-/*!***********************************************************!*\
-  !*** E:/learning/kadingapp/components/uni-popup/popup.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 694));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-// 定义 type 类型:弹出类型：top/bottom/center
-var config = {
-  // 顶部弹出
-  top: 'top',
-  // 底部弹出
-  bottom: 'bottom',
-  // 居中弹出
-  center: 'center',
-  // 消息提示
-  message: 'top',
-  // 对话框
-  dialog: 'center',
-  // 分享
-  share: 'bottom' };var _default =
-
-
-{
-  data: function data() {
-    return {
-      config: config };
-
-  },
-  mixins: [_message.default] };exports.default = _default;
-
-/***/ }),
-
-/***/ 694:
-/*!*************************************************************!*\
-  !*** E:/learning/kadingapp/components/uni-popup/message.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  created: function created() {
-    if (this.type === 'message') {
-      // 不显示遮罩
-      this.maskShow = false;
-      // 获取子组件对象
-      this.childrenMsg = null;
-    }
-  },
-  methods: {
-    customOpen: function customOpen() {
-      if (this.childrenMsg) {
-        this.childrenMsg.open();
-      }
-    },
-    customClose: function customClose() {
-      if (this.childrenMsg) {
-        this.childrenMsg.close();
-      }
-    } } };exports.default = _default;
-
-/***/ }),
-
 /***/ 7:
 /*!*********************************************************!*\
   !*** E:/learning/kadingapp/pages.json?{"type":"style"} ***!
@@ -18028,7 +18071,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "components/content/startup/Startup": { "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/dynamic/SingleDynamic": { "navigationBarTitleText": "详情", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/login/login": { "navigationBarTitleText": "", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/index/index": { "navigationBarTitleText": "卡丁", "usingComponents": { "index-content": "/pages/index/indexCpns/IndexContent", "def-mask": "/components/content/defmask/DefMask" }, "usingAutoImportComponents": {} }, "components/content/interaction/Interaction": { "navigationBarTitleText": "消息", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/session/Session": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": { "def-mask": "/components/content/defmask/DefMask" }, "usingAutoImportComponents": {} }, "components/content/session/content/HistoryMsg": { "navigationBarBackgroundColor": "#F7F7F7", "titleNView": { "autoBackButton": false, "buttons": [{ "text": "取消", "width": "auto", "float": "right", "fontSize": "14px", "color": "#0077AA" }], "searchInput": { "backgroundColor": "#fff", "align": "left", "autoFocus": true, "placeholder": "搜索", "placeholderColor": "#999", "borderRadius": "6px" } }, "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/session/sessionSon/addGroupMember": { "navigationBarTitleText": "邀请好友进群", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/chooseFriend/ChooseFriend": { "navigationBarTitleText": "选择好友", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/session/sessionSon/GroupMembers": { "navigationBarTitleText": "群成员", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/defmodify/DefModify": { "navigationBarTitleText": "修改信息", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/session/sessionSon/ChatFriendSetting": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": { "head-img-item": "/components/content/defimglist/HeadImgItem", "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/session/sessionSon/GroupInfo": { "navigationBarTitleText": "讨论组", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/changefriendinfo/ChangeLabel": { "navigationBarTitleText": "添加标签", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/collection/collectionCpns/CollectSearch": { "navigationBarTitleText": "我的收藏", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/profile/profile": { "navigationBarTitleText": "我的", "usingComponents": { "profile-head": "/pages/profile/profileCpns/ProfileHead", "profile-con": "/pages/profile/profileCpns/ProfileCon", "profile-btm": "/pages/profile/profileCpns/ProfileBtm" }, "usingAutoImportComponents": {} }, "components/content/remind/Reminded": { "navigationBarTitleText": "事项提醒", "usingComponents": { "def-slide": "/components/content/defslide/DefSlide" }, "usingAutoImportComponents": {} }, "components/content/remind/Remind": { "navigationBarTitleText": "添加提醒", "usingComponents": { "mx-date-picker": "/components/mx-datepicker/mx-datepicker" }, "usingAutoImportComponents": {} }, "components/content/changefriendinfo/ChangeRemark": { "navigationBarTitleText": "设置备注和标签", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/collection/collection": { "navigationBarTitleText": "收藏", "usingComponents": { "collection-content": "/components/content/collection/collectionCpns/CollectionContent" }, "usingAutoImportComponents": {} }, "components/content/collection/collectionCpns/CollectChain": { "navigationBarTitleText": "外链", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/contacts/contacts": { "navigationBarTitleText": "通讯录", "usingComponents": { "contacts-con": "/pages/contacts/contactsCpns/ContactsCon", "contacts-index": "/pages/contacts/contactsCpns/ContactsIndex", "def-mask": "/components/content/defmask/DefMask" }, "usingAutoImportComponents": {} }, "components/content/myLocation/SearchLocation": { "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/publish/Publish": { "navigationBarTitleText": "发表动态", "usingComponents": { "head-img-item": "/components/content/defimglist/HeadImgItem" }, "usingAutoImportComponents": {} }, "components/content/dynamic/Dynamic": { "navigationBarTitleText": "朋友动态", "enablePullDownRefresh": true, "usingComponents": { "dynamic-con": "/components/content/dynamic/dynamicCpns/DynamicCon" }, "usingAutoImportComponents": {} }, "components/content/dynamic/MyDynamic": { "navigationBarTitleText": "我的动态", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/myLocation/LocationInfo": { "navigationBarTitleText": "所在位置", "usingComponents": { "head-img-item": "/components/content/defimglist/HeadImgItem" }, "usingAutoImportComponents": {} }, "components/content/register/register2": { "navigationBarTitleText": "", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/register/register1": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F7F7F7", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/personalinfo/PersonalInfo": { "navigationBarTitleText": "个人信息", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/chooseLocation/ChooseLocation": { "navigationBarTitleText": "选择地区", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/chooseLocation/ChooseProvince": { "navigationBarTitleText": "选择省份", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/chooseLocation/ChooseCity": { "navigationBarTitleText": "选择区县", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/personalinfo/changeinfo/ChangeAddress1": { "navigationBarTitleText": "我的地址", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/personalinfo/changeinfo/ChangeAddress2": { "navigationBarTitleText": "新增地址", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/personalinfo/changeinfo/Card": { "navigationBarTitleText": "二维码名片", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/personalinfo/changeinfo/moreCpns/Signature": { "navigationBarTitleText": "个性签名", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/personalinfo/changeinfo/moreCpns/GenderInfo": { "navigationBarTitleText": "设置性别", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/personalinfo/changeinfo/ChangeMoreInfo": { "navigationBarTitleText": "更多信息", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/personalinfo/changeinfo/ChangeName": { "navigationBarTitleText": "更改名字", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/changepwd/changepwd1": { "navigationBarTitleText": "", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/addfriend/AddFriend": { "navigationBarTitleText": "添加朋友", "usingComponents": { "head-img-item": "/components/content/defimglist/HeadImgItem", "uni-search-bar": "/components/uni-search-bar/uni-search-bar", "uni-list": "/components/uni-list/uni-list", "uni-list-item": "/components/uni-list-item/uni-list-item" }, "usingAutoImportComponents": { "uni-search-bar": "/components/uni-search-bar/uni-search-bar" } }, "components/content/consentfriend/ConsentFriend": { "navigationBarTitleText": "新的朋友", "usingComponents": { "head-img-item": "/components/content/defimglist/HeadImgItem", "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/addfriend/AddfriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/applyfriend/ApplyFriend": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/friend/FriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "pages/message/message": { "navigationBarTitleText": "消息", "usingComponents": { "message-list": "/pages/message/messageCpns/MessageList" }, "usingAutoImportComponents": {} }, "components/content/payment/PayMent": { "navigationBarTitleText": "支付", "usingComponents": {}, "usingAutoImportComponents": {} }, "components/content/setting/Setting": { "navigationBarTitleText": "设置", "usingComponents": { "default-list": "/components/content/defaultlist/DefaultList" }, "usingAutoImportComponents": {} }, "components/content/changepwd/changepwd2": { "navigationBarTitleText": "", "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F7F7F7", "backgroundColor": "#F7F7F7" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "components/content/startup/Startup": {}, "components/content/dynamic/SingleDynamic": { "navigationBarTitleText": "详情" }, "components/content/login/login": { "navigationBarTitleText": "" }, "pages/index/index": { "navigationBarTitleText": "卡丁" }, "components/content/interaction/Interaction": { "navigationBarTitleText": "消息" }, "components/content/session/Session": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/content/HistoryMsg": { "navigationBarBackgroundColor": "#F7F7F7", "titleNView": { "autoBackButton": false, "buttons": [{ "text": "取消", "width": "auto", "float": "right", "fontSize": "14px", "color": "#0077AA" }], "searchInput": { "backgroundColor": "#fff", "align": "left", "autoFocus": true, "placeholder": "搜索", "placeholderColor": "#999", "borderRadius": "6px" } } }, "components/content/session/sessionSon/addGroupMember": { "navigationBarTitleText": "邀请好友进群", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/chooseFriend/ChooseFriend": { "navigationBarTitleText": "选择好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/GroupMembers": { "navigationBarTitleText": "群成员", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/defmodify/DefModify": { "navigationBarTitleText": "修改信息", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/ChatFriendSetting": { "navigationBarTitleText": "默认好友", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/session/sessionSon/GroupInfo": { "navigationBarTitleText": "讨论组", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/changefriendinfo/ChangeLabel": { "navigationBarTitleText": "添加标签" }, "components/content/collection/collectionCpns/CollectSearch": { "navigationBarTitleText": "我的收藏" }, "pages/profile/profile": { "navigationBarTitleText": "我的" }, "components/content/remind/Reminded": { "navigationBarTitleText": "事项提醒" }, "components/content/remind/Remind": { "navigationBarTitleText": "添加提醒" }, "components/content/changefriendinfo/ChangeRemark": { "navigationBarTitleText": "设置备注和标签" }, "components/content/collection/collection": { "navigationBarTitleText": "收藏" }, "components/content/collection/collectionCpns/CollectChain": { "navigationBarTitleText": "外链" }, "pages/contacts/contacts": { "navigationBarTitleText": "通讯录" }, "components/content/myLocation/SearchLocation": {}, "components/content/publish/Publish": { "navigationBarTitleText": "发表动态" }, "components/content/dynamic/Dynamic": { "navigationBarTitleText": "朋友动态", "enablePullDownRefresh": true }, "components/content/dynamic/MyDynamic": { "navigationBarTitleText": "我的动态" }, "components/content/myLocation/LocationInfo": { "navigationBarTitleText": "所在位置" }, "components/content/register/register2": { "navigationBarTitleText": "" }, "components/content/register/register1": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#F7F7F7" }, "components/content/personalinfo/PersonalInfo": { "navigationBarTitleText": "个人信息" }, "components/content/chooseLocation/ChooseLocation": { "navigationBarTitleText": "选择地区" }, "components/content/chooseLocation/ChooseProvince": { "navigationBarTitleText": "选择省份" }, "components/content/chooseLocation/ChooseCity": { "navigationBarTitleText": "选择区县" }, "components/content/personalinfo/changeinfo/ChangeAddress1": { "navigationBarTitleText": "我的地址" }, "components/content/personalinfo/changeinfo/ChangeAddress2": { "navigationBarTitleText": "新增地址" }, "components/content/personalinfo/changeinfo/Card": { "navigationBarTitleText": "二维码名片" }, "components/content/personalinfo/changeinfo/moreCpns/Signature": { "navigationBarTitleText": "个性签名" }, "components/content/personalinfo/changeinfo/moreCpns/GenderInfo": { "navigationBarTitleText": "设置性别" }, "components/content/personalinfo/changeinfo/ChangeMoreInfo": { "navigationBarTitleText": "更多信息" }, "components/content/personalinfo/changeinfo/ChangeName": { "navigationBarTitleText": "更改名字" }, "components/content/changepwd/changepwd1": { "navigationBarTitleText": "" }, "components/content/addfriend/AddFriend": { "navigationBarTitleText": "添加朋友" }, "components/content/consentfriend/ConsentFriend": { "navigationBarTitleText": "新的朋友" }, "components/content/addfriend/AddfriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/applyfriend/ApplyFriend": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "components/content/friend/FriendInfo": { "navigationBarTitleText": "", "navigationBarBackgroundColor": "#FFFFFF" }, "pages/message/message": { "navigationBarTitleText": "消息" }, "components/content/payment/PayMent": { "navigationBarTitleText": "支付" }, "components/content/setting/Setting": { "navigationBarTitleText": "设置" }, "components/content/changepwd/changepwd2": { "navigationBarTitleText": "" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F7F7F7", "backgroundColor": "#F7F7F7" } };exports.default = _default;
 
 /***/ }),
 

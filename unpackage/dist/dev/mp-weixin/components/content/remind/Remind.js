@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   "uni-popup": function() {
-    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 688))
+    return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 542))
   }
 }
 var render = function() {
@@ -259,12 +259,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _vuex = __webpack_require__(/*! vuex */ 13);
 var _remind = __webpack_require__(/*! @/network/remind.js */ 210);
 
-var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var MxDatePicker = function MxDatePicker() {__webpack_require__.e(/*! require.ensure | components/mx-datepicker/mx-datepicker */ "components/mx-datepicker/mx-datepicker").then((function () {return resolve(__webpack_require__(/*! @/components/mx-datepicker/mx-datepicker.vue */ 542));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 688));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupMessage = function uniPopupMessage() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-message */ "components/uni-popup/uni-popup-message").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-message.vue */ 697));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 704));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var MxDatePicker = function MxDatePicker() {__webpack_require__.e(/*! require.ensure | components/mx-datepicker/mx-datepicker */ "components/mx-datepicker/mx-datepicker").then((function () {return resolve(__webpack_require__(/*! @/components/mx-datepicker/mx-datepicker.vue */ 551));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopup = function uniPopup() {Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 542));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupMessage = function uniPopupMessage() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-message */ "components/uni-popup/uni-popup-message").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-message.vue */ 558));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniPopupDialog = function uniPopupDialog() {__webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 565));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -313,14 +311,14 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(o
         remindTimeType: 1,
         remindLocation: '',
         remindPerson: [],
-        remindTag: '个人',
+        remindTag: '未定义',
         isMasterTask: 0 },
 
 
       currentIndex: null, //当前提醒列表下标
       //事项提醒列表
       remindInfos: [],
-      remindTagList: ['个人', '团队', '组织', '公司', '自定义'],
+      remindTagList: ['个人', '团队', '组织', '公司', '未定义'],
 
       //控制删除按钮的显示
       showDel1: false,
@@ -358,6 +356,12 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(o
         this.remindInfo.remindTitle = value;
         //关闭弹出层
         done();
+        this.nextPage();
+      } else {
+        uni.showToast({
+          title: '主题不能为空',
+          icon: 'none' });
+
       }
     },
 
@@ -375,7 +379,6 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(o
 
     //完成添加提醒
     addRemind: function addRemind() {
-
 
 
 
@@ -656,47 +659,44 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(o
     },
 
     handlePrev: function handlePrev() {//上一页
-      var _this = this;
-      if (_this.currentSublistIndex > 0) {
+      if (this.currentSublistIndex > 0) {
 
-        var cloneObj = (0, _index.deepClone)(_this.remindInfos[_this.currentSublistIndex - 1]);
-        _this.remindInfo = cloneObj;
+        var cloneObj = (0, _index.deepClone)(this.remindInfos[this.currentSublistIndex - 1]);
+        this.remindInfo = cloneObj;
 
-        _this.remindInfos.splice(_this.currentSublistIndex, 1);
+        this.remindInfos.splice(this.currentSublistIndex, 1);
 
-        _this.currentSublistIndex -= 1;
-        console.log('上一页', _this.currentSublistIndex, _this.remindInfo, _this.remindInfos);
+        this.currentSublistIndex -= 1;
+        console.log('上一页', this.currentSublistIndex, this.remindInfo, this.remindInfos);
       }
 
     },
-    handleNext: function handleNext() {//下一页
-      var _this = this;
-      if (_this.invalidRemindInfo(_this.remindInfo)) {
-        if (_this.currentSublistIndex < 9) {
-          var cloneObj = (0, _index.deepClone)(_this.remindInfo);
-          //先保存本页
-          _this.remindInfos.splice(_this.currentSublistIndex, 0, cloneObj);
+    nextPage: function nextPage() {
+      if (this.currentSublistIndex < 9) {
+        var cloneObj = (0, _index.deepClone)(this.remindInfo);
+        //先保存本页
+        this.remindInfos.splice(this.currentSublistIndex, 0, cloneObj);
 
-          //再初始化下页内容
-          _this.currentSublistIndex += 1;
+        //再初始化下页内容
+        this.currentSublistIndex += 1;
 
-          _this.remindInfo['remindAccount'] = '';
-          _this.remindInfo['remindContent'] = '';
-          _this.remindInfo['remindTime'] = '';
-          _this.remindInfo['remindTimeType'] = 1;
-          _this.remindInfo['remindLocation'] = '';
-          _this.remindInfo['remindPerson'] = '';
-          _this.remindInfo['remindTag'] = '个人';
-          _this.remindInfo['isMasterTask'] = _this.currentSublistIndex == 1 ? 1 : 0;
-          console.log('下一页', _this.currentSublistIndex, _this.remindInfo, _this.remindInfos);
-        }
-      } else {
-        uni.showToast({
-          title: '缺少必填内容',
-          icon: 'none' });
-
+        this.remindInfo['remindAccount'] = '';
+        this.remindInfo['remindContent'] = '';
+        this.remindInfo['remindTime'] = '';
+        this.remindInfo['remindTimeType'] = 1;
+        this.remindInfo['remindLocation'] = '';
+        this.remindInfo['remindPerson'] = '';
+        this.remindInfo['remindTag'] = '未定义';
+        this.remindInfo['isMasterTask'] = this.currentSublistIndex == 0 ? 1 : 0;
+        console.log('下一页', this.currentSublistIndex, this.remindInfo, this.remindInfos);
       }
-
+    },
+    handleNext: function handleNext() {//下一页
+      if (this.currentSublistIndex == 0 && this.remindInfo.remindTitle.length == 0) {
+        this.openTitlePopup();
+      } else {
+        this.nextPage();
+      }
     },
 
     invalidRemindInfo: function invalidRemindInfo(remindInfo) {//验证当前信息是否有效
@@ -727,7 +727,7 @@ var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(o
               _this10.remindInfo.remindTag = '公司';
               break;
             case 4:
-              _this10.remindInfo.remindTag = '自定义';
+              _this10.remindInfo.remindTag = '未定义';
               break;}
 
         },

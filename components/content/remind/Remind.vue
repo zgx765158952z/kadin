@@ -1,11 +1,11 @@
 <template>
 	<view class="remind">
-		<view v-if="remindInfo.remindTitle.length>0" class="remind-head">
-			<input @focus="isFocus1" focus @blur="isBlur1" v-model="remindInfo.remindTitle" class="remind-head-son" type="text" placeholder="主题" />
+		<view v-if="remindInfo.remindTitle.length>0" @tap="openTitlePopup" class="remind-head">
+			<input disabled v-model="remindInfo.remindTitle" class="remind-head-son" maxlength="18" type="text" placeholder="主题" />
 			<!-- <text @tap.stop="resetInput1" v-if="showDel1" class="my-iconfont del-icon">&#xe61a;</text> -->
 		</view>
 		<view class="remind-msg">
-			<textarea @focus="isFocus2" @blur="isBlur2" auto-height v-model="remindInfo.remindContent" class="remind-msg-son" type="text" placeholder="提醒内容..."/>
+			<textarea @focus="isFocus2" focus @blur="isBlur2" auto-height v-model="remindInfo.remindContent" class="remind-msg-son" type="text" placeholder="提醒内容..."/>
 			<text @tap.stop="resetInput2" v-if="showDel2" class="my-iconfont del-icon">&#xe61a;</text>
 		</view>
 		
@@ -82,10 +82,8 @@
 		</view>
 		
 		<uni-popup ref="popup" type="dialog">
-		    <uni-popup-dialog mode="input" title="填写主题" :duration="0" @close="closeTitlePopup" @confirm="confirmTitle"></uni-popup-dialog>
+		    <uni-popup-dialog mode="input" :value="remindInfo.remindTitle" title="填写主题" :duration="0" @close="closeTitlePopup" @confirm="confirmTitle"></uni-popup-dialog>
 		</uni-popup>
-		
-		<button @tap="openTitlePopup" type="default">提示</button>
 		
 		<view class="all-list">
 			<view @tap="chooseTag" class="remind-list" hover-class="tap-hover-color">
@@ -177,14 +175,14 @@
 					remindTimeType: 1,
 					remindLocation: '',
 					remindPerson: [],
-					remindTag: '个人',
+					remindTag: '未定义',
 					isMasterTask: 0
 				},
 				
 				currentIndex: null, //当前提醒列表下标
 				//事项提醒列表
 				remindInfos: [],
-				remindTagList: ['个人', '团队', '组织', '公司', '自定义'],
+				remindTagList: ['个人', '团队', '组织', '公司', '未定义'],
 				
 				//控制删除按钮的显示
 				showDel1: false,
@@ -222,6 +220,12 @@
 					this.remindInfo.remindTitle = value
 					//关闭弹出层
 					done() 
+					this.nextPage()
+				}else {
+					uni.showToast({
+						title: '主题不能为空',
+						icon: 'none'
+					})
 				}
 			},
 			
@@ -240,20 +244,19 @@
 			//完成添加提醒
 			addRemind() {
 				//#ifdef APP-PLUS
-				let _this = this
-				_this.remindInfos.push(_this.remindInfo)
-				console.log('_this.remindInfos[0]:', _this.remindInfos[0])
-				insertRemindInfo(_this.userInfo.user.userAccount, _this.remindInfos[0]).then(res => {
+				this.remindInfos.push(this.remindInfo)
+				console.log('this.remindInfos[0]:', this.remindInfos[0])
+				insertRemindInfo(this.userInfo.user.userAccount, this.remindInfos[0]).then(res => {
 					console.log('存储父任务成功:', res)
-					if(_this.remindInfos.length > 1) {
-						insertManyRemindInfo(_this.userInfo.user.userAccount, _this.remindInfos, res[0].fatherId).then(res2 => {
+					if(this.remindInfos.length > 1) {
+						insertManyRemindInfo(this.userInfo.user.userAccount, this.remindInfos, res[0].fatherId).then(res2 => {
 							console.log('存储子任务成功')
-							uni.$emit('addNewRemindInfo', _this.remindInfos.length)
-							_this.remindInfos = []
+							uni.$emit('addNewRemindInfo', this.remindInfos.length)
+							this.remindInfos = []
 							uni.navigateBack()
 						})
 					}else {
-						uni.$emit('addNewRemindInfo', _this.remindInfos.length)
+						uni.$emit('addNewRemindInfo', this.remindInfos.length)
 						uni.navigateBack()
 					}
 				}).catch(err => {
@@ -520,47 +523,44 @@
 			},
 			
 			handlePrev() { //上一页
-				let _this = this
-				if(_this.currentSublistIndex > 0) {
+				if(this.currentSublistIndex > 0) {
 					
-					let cloneObj = deepClone(_this.remindInfos[_this.currentSublistIndex-1])
-					_this.remindInfo = cloneObj
+					let cloneObj = deepClone(this.remindInfos[this.currentSublistIndex-1])
+					this.remindInfo = cloneObj
 					
-					_this.remindInfos.splice(_this.currentSublistIndex, 1)
+					this.remindInfos.splice(this.currentSublistIndex, 1)
 					
-					_this.currentSublistIndex -= 1
-					console.log('上一页', _this.currentSublistIndex, _this.remindInfo, _this.remindInfos)
+					this.currentSublistIndex -= 1
+					console.log('上一页', this.currentSublistIndex, this.remindInfo, this.remindInfos)
 				}
 				
 			},
-			handleNext() { //下一页
-				let _this = this
-				if(_this.invalidRemindInfo(_this.remindInfo)) {
-					if(_this.currentSublistIndex < 9) {
-						let cloneObj = deepClone(_this.remindInfo)
-						//先保存本页
-						_this.remindInfos.splice(_this.currentSublistIndex, 0, cloneObj)
-						
-						//再初始化下页内容
-						_this.currentSublistIndex += 1
-						
-						_this.remindInfo['remindAccount'] = ''
-						_this.remindInfo['remindContent'] = ''
-						_this.remindInfo['remindTime'] = ''
-						_this.remindInfo['remindTimeType'] = 1
-						_this.remindInfo['remindLocation'] = ''
-						_this.remindInfo['remindPerson'] = ''
-						_this.remindInfo['remindTag'] = '个人'
-						_this.remindInfo['isMasterTask'] = _this.currentSublistIndex == 1 ? 1 : 0
-						console.log('下一页', _this.currentSublistIndex, _this.remindInfo, _this.remindInfos)
-					}
-				}else {
-					uni.showToast({
-						title: '缺少必填内容',
-						icon: 'none'
-					})
+			nextPage() {
+				if(this.currentSublistIndex < 9) {
+					let cloneObj = deepClone(this.remindInfo)
+					//先保存本页
+					this.remindInfos.splice(this.currentSublistIndex, 0, cloneObj)
+					
+					//再初始化下页内容
+					this.currentSublistIndex += 1
+					
+					this.remindInfo['remindAccount'] = ''
+					this.remindInfo['remindContent'] = ''
+					this.remindInfo['remindTime'] = ''
+					this.remindInfo['remindTimeType'] = 1
+					this.remindInfo['remindLocation'] = ''
+					this.remindInfo['remindPerson'] = ''
+					this.remindInfo['remindTag'] = '未定义'
+					this.remindInfo['isMasterTask'] = this.currentSublistIndex == 0 ? 1 : 0
+					console.log('下一页', this.currentSublistIndex, this.remindInfo, this.remindInfos)
 				}
-				
+			},
+			handleNext() { //下一页
+				if(this.currentSublistIndex == 0 && this.remindInfo.remindTitle.length == 0) {
+					this.openTitlePopup()
+				}else {
+					this.nextPage()
+				}
 			},
 			
 			invalidRemindInfo(remindInfo) { //验证当前信息是否有效
@@ -570,7 +570,7 @@
 				remindInfo.remindContent &&
 				remindInfo.remindTime &&
 				this.timeChecked
-				) 
+				)
 			},
 			chooseTag() { //选择标签
 				let _this = this
@@ -591,7 +591,7 @@
 								this.remindInfo.remindTag = '公司'
 								break
 							case 4:
-								this.remindInfo.remindTag = '自定义'
+								this.remindInfo.remindTag = '未定义'
 								break
 						}
 					},
@@ -749,22 +749,22 @@
 		box-sizing: border-box;
 		padding-bottom: 100rpx;
 		background-color: #F8F8F8;
+		font-size: $uni-font-size-lg;
+		padding-top: 60rpx;
 		.remind-head {
+			margin-bottom: 30rpx;
 			.remind-head-son {
 				text-align: center;
-				font-size: 36rpx;
+				color: #55A532;
 			}
 		}
 		.remind-msg {
 			position: relative;
-			color: $uni-text-color;
+			margin-bottom: 60rpx;
 			background-color: #FFFFFF;
-			
-			margin-top: 60rpx;
 			.remind-msg-son {
+				color: $uni-text-color;
 				padding: 20rpx 30rpx;
-				max-height: 150rpx;
-				font-size: $uni-font-size-lg;
 			}
 		}
 		.all-list {

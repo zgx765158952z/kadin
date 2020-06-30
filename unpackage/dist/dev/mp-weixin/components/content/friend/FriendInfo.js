@@ -261,9 +261,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _addfriend = __webpack_require__(/*! @/network/addfriend.js */ 21);
 var _helper = __webpack_require__(/*! @/common/helper.js */ 55);
-var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var DefaultList = function DefaultList() {__webpack_require__.e(/*! require.ensure | components/content/defaultlist/DefaultList */ "components/content/defaultlist/DefaultList").then((function () {return resolve(__webpack_require__(/*! @/components/content/defaultlist/DefaultList.vue */ 500));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 13);
+var _index = __webpack_require__(/*! @/common/index.js */ 14);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var DefaultList = function DefaultList() {__webpack_require__.e(/*! require.ensure | components/content/defaultlist/DefaultList */ "components/content/defaultlist/DefaultList").then((function () {return resolve(__webpack_require__(/*! @/components/content/defaultlist/DefaultList.vue */ 500));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 {
   components: {
@@ -277,7 +279,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
 
   },
   computed: _objectSpread({},
-  (0, _vuex.mapState)(['userInfo', 'rawMessageList', 'friendCard'])),
+  (0, _vuex.mapState)(['userInfo', 'rawMessageList', 'friendCard', 'friendList'])),
 
   methods: _objectSpread({},
   (0, _vuex.mapMutations)(['setFriendCard']), {},
@@ -319,14 +321,14 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
     },
 
     //获取好友个人信息
-    doGetFriendInfo: function doGetFriendInfo() {var _this = this;
+    doGetFriendInfo: function doGetFriendInfo() {var _this2 = this;
       (0, _addfriend.getFriendInfo)("?myAccount=".concat(this.userInfo.user.userAccount, "&friendAccount=").concat(this.friendAccount)).then(function (res) {
         console.log(res);
         //初始化朋友名片
-        var tempFriendCard = Object.assign({}, _this.friendCard);
-        tempFriendCard[_this.friendAccount] = res.data.data;
-        _this.setFriendCard(tempFriendCard);
-        console.log('this.friendCard', _this.friendCard);
+        var tempFriendCard = Object.assign({}, _this2.friendCard);
+        tempFriendCard[_this2.friendAccount] = res.data.data;
+        _this2.setFriendCard(tempFriendCard);
+        console.log('this.friendCard', _this2.friendCard);
       }).catch(function (err) {
         uni.showToast({
           title: '您可能与服务器断开了连接',
@@ -335,6 +337,24 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
         console.log(err);
       });
     },
+    delFriend: function delFriend() {
+      var _this = this;
+      var obj = {
+        account: _this.userInfo.user.userAccount,
+        friendAccount: _this.friendAccount };
+
+      (0, _addfriend.delFriendRequest)(obj).then(function (res) {
+        var tempCard = Object.assign({}, _this.friendCard);
+        delete tempCard[_this.friendAccount];
+        _this.setFriendCard(tempCard);
+
+        var g = (0, _index.delFriendList)(_this.friendList, _this.friendAccount);
+        _this.friendList[g.ind1].list.splice(g.ind2, 1);
+        console.log('_this.friendCard', _this.friendCard, _this.friendList);
+        //还需要删除和这个好友的聊天记录
+      });
+    },
+
     toMyDynamic: function toMyDynamic(params) {
       var url = '/components/content/dynamic/MyDynamic?account=';
       if (params === 'myself') {
@@ -362,11 +382,11 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
 
     } }),
 
-  onLoad: function onLoad(option) {var _this2 = this;
+  onLoad: function onLoad(option) {var _this3 = this;
     this.imgUrl = _helper.imgBaseUrl;
     uni.$on('changeFriendInfo', function () {
-      _this2.$nextTick(function () {
-        _this2.doGetFriendInfo();
+      _this3.$nextTick(function () {
+        _this3.doGetFriendInfo();
       });
     });
     console.log(option);
@@ -392,8 +412,9 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
     uni.$off('changeFriendInfo', function () {});
   },
   onNavigationBarButtonTap: function onNavigationBarButtonTap(option) {
+    var _this = this;
     if (option.index === 0) {
-      if (!this.isMe) {
+      if (!_this.isMe) {
         uni.showActionSheet({
           itemList: ['设置备注和标签', '把他推荐给朋友', '加入黑名单', '删除'],
           success: function success(res) {
@@ -410,7 +431,17 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
                 console.log('加入黑名单');
                 break;
               case 3:
-                console.log('删除');
+                uni.showModal({
+                  title: "提示",
+                  content: "删除该好友,将同时删除与其的聊天记录",
+                  confirmText: "删除",
+                  confirmColor: "#DD524D",
+                  success: function success(res) {
+                    if (res.confirm) {
+                      _this.delFriend();
+                    }
+                  } });
+
                 break;}
 
           },

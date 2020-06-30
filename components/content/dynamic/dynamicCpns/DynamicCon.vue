@@ -44,6 +44,7 @@
 						<view class="left-time-local">
 							<text class="left-time">{{ item.time | getFormatTime }}</text>
 							<text class="left-local">{{ item.location }}</text>
+							<text @tap="delDynamic(item.id)" v-if="item.account == userInfo.user.userAccount" class="left-del">删除</text>
 						</view>
 						<view @tap.stop="handlerPraise(index)" class="right-praise" :class="'dynamic-right-praise'+index">
 							<text class="my-iconfont right-praise-img" :class="'right-praise-img'+index">&#xe625;</text>
@@ -81,7 +82,7 @@
 						
 						<!-- 评论列表 -->
 						<view v-if="item.comment.length > 0" class="comment-list">
-							<view v-for="(item3, index3) in item.comment" :key="index3" @tap.stop="showComment(index,index3)" class="comment-list-item">
+							<view v-for="(item3, index3) in item.comment" :key="index3" @tap.stop="showComment(index,index3)" @longpress="handleDelComment(item3, index, index3)" class="comment-list-item">
 								<text @tap.stop="toFriendInfo(item3.user)" class="comment-list-item-name">{{ item3.userNickname }}</text><block v-if="item3.commentFatherId !== 0"><text class="reply-text">回复</text><text @tap.stop="toFriendInfo(item3.toUser)" class="comment-list-item-name" v-if="item3.friendName">{{ item3.friendName }}</text></block>
 								<text class="comment-list-item-text"><text class="colon">:</text><text :selectable="true">{{ item3.commentContent }}</text></text>
 							</view>
@@ -125,11 +126,11 @@
 </template>
 
 <script>
-	
+	import { imgBaseUrl } from '@/common/helper.js'
 	import { calcTimeHeader } from "@/utils/utils.js"
 	import { mapState, mapMutations, mapActions } from 'vuex'
-	import { doCommentRequest, doDynamicLikeRequest } from '@/network/dynamic.js'
-	import { imgBaseUrl } from '@/common/helper.js'
+	import { doCommentRequest, doDynamicLikeRequest, delDynamicRequest, delCommentRequest } from '@/network/dynamic.js'
+	
 	
 	export default {
 		props: {
@@ -371,8 +372,64 @@
 					this.currentReplyindex = index3
 				}
 			},
-			
-			
+			handleDelComment(item, index, commentIndex) {
+				var _this = this
+				if(item.user == this.userInfo.user.userAccount) {
+					uni.showActionSheet({
+						itemList: ['删除'],
+						success: res => {
+							switch(res.tapIndex) {
+								case 0:
+									_this.delComment(item, index, commentIndex)
+									break
+								default: 
+									break
+							}
+						}
+					})
+				}
+			},
+			//删除评论
+			delComment(item, index, commentIndex) {
+				const obj = {
+					account: item.user,
+					commentId: item.commentId,
+					friendCircleId: item.friendCircleId
+				}
+				delCommentRequest(obj).then(res => {
+					this.friendDynamicList[index].comment.splice(commentIndex, 1)
+					console.log('this.friendDynamicList', this.friendDynamicList) 
+				})
+			},
+			//删除动态
+			delDynamic(friendCircleId) {
+				var _this = this
+				uni.showModal({
+					title: '提示',
+					content: '确定删除该动态?',
+					success: res => {
+						if(res.confirm) {
+							const obj = {
+								account: _this.userInfo.user.userAccount,
+								friendCircleId 
+							}
+							delDynamicRequest(obj).then(res => {
+								
+								uni.showToast({
+									title: '已删除', 
+									icon: 'none'
+								})
+								// const tempList = Object.assign([], _this.friendDynamicList)
+								const delIndex = _this.friendDynamicList.findIndex(item => {
+									return item.id == friendCircleId
+								})
+								_this.friendDynamicList.splice(delIndex, 1)
+							})
+						}
+					}
+				})
+				
+			},
 			
 			//隐藏点赞和评论
 			hidePraiseCommentMask() {
@@ -592,6 +649,10 @@
 						color: #666666;
 						.left-local {
 							margin-left: 30rpx;
+						}
+						.left-del {
+							margin-left: 30rpx;
+							color: $def-text-red-color;
 						}
 					}
 					.right-praise {

@@ -167,6 +167,10 @@
 .dynamiccon .dyc-list .dyc-list-con .dyc-local-list .left-time-local .left-local.data-v-2d16830a {
   margin-left: 30rpx;
 }
+.dynamiccon .dyc-list .dyc-list-con .dyc-local-list .left-time-local .left-del.data-v-2d16830a {
+  margin-left: 30rpx;
+  color: #DD524D;
+}
 .dynamiccon .dyc-list .dyc-list-con .dyc-local-list .right-praise.data-v-2d16830a {
   position: relative;
 }

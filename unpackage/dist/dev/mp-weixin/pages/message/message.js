@@ -128,7 +128,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MessageList = function MessageList() {Promise.all(/*! require.ensure | pages/message/messageCpns/MessageList */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/message/messageCpns/MessageList")]).then((function () {return resolve(__webpack_require__(/*! ./messageCpns/MessageList.vue */ 598));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MessageList = function MessageList() {Promise.all(/*! require.ensure | pages/message/messageCpns/MessageList */[__webpack_require__.e("common/vendor"), __webpack_require__.e("pages/message/messageCpns/MessageList")]).then((function () {return resolve(__webpack_require__(/*! ./messageCpns/MessageList.vue */ 621));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

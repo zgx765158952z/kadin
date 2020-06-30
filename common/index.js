@@ -246,7 +246,23 @@ function uploadFile(obj, filePath, formData=null) {
 	})
 }
 
-
+//获取通讯录中的一个好友的位置
+function delFriendList(friendList, friendAccount) {
+	for(let i=0; i<friendList.length; i++) {
+		if(friendList[i].list.length > 0) {
+			const listIndex = friendList[i].list.findIndex(item => item.friendAccount == friendAccount)
+			if(listIndex != -1) {
+				let lastList = {
+					ind1: i,
+					ind2: listIndex
+				}
+				return lastList
+				break
+			}
+		}
+	}
+	return false
+}
 
 
 module.exports = {
@@ -263,5 +279,6 @@ module.exports = {
 	deepClone,
 	debounce,
 	chooseImg,
-	uploadFile
+	uploadFile,
+	delFriendList
 }

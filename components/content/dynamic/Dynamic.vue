@@ -111,7 +111,7 @@
 <style lang="scss" scoped>
 	.dynamic {
 		background-color: #FFFFFF;
-		font-family: "黑体","_sans",Arial; 
+		// font-family: "黑体","_sans",Arial; 
 		.dynamicbtm-tips {
 			margin: 20rpx 0 25rpx 0;
 			font-size: 30rpx;
